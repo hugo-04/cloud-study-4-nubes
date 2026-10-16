@@ -1,0 +1,14 @@
+# Componente Dapr pub/sub sobre Azure Service Bus con identidad administrada (sin cadena de conexión).
+# az containerapp env dapr-component set -g <rg> -n <env> --dapr-component-name pubsub --yaml dapr-pubsub-servicebus.yaml
+componentType: pubsub.azure.servicebus.topics
+version: v1
+metadata:
+  - name: namespaceName
+    value: sb-modalima.servicebus.windows.net
+  - name: azureClientId
+    value: __UAMI_CLIENT_ID__
+  - name: consumerID
+    value: api-pedidos
+scopes:
+  - api-pedidos
+  - worker-pedidos

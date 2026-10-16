@@ -1,0 +1,76 @@
+# Especificación completa de una Container App (az containerapp update/create --yaml containerapp.yaml).
+# Incluye sondas, escala HTTP y regla de Service Bus por identidad, y Dapr.
+# Reemplaza los valores entre __ __ y confirma los campos con `az containerapp show -o yaml` en tu entorno.
+properties:
+  configuration:
+    activeRevisionsMode: Multiple
+    ingress:
+      external: true
+      targetPort: 8080
+      transport: auto
+      allowInsecure: false
+      traffic:
+        - latestRevision: true
+          weight: 100
+    registries:
+      - server: __ACR__.azurecr.io
+        identity: __UAMI_RESOURCE_ID__
+    secrets:
+      - name: db-password
+        keyVaultUrl: https://kv-modalima-estudio01.vault.azure.net/secrets/db-password
+        identity: __UAMI_RESOURCE_ID__
+    dapr:
+      enabled: true
+      appId: api-pedidos
+      appPort: 8080
+      appProtocol: http
+  template:
+    terminationGracePeriodSeconds: 45
+    containers:
+      - name: api
+        image: __ACR__.azurecr.io/api-pedidos:1.4.0
+        resources:
+          cpu: 1.0
+          memory: 2Gi
+        env:
+          - name: DB_PASSWORD
+            secretRef: db-password
+          - name: AZURE_CLIENT_ID
+            value: __UAMI_CLIENT_ID__
+          - name: JAVA_TOOL_OPTIONS
+            value: "-XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+        probes:
+          - type: Startup
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 36
+          - type: Readiness
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+          - type: Liveness
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+    scale:
+      minReplicas: 1
+      maxReplicas: 10
+      rules:
+        - name: http-50
+          http:
+            metadata:
+              concurrentRequests: "50"
+        - name: cola-pedidos
+          custom:
+            type: azure-servicebus
+            metadata:
+              queueName: pedidos
+              namespace: sb-modalima
+              messageCount: "20"
+            identity: __UAMI_RESOURCE_ID__
