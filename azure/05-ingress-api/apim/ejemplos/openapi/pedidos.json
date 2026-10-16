@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Pedidos ModaLima",
+    "version": "1.0.0",
+    "description": "Consulta y creación de pedidos."
+  },
+  "servers": [
+    { "url": "https://apim-modalima-estudio.azure-api.net/pedidos" }
+  ],
+  "paths": {
+    "/{id}": {
+      "get": {
+        "operationId": "leerPedido",
+        "summary": "Lee un pedido",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido encontrado",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Pedido" } } }
+          },
+          "404": { "description": "No existe" }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "operationId": "crearPedido",
+        "summary": "Crea un pedido",
+        "parameters": [
+          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NuevoPedido" } } }
+        },
+        "responses": {
+          "201": { "description": "Creado", "headers": { "Location": { "schema": { "type": "string" } } } },
+          "400": { "description": "Solicitud inválida" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pedido": {
+        "type": "object",
+        "required": ["id", "sku", "cantidad"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "sku": { "type": "string" },
+          "cantidad": { "type": "integer", "minimum": 1 }
+        }
+      },
+      "NuevoPedido": {
+        "type": "object",
+        "required": ["sku", "cantidad"],
+        "properties": {
+          "sku": { "type": "string", "minLength": 1 },
+          "cantidad": { "type": "integer", "minimum": 1 }
+        }
+      }
+    }
+  }
+}

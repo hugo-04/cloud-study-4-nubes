@@ -1,0 +1,63 @@
+# cert-manager: emisión y renovación automática con Let's Encrypt.
+# Instalación (una vez): helm repo add jetstack https://charts.jetstack.io &&
+#   helm install cert-manager jetstack/cert-manager -n cert-manager --create-namespace --set crds.enabled=true
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging          # prueba primero aquí (límites más laxos, certificado no confiable)
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: plataforma@modalima.example
+    privateKeySecretRef:
+      name: letsencrypt-staging-key
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: webapprouting.kubernetes.azure.com
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: plataforma@modalima.example
+    privateKeySecretRef:
+      name: letsencrypt-prod-key
+    solvers:
+      # DNS-01 con Azure DNS y Workload Identity: funciona también para dominios internos y comodines.
+      - dns01:
+          azureDNS:
+            subscriptionID: 00000000-0000-0000-0000-000000000000
+            resourceGroupName: rg-dns
+            hostedZoneName: modalima.example
+            environment: AzurePublicCloud
+            managedIdentity:
+              clientID: 11111111-1111-1111-1111-111111111111   # identidad con "DNS Zone Contributor"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-pedidos
+  namespace: modalima
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod      # cert-manager crea el Certificate y el Secret
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  tls:
+    - hosts:
+        - api.modalima.example
+      secretName: tls-api-modalima
+  rules:
+    - host: api.modalima.example
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-pedidos
+                port:
+                  number: 80

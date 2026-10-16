@@ -1,0 +1,38 @@
+<!--
+  Política a nivel de PRODUCTO "Socios Retail": cuota mensual, límite de tasa, solo lectura y solo desde IPs del socio.
+  Se hereda en todas las APIs del producto gracias a <base /> en cada API.
+-->
+<policies>
+  <inbound>
+    <base />
+    <ip-filter action="allow">
+      <address-range from="203.0.113.0" to="203.0.113.255" />
+    </ip-filter>
+
+    <!-- Solo lectura para este producto -->
+    <choose>
+      <when condition="@(!new[] { "GET", "HEAD", "OPTIONS" }.Contains(context.Request.Method))">
+        <return-response>
+          <set-status code="403" reason="Forbidden" />
+          <set-header name="Content-Type" exists-action="override">
+            <value>application/problem+json</value>
+          </set-header>
+          <set-body>{"title":"Este producto es de solo lectura","status":403}</set-body>
+        </return-response>
+      </when>
+    </choose>
+
+    <!-- 100 llamadas por minuto, y 50 000 por mes por suscripción -->
+    <rate-limit calls="100" renewal-period="60" />
+    <quota calls="50000" renewal-period="2592000" />
+  </inbound>
+  <backend>
+    <base />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

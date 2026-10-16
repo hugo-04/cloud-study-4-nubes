@@ -1,0 +1,38 @@
+<!--
+  Política para POST /pedidos: valida cuerpo y parámetros contra el esquema OpenAPI y habilita CORS para el sitio web.
+-->
+<policies>
+  <inbound>
+    <base />
+    <cors allow-credentials="false">
+      <allowed-origins>
+        <origin>https://tienda.modalima.example</origin>
+      </allowed-origins>
+      <allowed-methods preflight-result-max-age="300">
+        <method>GET</method>
+        <method>POST</method>
+      </allowed-methods>
+      <allowed-headers>
+        <header>Authorization</header>
+        <header>Content-Type</header>
+        <header>Idempotency-Key</header>
+        <header>Ocp-Apim-Subscription-Key</header>
+      </allowed-headers>
+    </cors>
+    <validate-content unspecified-content-type-action="prevent" max-size="102400" size-exceeded-action="prevent" errors-variable-name="errorValidacion">
+      <content type="application/json" validate-as="json" action="prevent" />
+    </validate-content>
+    <validate-parameters specified-parameter-action="ignore" unspecified-parameter-action="prevent" errors-variable-name="errorParametros" />
+    <check-header name="Idempotency-Key" failed-check-httpcode="400" failed-check-error-message="Falta Idempotency-Key" ignore-case="true" />
+  </inbound>
+  <backend>
+    <!-- Sin retry: POST no es idempotente salvo que el backend use Idempotency-Key -->
+    <forward-request timeout="20" />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

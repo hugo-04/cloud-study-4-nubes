@@ -1,0 +1,25 @@
+<!--
+  Operación GET /catalogo (pública y estable): caché de 5 minutos variando por idioma y query.
+  Comentada abajo: mock-response para trabajar sin backend.
+-->
+<policies>
+  <inbound>
+    <base />
+    <cache-lookup vary-by-developer="false" vary-by-developer-groups="false" downstream-caching-type="none"
+                  must-revalidate="true" caching-type="internal">
+      <vary-by-header>Accept-Language</vary-by-header>
+      <vary-by-query-parameter>categoria</vary-by-query-parameter>
+    </cache-lookup>
+    <!-- <mock-response status-code="200" content-type="application/json" /> -->
+  </inbound>
+  <backend>
+    <base />
+  </backend>
+  <outbound>
+    <base />
+    <cache-store duration="300" />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

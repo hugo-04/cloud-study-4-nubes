@@ -1,0 +1,104 @@
+# Gateway API con Application Gateway for Containers (AGC).
+# Requisitos: recurso AGC + frontend + asociación creados (ver ../terraform) y ALB Controller instalado.
+# kubectl apply -f 20-gateway-api-agc.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gw-modalima
+  namespace: plataforma
+  annotations:
+    # Id del recurso AGC (Microsoft.ServiceNetworking/trafficControllers) y nombre del frontend
+    alb.networking.azure.io/alb-id: /subscriptions/<sub>/resourceGroups/rg-estudio-agc/providers/Microsoft.ServiceNetworking/trafficControllers/agc-modalima
+spec:
+  gatewayClassName: azure-alb-external
+  listeners:
+    - name: https
+      port: 443
+      protocol: HTTPS
+      hostname: api.modalima.example
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: tls-api-modalima
+      allowedRoutes:
+        namespaces:
+          from: Selector            # solo namespaces etiquetados pueden colgar rutas
+          selector:
+            matchLabels:
+              gateway-acceso: permitido
+  addresses:
+    - type: alb.networking.azure.io/alb-frontend
+      value: frontend-modalima
+---
+# Cada equipo define su HTTPRoute en su namespace.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pedidos
+  namespace: modalima
+spec:
+  parentRefs:
+    - name: gw-modalima
+      namespace: plataforma
+      sectionName: https
+  hostnames:
+    - api.modalima.example
+  rules:
+    # Canary: 90 % v1 / 10 % v2
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /pedidos
+      backendRefs:
+        - name: svc-pedidos-v1
+          port: 80
+          weight: 90
+        - name: svc-pedidos-v2
+          port: 80
+          weight: 10
+    # Reescritura: /api/catalogo/... → /catalogo/...
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api/catalogo
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /catalogo
+      backendRefs:
+        - name: svc-catalogo
+          port: 80
+---
+# Redirección HTTP → HTTPS (listener 80 en el mismo Gateway, omitido arriba por brevedad)
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: redirige-https
+  namespace: plataforma
+spec:
+  parentRefs:
+    - name: gw-modalima
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+# Permite que el HTTPRoute de "modalima" use Services de "plataforma" si hiciera falta
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: permite-modalima
+  namespace: plataforma
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: modalima
+  to:
+    - group: ""
+      kind: Service

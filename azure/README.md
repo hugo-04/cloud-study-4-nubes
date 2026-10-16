@@ -15,7 +15,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Azure SDK BOM 1.3 · msal4j 1.26 �
 | 02 | [IAM](02-iam/README.md) | Entra ID, RBAC, Managed Identity, Workload Identity | Listo |
 | 03 | [Secretos](03-secretos/README.md) | Key Vault | Listo |
 | 04 | [Compute](04-compute/README.md) | App Service, Function Apps, AKS, Container Apps | Listo |
-| 05 | Ingress y API | Ingress en AKS, Application Gateway, Front Door+WAF, APIM | Pendiente |
+| 05 | [Ingress y API](05-ingress-api/README.md) | Ingress en AKS, Application Gateway, Front Door+WAF, APIM | Listo |
 | 06 | Storage | Blob Storage, SAS tokens, Claim Check, eventos de blob | Pendiente |
 | 07 | Mensajería | Service Bus, Event Grid, Event Hubs (Kafka) | Pendiente |
 | 08 | Datos | Azure SQL, PostgreSQL Flexible, Cosmos DB | Pendiente |
