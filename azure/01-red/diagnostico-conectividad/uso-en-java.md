@@ -26,17 +26,31 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import javax.net.ssl.SSLException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-try {
-    llamar();
-} catch (UnknownHostException e) {
-    log.error("DNS: no resuelve {} -> revisar zona privada/DNS", host, e);
-} catch (SocketTimeoutException e) {
-    log.error("TIMEOUT hacia {}:{} -> revisar ruta, NSG/firewall", host, port, e);
-} catch (ConnectException e) {
-    log.error("RECHAZADA hacia {}:{} -> nadie escucha o PE sin aprobar", host, port, e);
-} catch (SSLException e) {
-    log.error("TLS hacia {} -> certificado o nombre", host, e);
+class ClienteInventario {
+    private static final Logger log = LoggerFactory.getLogger(ClienteInventario.class);
+    private final String host = "inventario.interno.modalima.example";
+    private final int port = 443;
+
+    void consultar() {
+        try {
+            llamar();
+        } catch (UnknownHostException e) {
+            log.error("DNS: no resuelve {} -> revisar zona privada/DNS", host, e);
+        } catch (SocketTimeoutException e) {
+            log.error("TIMEOUT hacia {}:{} -> revisar ruta, NSG/firewall", host, port, e);
+        } catch (ConnectException e) {
+            log.error("RECHAZADA hacia {}:{} -> nadie escucha o PE sin aprobar", host, port, e);
+        } catch (SSLException e) {
+            log.error("TLS hacia {} -> certificado o nombre", host, e);
+        } catch (java.io.IOException e) {
+            log.error("E/S hacia {}:{}", host, port, e);
+        }
+    }
+
+    private void llamar() throws java.io.IOException { /* la llamada real */ }
 }
 ```
 > `java.net.http.HttpConnectTimeoutException` es el timeout de conexión del cliente HTTP de Java 11+; `java.net.http.HttpTimeoutException` es el timeout de la petición.

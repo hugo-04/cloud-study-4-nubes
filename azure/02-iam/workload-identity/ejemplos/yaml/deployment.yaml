@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: modalima
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        azure.workload.identity/use: "true"      # va en el POD (plantilla), no en el Deployment
+    spec:
+      serviceAccountName: sa-api
+      containers:
+        - name: api
+          image: mcr.microsoft.com/azure-cli:latest   # imagen de prueba; reemplaza por la tuya
+          command: ["sleep", "infinity"]
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 256Mi

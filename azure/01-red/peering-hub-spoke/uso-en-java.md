@@ -24,12 +24,25 @@ inventario.client.read-timeout=8s      # sube con criterio si el servicio está 
 Si el hub filtra el tráfico, una llamada nueva puede fallar con **timeout** hasta que alguien abra la regla. Haz que tu aplicación **registre host, puerto y tipo de error** para que el equipo de red vea de inmediato qué regla falta.
 
 ```java
-try {
-    // llamada al servicio de otro spoke
-} catch (java.net.http.HttpConnectTimeoutException e) {
-    log.error("Timeout conectando a inventario.interno:443 (¿regla de firewall del hub?)", e);
-} catch (java.net.UnknownHostException e) {
-    log.error("DNS no resuelve inventario.interno (¿zona privada enlazada al spoke?)", e);
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+class LlamadaEntreSpokes {
+    private static final Logger log = LoggerFactory.getLogger(LlamadaEntreSpokes.class);
+
+    void ejecutar() {
+        try {
+            llamarServicioDeOtroSpoke();
+        } catch (java.net.http.HttpConnectTimeoutException e) {
+            log.error("Timeout conectando a inventario.interno:443 (¿regla de firewall del hub?)", e);
+        } catch (java.net.UnknownHostException e) {
+            log.error("DNS no resuelve inventario.interno (¿zona privada enlazada al spoke?)", e);
+        } catch (java.io.IOException e) {
+            log.error("Error de E/S hacia inventario.interno", e);
+        }
+    }
+
+    private void llamarServicioDeOtroSpoke() throws java.io.IOException { /* llamada real */ }
 }
 ```
 

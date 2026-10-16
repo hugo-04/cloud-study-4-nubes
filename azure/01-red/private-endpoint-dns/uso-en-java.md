@@ -81,7 +81,12 @@ Si imprime pública, tienes un problema de DNS privado. Para una prueba completa
 Haz que el endpoint `/health` de tu microservicio compruebe DNS y conexión a sus dependencias críticas, y que **diga cuál falla**. Así un incidente de DNS se ve en segundos.
 
 ```java
-// Spring Boot Actuator (idea): un HealthIndicator por dependencia
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+// Spring Boot 4: las clases de health viven en org.springframework.boot.health.contributor
+// (en Spring Boot 3.x estaban en org.springframework.boot.actuate.health)
 @Component
 class StorageHealth implements HealthIndicator {
     public Health health() {
