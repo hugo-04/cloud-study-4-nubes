@@ -1,0 +1,19 @@
+{
+  "specversion": "1.0",
+  "id": "7f2a2e2e-6a47-4c2b-9d8e-0a7f8a1c1e11",
+  "type": "pe.modalima.archivo.recibido",
+  "source": "/servicios/catalogo-api",
+  "subject": "usuarios/u-42/7f2a2e2e",
+  "time": "2026-10-16T16:02:11Z",
+  "datacontenttype": "application/json",
+  "dataschema": "https://esquemas.modalima.example/archivo-recibido/v1",
+  "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+  "data": {
+    "blobUrl": "https://stmodalima01.blob.core.windows.net/subidas/usuarios/u-42/7f2a2e2e",
+    "blobVersionId": "2026-10-16T16:02:11.1234567Z",
+    "tamanoBytes": 4382211,
+    "contentType": "application/pdf",
+    "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "propietario": "u-42"
+  }
+}

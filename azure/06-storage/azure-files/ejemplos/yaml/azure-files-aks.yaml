@@ -1,0 +1,126 @@
+# Azure Files en AKS con el controlador CSI (file.csi.azure.com).
+# kubectl apply -f azure-files-aks.yaml
+# Requisito: AKS con el controlador CSI de Azure Files habilitado (viene por defecto en versiones recientes).
+---
+# 1) StorageClass SMB premium: provisiona dinámicamente un share por PVC
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: files-premium-smb
+provisioner: file.csi.azure.com
+parameters:
+  skuName: Premium_LRS          # Premium_ZRS si el clúster usa zonas
+  protocol: smb
+reclaimPolicy: Delete           # Retain en producción si el dato importa más que el PVC
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+mountOptions:
+  - dir_mode=0770
+  - file_mode=0660
+  - uid=1001
+  - gid=1001
+  - mfsymlinks
+  - cache=strict
+  - nosharesock
+  - actimeo=30
+---
+# 2) PVC ReadWriteMany: varios pods en distintos nodos comparten la misma carpeta
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: contabilidad-pvc
+  namespace: finanzas
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: files-premium-smb
+  resources:
+    requests:
+      storage: 100Gi
+---
+# 3) Deployment que monta el PVC en /mnt/contabilidad
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: procesador-contable
+  namespace: finanzas
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: procesador-contable
+  template:
+    metadata:
+      labels:
+        app: procesador-contable
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+        - name: app
+          image: acrmodalima.azurecr.io/procesador-contable:1.0.0
+          env:
+            - name: APP_CARPETA_BASE
+              value: /mnt/contabilidad
+          volumeMounts:
+            - name: compartido
+              mountPath: /mnt/contabilidad
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+      volumes:
+        - name: compartido
+          persistentVolumeClaim:
+            claimName: contabilidad-pvc
+---
+# 4) Variante NFS (cuenta premium aparte, solo red privada, sin usuarios: se controla por red)
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: files-premium-nfs
+provisioner: file.csi.azure.com
+parameters:
+  protocol: nfs
+  skuName: Premium_LRS
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+mountOptions:
+  - nconnect=4
+---
+# 5) PV estático sobre un share YA existente (ejemplo con secreto de la cuenta: solo si no puedes usar identidad)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-contabilidad-existente
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    - dir_mode=0770
+    - file_mode=0660
+    - uid=1001
+    - gid=1001
+    - mfsymlinks
+    - nosharesock
+  csi:
+    driver: file.csi.azure.com
+    volumeHandle: rg-estudio-files#stfsmbxxxxxx#contabilidad   # grupo#cuenta#share (único en el clúster)
+    volumeAttributes:
+      shareName: contabilidad
+    nodeStageSecretRef:
+      name: azure-secret      # contiene azurestorageaccountname y azurestorageaccountkey
+      namespace: finanzas

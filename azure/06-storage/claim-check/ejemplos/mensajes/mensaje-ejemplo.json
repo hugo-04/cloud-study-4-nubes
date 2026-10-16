@@ -1,0 +1,14 @@
+{
+  "mensajeId": "7f2a2e2e-6a47-4c2b-9d8e-0a7f8a1c1e11",
+  "tipo": "archivo.recibido",
+  "version": 1,
+  "blobUrl": "https://stmodalima01.blob.core.windows.net/subidas/usuarios/u-42/7f2a2e2e",
+  "blobVersionId": "2026-10-16T16:02:11.1234567Z",
+  "etag": "0x8DBD0A1B2C3D4E5",
+  "tamanoBytes": 4382211,
+  "contentType": "application/pdf",
+  "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+  "propietario": "u-42",
+  "correlacionId": "c1e0b3a2-5d7e-4a56-9a10-2f4c6f1d9b77",
+  "creadoEn": "2026-10-16T16:02:11Z"
+}

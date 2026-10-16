@@ -1,0 +1,24 @@
+{
+  "specversion": "1.0",
+  "id": "831e1650-001e-001b-66ab-eeb76e069631",
+  "source": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-estudio-storage/providers/Microsoft.Storage/storageAccounts/stmodalima01",
+  "subject": "/blobServices/default/containers/subidas/blobs/usuarios/u-42/7f2a2e2e",
+  "type": "Microsoft.Storage.BlobCreated",
+  "time": "2026-10-16T16:02:11.1234567Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "api": "PutBlockList",
+    "clientRequestId": "6d79dbfb-0e37-4fc4-981f-442c9ca65760",
+    "requestId": "831e1650-001e-001b-66ab-eeb76e000000",
+    "eTag": "0x8D4BCC2E4835CD0",
+    "contentType": "application/pdf",
+    "contentLength": 4382211,
+    "blobType": "BlockBlob",
+    "accessTier": "Default",
+    "url": "https://stmodalima01.blob.core.windows.net/subidas/usuarios/u-42/7f2a2e2e",
+    "sequencer": "00000000000004420000000000028963",
+    "storageDiagnostics": {
+      "batchId": "b68529f3-68cd-4744-baa4-3c0498ec19f0"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "rules": [
+    {
+      "enabled": true,
+      "name": "enfriar-y-borrar-logs",
+      "type": "Lifecycle",
+      "definition": {
+        "filters": { "blobTypes": ["blockBlob"], "prefixMatch": ["logs/"] },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": { "daysAfterModificationGreaterThan": 30 },
+            "tierToArchive": { "daysAfterModificationGreaterThan": 180 },
+            "delete": { "daysAfterModificationGreaterThan": 730 }
+          },
+          "version": {
+            "tierToCool": { "daysAfterCreationGreaterThan": 30 },
+            "delete": { "daysAfterCreationGreaterThan": 90 }
+          },
+          "snapshot": {
+            "delete": { "daysAfterCreationGreaterThan": 30 }
+          }
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "procesados-a-frio",
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["subidas/"],
+          "blobIndexMatch": [{ "name": "estado", "op": "==", "value": "procesado" }]
+        },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": { "daysAfterModificationGreaterThan": 7 },
+            "delete": { "daysAfterModificationGreaterThan": 90 }
+          }
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "borrar-subidas-incompletas",
+      "type": "Lifecycle",
+      "definition": {
+        "filters": { "blobTypes": ["appendBlob"], "prefixMatch": ["tmp/"] },
+        "actions": {
+          "baseBlob": { "delete": { "daysAfterModificationGreaterThan": 2 } }
+        }
+      }
+    }
+  ]
+}

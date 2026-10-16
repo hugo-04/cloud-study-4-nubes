@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://esquemas.modalima.example/archivo-recibido/v1",
+  "title": "Ticket de archivo recibido (Claim Check)",
+  "description": "Referencia a un archivo en Blob Storage. No contiene el archivo, ni credenciales, ni datos personales.",
+  "type": "object",
+  "required": ["mensajeId", "tipo", "version", "blobUrl", "blobVersionId", "tamanoBytes", "sha256", "propietario", "correlacionId", "creadoEn"],
+  "additionalProperties": true,
+  "properties": {
+    "mensajeId": { "type": "string", "format": "uuid", "description": "Clave de idempotencia y de detección de duplicados" },
+    "tipo": { "type": "string", "const": "archivo.recibido" },
+    "version": { "type": "integer", "minimum": 1, "description": "Versión del contrato; solo se AÑADEN campos" },
+    "blobUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://[a-z0-9]{3,24}\\.blob\\.core\\.windows\\.net/[a-z0-9-]{3,63}/[^?#]+$",
+      "description": "URL SIN SAS ni query string"
+    },
+    "blobVersionId": { "type": "string", "minLength": 1, "description": "Versión inmutable que se debe leer" },
+    "etag": { "type": "string" },
+    "tamanoBytes": { "type": "integer", "minimum": 0, "maximum": 5497558138880 },
+    "contentType": { "type": "string" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+    "propietario": { "type": "string", "minLength": 1, "description": "Debe coincidir con el segmento de la ruta del blob" },
+    "correlacionId": { "type": "string" },
+    "creadoEn": { "type": "string", "format": "date-time" }
+  }
+}

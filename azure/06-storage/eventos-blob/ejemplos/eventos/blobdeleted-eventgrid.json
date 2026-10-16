@@ -1,0 +1,22 @@
+[
+  {
+    "topic": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-estudio-storage/providers/Microsoft.Storage/storageAccounts/stmodalima01",
+    "subject": "/blobServices/default/containers/subidas/blobs/usuarios/u-42/7f2a2e2e",
+    "eventType": "Microsoft.Storage.BlobDeleted",
+    "id": "9a1c2f7e-501e-0012-34ab-eeb76e0a2b10",
+    "eventTime": "2026-10-16T17:30:00.5551234Z",
+    "data": {
+      "api": "DeleteBlob",
+      "requestId": "9a1c2f7e-501e-0012-34ab-eeb76e000000",
+      "contentType": "application/pdf",
+      "blobType": "BlockBlob",
+      "url": "https://stmodalima01.blob.core.windows.net/subidas/usuarios/u-42/7f2a2e2e",
+      "sequencer": "00000000000004420000000000028A11",
+      "storageDiagnostics": {
+        "batchId": "d70a1b4c-9aa4-4f0e-bf7f-7a8f0b5a9e22"
+      }
+    },
+    "dataVersion": "",
+    "metadataVersion": "1"
+  }
+]

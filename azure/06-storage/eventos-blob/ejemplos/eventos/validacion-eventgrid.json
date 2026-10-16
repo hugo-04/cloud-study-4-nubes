@@ -1,0 +1,15 @@
+[
+  {
+    "id": "2d1781af-3a4c-4d7c-bd0c-e34b19da4e66",
+    "topic": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-estudio-storage/providers/Microsoft.EventGrid/systemTopics/evgt-storage",
+    "subject": "",
+    "data": {
+      "validationCode": "512d38b6-c7b8-40c8-89fe-f46f9e9622b6",
+      "validationUrl": "https://rp-eastus2.eventgrid.azure.net:553/eventsubscriptions/blobcreated-webhook/validate?id=512D38B6-C7B8-40C8-89FE-F46F9E9622B6&t=2026-10-16T16:00:00&apiVersion=2018-01-01&token=<token>"
+    },
+    "eventType": "Microsoft.EventGrid.SubscriptionValidationEvent",
+    "eventTime": "2026-10-16T16:00:00.0000000Z",
+    "metadataVersion": "1",
+    "dataVersion": "2"
+  }
+]
