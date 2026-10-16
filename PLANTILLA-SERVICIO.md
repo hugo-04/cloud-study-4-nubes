@@ -1,64 +1,34 @@
 # Plantilla fija por servicio
 
-Todo servicio del repo se documenta con estas 12 secciones, en este orden. Así los videos y los resúmenes salen siempre comparables.
+Cada servicio vive en **su propia carpeta dentro de su nube** (`azure/04-compute/aks/`, `aws/04-compute/eks/`, etc.) y **solo habla de esa nube**. Las comparaciones entre nubes no van aquí.
 
----
+## Archivos de cada carpeta de servicio
 
-## 1. Qué es (con analogía)
-Una frase técnica y una analogía de la vida real. Ejemplo: "Una VNet es el edificio privado de tu empresa; las subnets son los pisos."
+| Archivo | Para qué |
+|---|---|
+| `README.md` | Teoría completa: qué es, cómo funciona cada componente, cuándo sí y cuándo no, IAM y red privada |
+| `casos-reales.md` | Historias con problema, solución, resultado y lección (mínimo 3) |
+| `uso-en-java.md` | Cómo se usa desde Spring Boot y Quarkus, imperativo y reactivo |
+| `ejemplos/` | `cli/`, `terraform/`, `java/`, `yaml/` según aplique, todo copiable |
+| `troubleshooting.md` | Tabla síntoma → causa probable → cómo comprobarlo → solución |
+| `repaso.md` | Preguntas de repaso y de entrevista con respuesta corta |
+| `notebooklm.md` | Prompt de video solo para este servicio |
 
-## 2. Para qué sirve y cuándo NO usarlo
-- Problemas que resuelve.
-- Cuándo hay una opción mejor (y cuál).
+## Secciones del `README.md`
 
-## 3. Conceptos clave
-Tabla corta: término, definición simple, ejemplo.
+1. **Qué es**: una frase técnica y una analogía de la vida real.
+2. **Cómo funciona por dentro**: cada componente por separado, con un diagrama.
+3. **Para qué sirve y cuándo NO usarlo**: y cuál es la alternativa en la misma nube.
+4. **Conceptos clave**: tabla de término, definición simple y ejemplo.
+5. **Cómo se usa**: portal, CLI y Terraform, y cómo comprobar que quedó bien.
+6. **Seguridad**: IAM (qué rol o permiso hace falta y por qué), identidad de la aplicación y red privada.
+7. **Qué hacer y qué NO hacer**.
+8. **Límites, costos y versiones**: lo que cambia con el tiempo va marcado con "verifica en la doc oficial".
 
-## 4. Casos de uso de vida real (mínimo 3)
-Cada uno contado como historia:
-- **Problema:** qué dolía.
-- **Solución:** qué servicio y cómo.
-- **Resultado:** qué mejoró.
-- **Lección:** qué se aprende.
+## Reglas de escritura
 
-## 5. Cómo se usa (paso a paso)
-- Portal (clics clave).
-- CLI (comandos copiables).
-- Terraform (bloque mínimo).
-- Cómo se verifica que quedó bien.
-
-## 6. Qué hacer
-Buenas prácticas, en bullets cortos.
-
-## 7. Qué NO hacer
-Errores típicos y por qué duelen.
-
-## 8. Ejemplos prácticos
-Código (Java cuando aplique), YAML, JSON o consultas.
-
-## 9. Equivalencias en las 4 nubes
-| Concepto | Azure | AWS | OCI | GCP |
-|---|---|---|---|---|
-
-Seguido de **diferencias reales** (lo que no es 1 a 1).
-
-## 10. IAM y políticas del servicio
-- Quién necesita qué permiso (rol mínimo).
-- Cómo se ve en Azure, AWS, OCI y GCP.
-- Acceso privado y red asociada.
-
-## 11. Troubleshooting
-Tabla: síntoma → causa probable → cómo comprobarlo → solución.
-
-## 12. Repaso y entrevista
-- 5 preguntas de repaso con respuesta corta.
-- 3 preguntas tipo entrevista.
-
----
-
-### Reglas de redacción
-
-- Define cada término técnico la primera vez que aparece.
-- Ejemplos con nombres inventados.
-- Lo sensible a versión lleva "verifica en la doc oficial".
-- Un solo tema por archivo; módulos grandes se dividen en subcarpetas.
+- Español claro; define cada término técnico la primera vez que aparece.
+- Casos de vida real inventados (ModaLima, Café Andino), nunca de un cliente real.
+- Ningún secreto, ID de cuenta real ni connection string real.
+- Todo comando o código que se pueda validar se valida antes de subirlo.
+- Un archivo de servicio no menciona otras nubes.
