@@ -1,0 +1,36 @@
+# Namespace de un equipo/entorno con Pod Security "restricted", cuotas y valores por defecto.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: modalima
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: cuota-modalima
+  namespace: modalima
+spec:
+  hard:
+    requests.cpu: "8"
+    requests.memory: 16Gi
+    limits.memory: 24Gi
+    pods: "60"
+    services.loadbalancers: "0"        # nadie crea balanceadores públicos por su cuenta
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: valores-por-defecto
+  namespace: modalima
+spec:
+  limits:
+    - type: Container
+      defaultRequest:
+        cpu: 100m
+        memory: 256Mi
+      default:
+        memory: 512Mi

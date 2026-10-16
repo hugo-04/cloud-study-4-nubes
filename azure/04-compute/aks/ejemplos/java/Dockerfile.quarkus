@@ -1,0 +1,20 @@
+# Quarkus (modo JVM, fast-jar). Para nativo usa la imagen mínima y el binario compilado con -Dnative.
+# docker build -f Dockerfile.quarkus -t acrmodalima.azurecr.io/api-pedidos:1.4.0 .
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /src
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+COPY src ./src
+RUN mvn -B -q package -DskipTests
+
+FROM eclipse-temurin:21-jre
+RUN useradd --system --uid 10001 --no-create-home app
+WORKDIR /app
+COPY --from=build /src/target/quarkus-app/lib/ ./lib/
+COPY --from=build /src/target/quarkus-app/*.jar ./
+COPY --from=build /src/target/quarkus-app/app/ ./app/
+COPY --from=build /src/target/quarkus-app/quarkus/ ./quarkus/
+USER 10001
+EXPOSE 8080
+ENV QUARKUS_HTTP_HOST=0.0.0.0
+ENTRYPOINT ["java", "-jar", "/app/quarkus-run.jar"]

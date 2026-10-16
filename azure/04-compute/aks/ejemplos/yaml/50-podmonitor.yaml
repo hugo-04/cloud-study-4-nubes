@@ -1,0 +1,15 @@
+# Managed Prometheus: recolectar /actuator/prometheus de los pods de la API.
+# (CRD del servicio administrado de Azure Monitor; verifica el apiVersion en tu clúster)
+apiVersion: azmonitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: api-pedidos
+  namespace: modalima
+spec:
+  selector:
+    matchLabels:
+      app: api-pedidos
+  podMetricsEndpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 30s

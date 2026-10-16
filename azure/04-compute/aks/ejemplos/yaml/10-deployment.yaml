@@ -1,0 +1,132 @@
+# Servicio Java bien configurado para AKS: identidad, sondas, apagado ordenado, seguridad y reparto por zonas.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-api
+  namespace: modalima
+  annotations:
+    azure.workload.identity/client-id: "__CLIENT_ID__"      # clientId de la managed identity federada
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: modalima
+data:
+  APP_PEDIDOS_URL: "http://svc-pedidos.modalima.svc.cluster.local"
+  SPRING_PROFILES_ACTIVE: "k8s"
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70 -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -Dnetworkaddress.cache.ttl=30"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-pedidos
+  namespace: modalima
+  labels:
+    app: api-pedidos
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0                 # nunca bajar capacidad durante el despliegue
+  selector:
+    matchLabels:
+      app: api-pedidos
+  template:
+    metadata:
+      labels:
+        app: api-pedidos
+        azure.workload.identity/use: "true"      # en el POD, no en el Deployment
+    spec:
+      serviceAccountName: sa-api
+      terminationGracePeriodSeconds: 45          # > preStop (10 s) + apagado de la app (30 s)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      nodeSelector:
+        carga: api
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: api-pedidos
+      containers:
+        - name: api
+          image: acrmodalima.azurecr.io/api-pedidos:1.4.0     # etiqueta inmutable, nunca "latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: api-config
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              cpu: 500m
+              memory: 768Mi
+            limits:
+              memory: 768Mi                 # sin límite de CPU: evita el throttling de la JVM
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http
+            periodSeconds: 5
+            failureThreshold: 36            # hasta 3 minutos para arrancar
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http
+            periodSeconds: 10
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 10"]
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-api-pedidos
+  namespace: modalima
+spec:
+  type: ClusterIP
+  selector:
+    app: api-pedidos
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

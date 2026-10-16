@@ -1,0 +1,32 @@
+# KEDA: escalar un consumidor de Service Bus de 0 a 20 réplicas, autenticado con Workload Identity.
+# Requisitos: add-on KEDA activado y la identidad de KEDA con rol "Azure Service Bus Data Receiver" sobre el namespace.
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: auth-servicebus
+  namespace: modalima
+spec:
+  podIdentity:
+    provider: azure-workload
+    identityId: "__CLIENT_ID_KEDA__"      # opcional: identidad a usar si no es la del operador de KEDA
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: escala-worker-pedidos
+  namespace: modalima
+spec:
+  scaleTargetRef:
+    name: worker-pedidos
+  pollingInterval: 15
+  cooldownPeriod: 120
+  minReplicaCount: 0
+  maxReplicaCount: 20
+  triggers:
+    - type: azure-servicebus
+      metadata:
+        namespace: sb-modalima            # nombre del namespace (sin .servicebus.windows.net)
+        queueName: pedidos
+        messageCount: "20"                # 1 réplica por cada ~20 mensajes pendientes
+      authenticationRef:
+        name: auth-servicebus

@@ -1,0 +1,58 @@
+# Política de red: todo cerrado por defecto y solo lo necesario abierto.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: denegar-todo
+  namespace: modalima
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress", "Egress"]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-pedidos
+  namespace: modalima
+spec:
+  podSelector:
+    matchLabels:
+      app: api-pedidos
+  policyTypes: ["Ingress", "Egress"]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress      # namespace del controlador de entrada
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    # DNS del clúster
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Base de datos con Private Endpoint (IP privada de ejemplo)
+    - to:
+        - ipBlock:
+            cidr: 10.60.2.4/32
+      ports:
+        - protocol: TCP
+          port: 5432
+    # Servicios de Azure por HTTPS (Key Vault, Entra ID, Storage): todo 443 excepto rangos privados
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      ports:
+        - protocol: TCP
+          port: 443
+# Con Cilium puedes restringir por nombre de dominio (FQDN) con políticas propias; verifica la función disponible en tu clúster.

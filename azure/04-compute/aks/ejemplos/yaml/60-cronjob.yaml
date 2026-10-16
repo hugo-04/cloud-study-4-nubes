@@ -1,0 +1,44 @@
+# En lugar de @Scheduled en cada réplica: un CronJob (un pod por ejecución).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: resumen-diario
+  namespace: modalima
+spec:
+  schedule: "0 7 * * *"
+  timeZone: "America/Lima"
+  concurrencyPolicy: Forbid            # no solapar ejecuciones
+  startingDeadlineSeconds: 600
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 1800
+      template:
+        metadata:
+          labels:
+            app: resumen-diario
+            azure.workload.identity/use: "true"
+        spec:
+          serviceAccountName: sa-api
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: resumen
+              image: acrmodalima.azurecr.io/resumen-diario:1.0.0
+              resources:
+                requests:
+                  cpu: 250m
+                  memory: 512Mi
+                limits:
+                  memory: 512Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
