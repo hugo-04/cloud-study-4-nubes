@@ -1,0 +1,31 @@
+{
+  "UserConfig": {
+    "NamespaceConfig": [
+      {
+        "Type": "EventHub",
+        "Name": "emulatorNs1",
+        "Entities": [
+          {
+            "Name": "clics-web",
+            "PartitionCount": "4",
+            "ConsumerGroups": [
+              { "Name": "analitica" },
+              { "Name": "antifraude" },
+              { "Name": "reproceso" }
+            ]
+          },
+          {
+            "Name": "errores-clics",
+            "PartitionCount": "2",
+            "ConsumerGroups": [
+              { "Name": "revision" }
+            ]
+          }
+        ]
+      }
+    ],
+    "LoggingConfig": {
+      "Type": "File"
+    }
+  }
+}
