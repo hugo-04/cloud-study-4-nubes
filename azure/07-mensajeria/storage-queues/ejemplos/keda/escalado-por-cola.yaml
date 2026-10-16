@@ -1,0 +1,30 @@
+# Escala el Deployment "worker-tareas" según el largo de la cola (KEDA, escalador azure-queue).
+# Autenticación con Workload Identity (sin claves ni cadenas de conexión).
+# La identidad del trabajador necesita el rol "Storage Queue Data Contributor" (o Message Processor + Reader) en la cola/cuenta.
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: auth-workload-identity
+spec:
+  podIdentity:
+    provider: azure-workload
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker-tareas
+spec:
+  scaleTargetRef:
+    name: worker-tareas
+  minReplicaCount: 1
+  maxReplicaCount: 20
+  cooldownPeriod: 120
+  triggers:
+    - type: azure-queue
+      authenticationRef:
+        name: auth-workload-identity
+      metadata:
+        accountName: stqmodalima
+        queueName: tareas
+        queueLength: "50"      # ~50 mensajes por réplica
+        cloud: AzurePublicCloud

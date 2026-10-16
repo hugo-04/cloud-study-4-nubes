@@ -57,6 +57,6 @@ Dónde viven los datos que **no** están en una base de datos: archivos, imágen
 - [IAM · Managed Identity](../02-iam/managed-identity/README.md): acceso sin claves.
 - [Key Vault](../03-secretos/key-vault/README.md): claves administradas por ti (CMK).
 - [Compute](../04-compute/README.md): quién sube, procesa y monta los datos.
-- Mensajería *(por escribir)*: Service Bus, Event Grid y Event Hubs como transporte de tickets y eventos.
+- [Mensajería](../07-mensajeria/README.md): Service Bus, Event Grid, Event Hubs y Storage Queues como transporte de tickets y eventos.
 
 Cada carpeta trae: teoría, casos reales, uso desde Java (Spring MVC/WebFlux y Quarkus), ejemplos (CLI, Terraform, YAML/KQL/JSON según el servicio), troubleshooting, repaso y prompt de NotebookLM.
