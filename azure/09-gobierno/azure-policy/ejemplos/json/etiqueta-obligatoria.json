@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "displayName": "ModaLima - Exigir etiqueta en recursos",
+    "description": "Rechaza (o audita) la creación de recursos sin la etiqueta indicada. Úsala una vez por etiqueta: owner, env, cost-center.",
+    "mode": "Indexed",
+    "metadata": { "category": "Tags", "version": "1.0.0" },
+    "parameters": {
+      "nombreEtiqueta": {
+        "type": "String",
+        "metadata": { "displayName": "Nombre de la etiqueta", "description": "Por ejemplo: owner" }
+      },
+      "efecto": {
+        "type": "String",
+        "metadata": { "displayName": "Efecto" },
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Audit"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "[concat('tags[', parameters('nombreEtiqueta'), ']')]",
+        "exists": "false"
+      },
+      "then": { "effect": "[parameters('efecto')]" }
+    }
+  }
+}

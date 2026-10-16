@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "displayName": "ModaLima - No permitir borrar datos de producción",
+    "description": "DenyAction: bloquea el borrado (403) de cuentas de Cosmos DB, servidores SQL, bóvedas de Key Vault y cuentas de almacenamiento etiquetados env=prod, incluido el borrado en cascada desde el grupo de recursos.",
+    "mode": "Indexed",
+    "metadata": { "category": "Protección", "version": "1.0.0" },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "in": [
+              "Microsoft.DocumentDB/databaseAccounts",
+              "Microsoft.Sql/servers",
+              "Microsoft.KeyVault/vaults",
+              "Microsoft.Storage/storageAccounts"
+            ]
+          },
+          { "field": "tags['env']", "equals": "prod" }
+        ]
+      },
+      "then": {
+        "effect": "denyAction",
+        "details": {
+          "actionNames": ["delete"],
+          "cascadeBehaviors": { "resourceGroup": "deny" }
+        }
+      }
+    }
+  }
+}

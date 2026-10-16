@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "displayName": "ModaLima - Service Bus sin acceso público de red",
+    "description": "Los espacios de nombres de Service Bus deben tener publicNetworkAccess = Disabled (acceso solo por Private Endpoint). Valida el alias con 'az provider show --namespace Microsoft.ServiceBus --expand \"resourceTypes/aliases\"' antes de usar Deny.",
+    "mode": "All",
+    "metadata": { "category": "Service Bus", "version": "1.0.0" },
+    "parameters": {
+      "efecto": {
+        "type": "String",
+        "metadata": { "displayName": "Efecto" },
+        "allowedValues": ["Audit", "Deny", "Disabled"],
+        "defaultValue": "Audit"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          { "field": "type", "equals": "Microsoft.ServiceBus/namespaces" },
+          {
+            "field": "Microsoft.ServiceBus/namespaces/publicNetworkAccess",
+            "notEquals": "Disabled"
+          }
+        ]
+      },
+      "then": { "effect": "[parameters('efecto')]" }
+    }
+  }
+}

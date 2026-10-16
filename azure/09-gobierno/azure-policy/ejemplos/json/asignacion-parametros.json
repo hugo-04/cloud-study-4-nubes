@@ -1,0 +1,5 @@
+{
+  "efecto": { "value": "Audit" },
+  "regionesPermitidas": { "value": ["eastus2", "centralus"] },
+  "etiquetasObligatorias": { "value": ["owner", "env", "cost-center"] }
+}

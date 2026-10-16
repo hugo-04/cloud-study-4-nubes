@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "displayName": "ModaLima - Storage con TLS 1.2 como mínimo (Modify)",
+    "description": "Ejemplo de Modify: corrige minimumTlsVersion en cuentas de almacenamiento nuevas y, con una tarea de remediación, en las existentes. La asignación necesita identidad con el rol indicado en roleDefinitionIds.",
+    "mode": "Indexed",
+    "metadata": { "category": "Storage", "version": "1.0.0" },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          { "field": "type", "equals": "Microsoft.Storage/storageAccounts" },
+          {
+            "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion",
+            "notEquals": "TLS1_2"
+          }
+        ]
+      },
+      "then": {
+        "effect": "modify",
+        "details": {
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/17d1049b-9a84-46fb-8f53-869881c3d3ab"
+          ],
+          "conflictEffect": "audit",
+          "operations": [
+            {
+              "operation": "addOrReplace",
+              "field": "Microsoft.Storage/storageAccounts/minimumTlsVersion",
+              "value": "TLS1_2"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

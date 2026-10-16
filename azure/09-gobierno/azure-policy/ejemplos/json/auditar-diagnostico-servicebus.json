@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "displayName": "ModaLima - Auditar Service Bus sin configuración de diagnóstico",
+    "description": "Ejemplo de AuditIfNotExists: marca como no conforme un espacio de nombres que no tenga una configuración de diagnóstico con registros habilitados.",
+    "mode": "All",
+    "metadata": { "category": "Service Bus", "version": "1.0.0" },
+    "parameters": {
+      "efecto": {
+        "type": "String",
+        "metadata": { "displayName": "Efecto" },
+        "allowedValues": ["AuditIfNotExists", "Disabled"],
+        "defaultValue": "AuditIfNotExists"
+      }
+    },
+    "policyRule": {
+      "if": { "field": "type", "equals": "Microsoft.ServiceBus/namespaces" },
+      "then": {
+        "effect": "[parameters('efecto')]",
+        "details": {
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "existenceCondition": {
+            "anyOf": [
+              { "field": "Microsoft.Insights/diagnosticSettings/logs.enabled", "equals": "true" },
+              { "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled", "equals": "true" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
