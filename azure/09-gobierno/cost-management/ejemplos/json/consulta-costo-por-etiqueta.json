@@ -1,0 +1,12 @@
+{
+  "type": "ActualCost",
+  "timeframe": "MonthToDate",
+  "dataset": {
+    "aggregation": {
+      "totalCost": { "name": "Cost", "function": "Sum" }
+    },
+    "grouping": [
+      { "type": "TagKey", "name": "owner" }
+    ]
+  }
+}

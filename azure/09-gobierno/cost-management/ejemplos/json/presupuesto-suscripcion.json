@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "category": "Cost",
+    "amount": 5000,
+    "timeGrain": "Monthly",
+    "timePeriod": {
+      "startDate": "2026-11-01T00:00:00Z",
+      "endDate": "2030-12-31T00:00:00Z"
+    },
+    "notifications": {
+      "Real50": {
+        "enabled": true,
+        "operator": "GreaterThan",
+        "threshold": 50,
+        "thresholdType": "Actual",
+        "contactEmails": ["finops@modalima.example"]
+      },
+      "Real80": {
+        "enabled": true,
+        "operator": "GreaterThan",
+        "threshold": 80,
+        "thresholdType": "Actual",
+        "contactEmails": ["finops@modalima.example"],
+        "contactRoles": ["Owner"]
+      },
+      "Real100Accion": {
+        "enabled": true,
+        "operator": "GreaterThan",
+        "threshold": 100,
+        "thresholdType": "Actual",
+        "contactEmails": ["finops@modalima.example"],
+        "contactGroups": [
+          "/subscriptions/<ID_SUSCRIPCION>/resourceGroups/rg-modalima-finops/providers/microsoft.insights/actionGroups/ag-finops"
+        ]
+      },
+      "Pronostico110": {
+        "enabled": true,
+        "operator": "GreaterThan",
+        "threshold": 110,
+        "thresholdType": "Forecasted",
+        "contactEmails": ["finops@modalima.example"],
+        "contactRoles": ["Owner"]
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "schedule": {
+      "status": "Active",
+      "recurrence": "Daily",
+      "recurrencePeriod": {
+        "from": "2026-11-01T00:00:00Z",
+        "to": "2030-12-31T00:00:00Z"
+      }
+    },
+    "format": "Csv",
+    "deliveryInfo": {
+      "destination": {
+        "resourceId": "/subscriptions/<ID_SUSCRIPCION>/resourceGroups/rg-modalima-finops/providers/Microsoft.Storage/storageAccounts/stmodalimacostos01",
+        "container": "exportaciones-costos",
+        "rootFolderPath": "modalima"
+      }
+    },
+    "definition": {
+      "type": "ActualCost",
+      "timeframe": "MonthToDate",
+      "dataSet": { "granularity": "Daily" }
+    }
+  }
+}

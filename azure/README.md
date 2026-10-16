@@ -19,7 +19,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Azure SDK BOM 1.3 · msal4j 1.26 �
 | 06 | [Storage](06-storage/README.md) | Blob Storage, SAS tokens, Claim Check, eventos de blob, Azure Files, Data Lake Gen2 | Listo |
 | 07 | [Mensajería](07-mensajeria/README.md) | Service Bus, Event Grid, Event Hubs (Kafka), Storage Queues | Listo |
 | 08 | [Datos](08-datos/README.md) | Azure SQL, PostgreSQL Flexible, Cosmos DB, Redis (Azure Managed Redis) | Listo |
-| 09 | Gobierno | Azure Policy, locks, management groups, costos | Pendiente |
+| 09 | [Gobierno](09-gobierno/README.md) | Grupos de administración, Azure Policy, bloqueos de recursos, Cost Management | Listo |
 | 10 | Terraform en Azure | Backend, autenticación, módulos, pipelines | Pendiente |
 | 11 | Casos integrados | Arquitecturas de punta a punta | Pendiente |
 

@@ -1,0 +1,13 @@
+{
+  "type": "ActualCost",
+  "timeframe": "MonthToDate",
+  "dataset": {
+    "granularity": "Daily",
+    "aggregation": {
+      "totalCost": { "name": "Cost", "function": "Sum" }
+    },
+    "grouping": [
+      { "type": "Dimension", "name": "ResourceGroupName" }
+    ]
+  }
+}
