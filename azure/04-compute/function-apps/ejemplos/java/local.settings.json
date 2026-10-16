@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "java",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "SBCONN__fullyQualifiedNamespace": "sb-modalima-dev.servicebus.windows.net",
+    "KEYVAULT_URL": "https://kv-modalima-dev.vault.azure.net"
+  }
+}

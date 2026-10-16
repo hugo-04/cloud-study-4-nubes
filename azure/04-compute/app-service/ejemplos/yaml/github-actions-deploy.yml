@@ -1,0 +1,65 @@
+# GitHub Actions: compila, despliega al slot "staging" con identidad federada (sin secretos), prueba y hace swap.
+# Requisitos: credencial federada en una managed identity / app registration con subject
+#   repo:<org>/<repo>:environment:produccion   y rol "Website Contributor" sobre la app.
+name: deploy-api
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write      # necesario para OIDC con Azure
+  contents: read
+
+env:
+  APP: app-modalima-api
+  RG: rg-estudio-compute
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - run: mvn -B verify
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: target/*.jar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: produccion          # el subject federado incluye el nombre del entorno
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: jar
+          path: app
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Desplegar al slot staging
+        run: |
+          JAR=$(ls app/*.jar | head -n1)
+          az webapp deploy -g "$RG" -n "$APP" --slot staging --src-path "$JAR" --type jar
+
+      - name: Probar el slot
+        run: |
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://$APP-staging.azurewebsites.net/actuator/health/readiness" || true)
+            [ "$code" = "200" ] && exit 0
+            sleep 10
+          done
+          echo "El slot no quedó saludable" && exit 1
+
+      - name: Swap a producción
+        run: az webapp deployment slot swap -g "$RG" -n "$APP" --slot staging --target-slot production

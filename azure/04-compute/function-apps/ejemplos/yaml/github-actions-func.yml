@@ -1,0 +1,43 @@
+# GitHub Actions: compila y publica una Function App Java con identidad federada (sin secretos).
+# Requisitos: credencial federada con subject repo:<org>/<repo>:environment:produccion
+# y rol "Website Contributor" sobre la Function App.
+name: deploy-func
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  FUNC: func-modalima01
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: produccion
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Compilar y empaquetar
+        run: mvn -B clean package
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Publicar
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.FUNC }}
+          package: target/azure-functions/${{ env.FUNC }}
