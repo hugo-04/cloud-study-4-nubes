@@ -1,0 +1,16 @@
+{
+  "id": "PED-2026-000123",
+  "clienteId": "C-001",
+  "tipo": "pedido",
+  "referenciaExterna": "WEB-98231",
+  "estado": "PAGADO",
+  "totalCentimos": 35980,
+  "moneda": "PEN",
+  "lineas": [
+    { "sku": "POL-ROJO-M", "cantidad": 2, "precioCentimos": 8990 },
+    { "sku": "JEA-AZUL-32", "cantidad": 1, "precioCentimos": 17999 }
+  ],
+  "direccionEntrega": { "calle": "Av. Larco 123", "distrito": "Miraflores", "ciudad": "Lima" },
+  "notas": "Entregar en portería",
+  "creadoEn": "2026-10-16T14:05:00Z"
+}

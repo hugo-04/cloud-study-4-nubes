@@ -1,0 +1,11 @@
+{
+  "id": "EVT-PED-2026-000123-PAGADO",
+  "clienteId": "C-001",
+  "tipo": "evento-outbox",
+  "evento": "PedidoPagado",
+  "pedidoId": "PED-2026-000123",
+  "publicado": false,
+  "totalCentimos": 35980,
+  "creadoEn": "2026-10-16T14:05:00Z",
+  "ttl": 604800
+}
