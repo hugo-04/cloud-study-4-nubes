@@ -1,0 +1,15 @@
+{
+  "specversion": "1.0",
+  "id": "evt-b72a9c01",
+  "source": "/servicios/pagos",
+  "type": "pe.modalima.pedido.pagado",
+  "subject": "pedidos/PE/1001",
+  "time": "2026-10-16T16:05:40Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "pedidoId": "1001",
+    "pagoId": "pg-5521",
+    "region": "PE",
+    "total": 150.0
+  }
+}

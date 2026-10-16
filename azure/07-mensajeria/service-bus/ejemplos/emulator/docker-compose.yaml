@@ -1,0 +1,42 @@
+# Emulador local de Service Bus (colas, tópicos, suscripciones, reglas, DLQ, sesiones).
+# Uso:
+#   export ACCEPT_EULA=Y MSSQL_SA_PASSWORD='Cambia-Esto-123!' CONFIG_PATH=$PWD/Config.json
+#   docker compose up -d
+# Cadena de conexión (sin Entra ID):
+#   Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;
+# Verifica en la documentación del emulador las funciones aún no soportadas y los puertos vigentes.
+name: servicebus-emulador
+services:
+  emulator:
+    container_name: servicebus-emulator
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    pull_policy: always
+    volumes:
+      - "${CONFIG_PATH}:/ServiceBus_Emulator/ConfigFiles/Config.json"
+    ports:
+      - "5672:5672"   # AMQP
+      - "5300:5300"   # administración
+    environment:
+      SQL_SERVER: sqledge
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      ACCEPT_EULA: "${ACCEPT_EULA}"
+    depends_on:
+      - sqledge
+    networks:
+      sb-emulator:
+        aliases:
+          - sb-emulator
+
+  sqledge:
+    container_name: sqledge
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: "${ACCEPT_EULA}"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+    networks:
+      sb-emulator:
+        aliases:
+          - sqledge
+
+networks:
+  sb-emulator:

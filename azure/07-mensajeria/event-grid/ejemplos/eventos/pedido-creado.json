@@ -1,0 +1,15 @@
+{
+  "specversion": "1.0",
+  "id": "evt-8f1c2d4e",
+  "source": "/servicios/pedidos",
+  "type": "pe.modalima.pedido.creado",
+  "subject": "pedidos/PE/1001",
+  "time": "2026-10-16T16:02:11Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "pedidoId": "1001",
+    "clienteId": "u-42",
+    "region": "PE",
+    "total": 150.0
+  }
+}
