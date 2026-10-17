@@ -12,5 +12,6 @@ Módulos que aplican igual en cualquier nube (o sin nube): herramientas, framewo
 | [Patrones de diseño](patrones-de-diseno/README.md) | Los 23 del GoF con código Java 21 y cuándo usarlos | Listo |
 | [Patrones de microservicios](patrones-microservicios/README.md) | Datos, comunicación, consistencia (saga, outbox, CQRS), resiliencia y operación | Listo |
 | [Arquitectura y testing](arquitectura-y-testing/README.md) | Monolito vs microservicios, hexagonal, clean, DDD, paquetes; TDD, BDD, dobles, contrato | Listo |
+| [TypeScript, React y Angular](typescript-react-angular/README.md) | Frontends para microservicios: tipos como contrato, React, Angular, BFF y seguridad | Listo |
 
-Cada módulo trae `README.md` (teoría con casos reales), `repaso.md` y `notebooklm.md`; el código Java compila con Java 21, Spring Boot 4.1 y Quarkus 3.40.
+Prompt de panorama: [NotebookLM](notebooklm.md). Cada módulo trae `README.md` (teoría con casos reales), `repaso.md` y `notebooklm.md`. El código Java compila con Java 21, Spring Boot 4.1 y Quarkus 3.40 (`tools/tr-env/tr-env.sh`), el TypeScript con `tools/tscheck.py` (TypeScript 5.8, React 19, Angular 20) y el Terraform se valida y prueba con `terraform test`.
