@@ -10,5 +10,6 @@ Módulos que aplican igual en cualquier nube (o sin nube): herramientas, framewo
 | [Quarkus](quarkus/README.md) | Build time, imperativo y reactivo, Panache, tolerancia a fallos, nativo | Listo |
 | [Programación reactiva](programacion-reactiva/README.md) | Reactive Streams, Reactor, Mutiny, RxJava; cuándo sí y cuándo hilos virtuales | Listo |
 | [Patrones de diseño](patrones-de-diseno/README.md) | Los 23 del GoF con código Java 21 y cuándo usarlos | Listo |
+| [Patrones de microservicios](patrones-microservicios/README.md) | Datos, comunicación, consistencia (saga, outbox, CQRS), resiliencia y operación | Listo |
 
 Cada módulo trae `README.md` (teoría con casos reales), `repaso.md` y `notebooklm.md`; el código Java compila con Java 21, Spring Boot 4.1 y Quarkus 3.40.
