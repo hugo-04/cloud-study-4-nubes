@@ -1,0 +1,22 @@
+{
+  "inicio": "2026-03-12T19:07:31.204Z",
+  "duracionMs": 3112,
+  "dependencias": [
+    { "dependencia": "rds-pedidos", "causa": "OK", "ms": 41, "detalle": "alcanzable" },
+    { "dependencia": "redis-sesiones", "causa": "OK", "ms": 12, "detalle": "alcanzable" },
+    { "dependencia": "sqs-facturacion", "causa": "DNS_PUBLICA", "ms": 8, "detalle": "resuelve a IP pública 52.94.x.x: se esperaba una privada" },
+    { "dependencia": "secretos", "causa": "TIMEOUT", "ms": 3004, "detalle": "sin respuesta hacia el puerto 443 (ruta o grupo de seguridad)" }
+  ],
+  "hipotesis": [
+    {
+      "dependencia": "sqs-facturacion",
+      "causaProbable": "Resuelve a la IP pública: el DNS privado del endpoint de VPC no está activo o el endpoint no es de esta VPC",
+      "siguientePaso": "Comprobar «DNS privado» del endpoint de interfaz y las opciones DNS de la VPC (hostnames y resolución)"
+    },
+    {
+      "dependencia": "secretos",
+      "causaProbable": "Los paquetes se descartan: grupo de seguridad, ACL de red o ruta",
+      "siguientePaso": "Reachability Analyzer del pod/instancia al endpoint, y reglas del grupo de seguridad del endpoint"
+    }
+  ]
+}

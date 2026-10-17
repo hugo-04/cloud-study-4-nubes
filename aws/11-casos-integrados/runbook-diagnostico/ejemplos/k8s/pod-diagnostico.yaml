@@ -1,0 +1,36 @@
+# Pod efímero con la MISMA cuenta de servicio (y por tanto identidad y red) que la aplicación.
+# Sirve para ver lo que ve la aplicación sin reiniciarla. Se borra al terminar:  kubectl delete pod diagnostico -n tienda
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnostico
+  namespace: tienda
+  labels:
+    app: diagnostico
+spec:
+  serviceAccountName: tienda-api          # la misma que usa la aplicación (EKS Pod Identity / IRSA)
+  restartPolicy: Never
+  activeDeadlineSeconds: 1800             # se termina solo a los 30 minutos
+  automountServiceAccountToken: true
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 10001
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: herramientas
+      image: public.ecr.aws/docker/library/eclipse-temurin:21-jre   # sustituye por tu imagen interna con curl, dig y el AWS CLI
+      command: ["sleep", "1800"]
+      resources:
+        requests: { cpu: 50m, memory: 128Mi }
+        limits: { cpu: 500m, memory: 256Mi }
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+      volumeMounts:
+        - { name: tmp, mountPath: /tmp }
+  volumes:
+    - name: tmp
+      emptyDir: {}
