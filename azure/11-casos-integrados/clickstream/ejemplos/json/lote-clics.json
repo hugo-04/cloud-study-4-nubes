@@ -1,0 +1,7 @@
+{
+  "clics": [
+    { "eventId": "5b0e3c0a-2f4a-4c0b-9a7b-0d9a6a1d0001", "sesionId": "ses-8f3a2c", "pagina": "/producto/cafe-geisha-250g", "marcaDeTiempo": 1792159511123 },
+    { "eventId": "5b0e3c0a-2f4a-4c0b-9a7b-0d9a6a1d0002", "sesionId": "ses-8f3a2c", "pagina": "/carrito", "marcaDeTiempo": 1792159519876 },
+    { "eventId": "5b0e3c0a-2f4a-4c0b-9a7b-0d9a6a1d0003", "sesionId": "ses-b71d90", "pagina": "/", "marcaDeTiempo": 1792159520002 }
+  ]
+}
