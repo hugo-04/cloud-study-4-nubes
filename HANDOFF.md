@@ -7,7 +7,7 @@
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` capítulos 00–11 | ✅ Completo |
 | `gcp/` capítulos 00–11 | ✅ Completo |
-| `transversal/` | 🟡 terraform, kafka, spring-boot y quarkus listos; faltan programacion-reactiva, patrones-de-diseno, patrones-microservicios, arquitectura-y-testing, typescript-react-angular |
+| `transversal/` | 🟡 terraform, kafka, spring-boot, quarkus y programacion-reactiva listos; faltan patrones-de-diseno, patrones-microservicios, arquitectura-y-testing, typescript-react-angular |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
 ## Pendiente, en orden

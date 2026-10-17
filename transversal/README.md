@@ -8,5 +8,6 @@ Módulos que aplican igual en cualquier nube (o sin nube): herramientas, framewo
 | [Apache Kafka](kafka/README.md) | Log de eventos: particiones, grupos, garantías, DLT, esquemas | Listo |
 | [Spring Boot](spring-boot/README.md) | Microservicio de producción: configuración, REST, JPA, clientes, Actuator, pruebas | Listo |
 | [Quarkus](quarkus/README.md) | Build time, imperativo y reactivo, Panache, tolerancia a fallos, nativo | Listo |
+| [Programación reactiva](programacion-reactiva/README.md) | Reactive Streams, Reactor, Mutiny, RxJava; cuándo sí y cuándo hilos virtuales | Listo |
 
 Cada módulo trae `README.md` (teoría con casos reales), `repaso.md` y `notebooklm.md`; el código Java compila con Java 21, Spring Boot 4.1 y Quarkus 3.40.
