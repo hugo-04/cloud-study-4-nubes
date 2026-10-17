@@ -1,0 +1,8 @@
+{
+  "carga": "pagos",
+  "entorno": "dev",
+  "equipo": "pagos",
+  "centroDeCostos": "CC-2210",
+  "presupuestoMensual": 300,
+  "prefijoCidr": 20
+}

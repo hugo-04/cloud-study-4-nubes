@@ -1,0 +1,8 @@
+{
+  "nombre": "pagos-dev",
+  "correo": "aws+pagos-dev@modalima.example",
+  "ou": "noprod",
+  "cidr": "10.20.16.0/20",
+  "etiquetas": { "equipo": "pagos", "centroDeCostos": "CC-2210", "entorno": "dev" },
+  "presupuestoMensual": 300
+}

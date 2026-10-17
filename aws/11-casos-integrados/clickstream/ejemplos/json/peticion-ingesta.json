@@ -1,0 +1,6 @@
+{
+  "clics": [
+    { "idEvento": "9c3c5e6e-1f3b-4a5e-8f56-1d1b8f1a7c10", "pagina": "/producto/polo-rojo", "tipo": "vista", "instante": "2026-03-10T15:01:20.250Z" },
+    { "idEvento": "0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d", "pagina": "/carrito", "tipo": "clic", "instante": "2026-03-10T15:01:24.900Z" }
+  ]
+}
