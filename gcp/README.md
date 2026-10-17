@@ -14,6 +14,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Google Cloud libraries-bom 26.90 �
 | 01 | [Red](01-red/README.md) | VPC y subredes, firewall/rutas/NAT, conectividad híbrida, acceso privado, diagnóstico | Listo |
 | 02 | [IAM](02-iam/README.md) | Roles y políticas, cuentas de servicio y suplantación, Workload Identity en GKE, Workload Identity Federation | Listo |
 | 03 | [Secretos y claves](03-secretos/README.md) | Secret Manager y Cloud KMS | Listo |
+| 04 | [Compute](04-compute/README.md) | Compute Engine, GKE, Cloud Run, Cloud Run functions | Listo |
 
 ## Cómo usar cada carpeta de servicio
 
