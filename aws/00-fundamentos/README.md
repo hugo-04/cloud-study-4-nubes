@@ -34,7 +34,7 @@ Organización (cuenta de administración)
 | **Recurso** | Cualquier cosa que creas (instancia, bucket, cola…) | — |
 | **ARN** | Nombre único global de un recurso | Permisos y referencias |
 
-> **La cuenta es el aislamiento.** En Azure la suscripción y en AWS la cuenta cumplen un papel parecido, pero en AWS los **permisos entre cuentas están cerrados por defecto**: hay que abrirlos explícitamente (con roles).
+> **La cuenta es el aislamiento.** En AWS la cuenta es el límite fuerte de aislamiento: los **permisos entre cuentas están cerrados por defecto**: hay que abrirlos explícitamente (con roles).
 
 **Un ARN, por partes:** `arn:aws:s3:::modalima-comprobantes-prod/pedidos/123.pdf` → `arn` : `partición` (`aws`, `aws-cn`, `aws-us-gov`) : `servicio` : `región` : `cuenta` : `recurso`. Algunos servicios (S3) omiten región y cuenta porque el nombre ya es global; la mayoría los incluyen: `arn:aws:sqs:us-east-1:111122223333:pedidos-creados`.
 
