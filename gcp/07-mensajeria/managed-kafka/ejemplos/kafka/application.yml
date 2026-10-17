@@ -1,0 +1,17 @@
+# Spring Kafka hacia Managed Kafka (requiere la biblioteca managed-kafka-auth-login-handler)
+spring:
+  kafka:
+    bootstrap-servers: bootstrap.eventos-modalima.southamerica-west1.managedkafka.modalima-prod.cloud.goog:9092
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: OAUTHBEARER
+      sasl.login.callback.handler.class: com.google.cloud.hosted.kafka.auth.GcpLoginCallbackHandler
+      sasl.jaas.config: org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required;
+    producer:
+      acks: all
+      properties:
+        enable.idempotence: true
+    consumer:
+      group-id: clickstream-agregador
+      auto-offset-reset: earliest
+      enable-auto-commit: false

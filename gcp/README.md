@@ -17,6 +17,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Google Cloud libraries-bom 26.90 �
 | 04 | [Compute](04-compute/README.md) | Compute Engine, GKE, Cloud Run, Cloud Run functions | Listo |
 | 05 | [Ingress y API](05-ingress-api/README.md) | Cloud Load Balancing, API Gateway, Cloud Armor, entrada a GKE (Gateway API) | Listo |
 | 06 | [Storage](06-storage/README.md) | Cloud Storage, URLs firmadas, Filestore, eventos de Cloud Storage, claim check | Listo |
+| 07 | [Mensajería](07-mensajeria/README.md) | Pub/Sub, Cloud Tasks, Eventarc, Managed Service for Apache Kafka | Listo |
 
 ## Cómo usar cada carpeta de servicio
 
