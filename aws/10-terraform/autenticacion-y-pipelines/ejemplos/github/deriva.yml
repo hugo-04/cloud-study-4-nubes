@@ -1,0 +1,43 @@
+# .github/workflows/deriva.yml — plan nocturno para detectar cambios hechos fuera de Terraform.
+name: deriva
+
+on:
+  schedule:
+    - cron: "17 7 * * *"      # una vez al día (UTC), en minuto no redondo
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  deriva:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    defaults:
+      run:
+        working-directory: infra/envs/prod
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+          terraform_wrapper: false
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::111122223333:role/terraform-plan-prod
+          aws-region: us-east-1
+      - run: terraform init -backend-config=backend.prod.hcl
+      - id: plan
+        run: |
+          set +e
+          terraform plan -detailed-exitcode -lock=false -input=false -no-color > plan.txt
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+      # 0 = sin cambios · 1 = error · 2 = hay diferencias (deriva)
+      - name: Avisar
+        if: steps.plan.outputs.codigo == '2'
+        run: |
+          echo "::warning::Hay deriva en prod: alguien cambió recursos fuera de Terraform."
+          head -n 80 plan.txt
+          exit 1

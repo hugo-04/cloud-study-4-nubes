@@ -20,7 +20,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 (con extensiones Quarkiverse Amazon S
 | 07 | [Mensajería](07-mensajeria/README.md) | SQS, SNS, EventBridge, Kinesis Data Streams, MSK (Kafka) | Listo |
 | 08 | [Datos](08-datos/README.md) | RDS / Aurora, DynamoDB, ElastiCache (Redis) | Listo |
 | 09 | [Gobierno](09-gobierno/README.md) | Organizations + SCP, Config, CloudTrail, Budgets / Cost Explorer | Listo |
-| 10 | Terraform en AWS | Estado remoto (S3), autenticación y pipelines (OIDC), módulos y entornos | Pendiente |
+| 10 | [Terraform en AWS](10-terraform/README.md) | Estado remoto (S3), autenticación y pipelines (OIDC), módulos y entornos | Listo |
 | 11 | Casos integrados | Tienda online, subida con Claim Check, clickstream, landing zone, runbook de diagnóstico | Pendiente |
 
 ## Cómo usar cada carpeta de servicio

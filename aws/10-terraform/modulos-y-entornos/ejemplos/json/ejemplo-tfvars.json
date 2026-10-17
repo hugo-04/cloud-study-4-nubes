@@ -1,0 +1,14 @@
+{
+  "servicios": {
+    "catalogo": {
+      "dueno": "equipo-catalogo@modalima.example",
+      "equipo": "catalogo",
+      "retencion_logs_dias": 14
+    },
+    "pedidos": {
+      "dueno": "equipo-pedidos@modalima.example",
+      "equipo": "pedidos",
+      "max_receives": 3
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.10.5",
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.pedidos",
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "pedidos",
+      "change": {
+        "actions": ["delete", "create"],
+        "before": { "identifier": "pedidos-prod", "publicly_accessible": false },
+        "after": { "identifier": "pedidos-prod-v2", "publicly_accessible": false },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_iam_policy.app",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "app",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "name": "app",
+          "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"*\",\"Resource\":\"*\"}]}"
+        },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_iam_role_policy.lectura",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "lectura",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "name": "lectura", "policy": null },
+        "after_unknown": { "policy": true }
+      }
+    },
+    {
+      "address": "aws_security_group_rule.ssh",
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ssh",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "type": "ingress", "from_port": 22, "to_port": 22, "protocol": "tcp", "cidr_blocks": ["0.0.0.0/0"] },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_security_group_rule.https",
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "https",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "type": "ingress", "from_port": 443, "to_port": 443, "protocol": "tcp", "cidr_blocks": ["0.0.0.0/0"] },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.catalogo",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "catalogo",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "block_public_acls": true, "block_public_policy": false, "ignore_public_acls": true, "restrict_public_buckets": true },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_sqs_queue.cola",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "cola",
+      "change": {
+        "actions": ["update"],
+        "before": { "visibility_timeout_seconds": 30 },
+        "after": { "visibility_timeout_seconds": 60 },
+        "after_unknown": {}
+      }
+    },
+    {
+      "address": "aws_cloudwatch_log_group.app",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "app",
+      "change": { "actions": ["create"], "before": null, "after": { "retention_in_days": 30 }, "after_unknown": {} }
+    },
+    {
+      "address": "data.aws_caller_identity.actual",
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "actual",
+      "change": { "actions": ["read"], "before": null, "after": {}, "after_unknown": {} }
+    }
+  ]
+}
