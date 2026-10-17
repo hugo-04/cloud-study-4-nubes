@@ -18,6 +18,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · OCI SDK for Java 3.97 · Terraform
 | 05 | [Ingress y API](05-ingress-api/README.md) | Load Balancer, Network Load Balancer, API Gateway, WAF, Ingress en OKE | Listo |
 | 06 | [Storage](06-storage/README.md) | Object Storage, PAR, File Storage, eventos de Object Storage, claim check | Listo |
 | 07 | [Mensajería](07-mensajeria/README.md) | Queue, Notifications, Events, Streaming (compatible con Kafka) | Listo |
+| 08 | [Datos](08-datos/README.md) | Autonomous Database, MySQL HeatWave, PostgreSQL, NoSQL, OCI Cache | Listo |
 
 ## Cómo usar cada carpeta de servicio
 
