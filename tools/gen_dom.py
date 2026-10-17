@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 RES = '''
 import java.util.Set;
@@ -155,7 +155,7 @@ sec = dict(
     dict(n='auditoria', v='GET', p='/auditoria', args=[], ret='List<AuditorDeUsuarios.Hallazgo>', call='s.auditar()'),
     dict(n='revisar', v='POST', p='/revisar', args=[('List<UsuarioResumen>', 'usuarios', 'b')], ret='List<AuditorDeUsuarios.Hallazgo>', call='s.auditarLista(usuarios)', cpu=True),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/02-iam/identity-domains/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/02-iam/identity-domains/uso-en-java.md'),
   'IAM · Identity Domains',
   'Un **auditor de higiene de usuarios** (puro: activos sin grupo, exceso de privilegiados) alimentado por la API **SCIM** del dominio con `IdentityDomainsClient`, que usa la **URL del dominio** como endpoint.',
   'oci:\n  auth: instance\n  dominio-url: https://idcs-xxxx.identity.oraclecloud.com:443\niam:\n  max-privilegiados: 3',

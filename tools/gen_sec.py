@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 FUENTE = '''
 /** De dónde sale el valor de un secreto (Vault en producción, un mapa en las pruebas). */
@@ -158,7 +158,7 @@ sec = dict(
     dict(n='rotado', v='POST', p='/rotado', args=[('String', 'secretId', 'q')], ret='String', call='s.alRotar(secretId)'),
   ])
 
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/03-secretos/vault-secrets/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/03-secretos/vault-secrets/uso-en-java.md'),
   'Secretos · Vault: secretos',
   'Una **caché con TTL y «stale-if-error»** (pura, con reloj inyectable) delante de `SecretsClient.getSecretBundle`: la aplicación lee el secreto una vez cada pocos minutos y sigue viva si Vault se pone lento.',
   'oci:\n  auth: instance\n  region: sa-saopaulo-1',

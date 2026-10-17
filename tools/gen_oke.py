@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 SEL = '''
 import java.util.Map;
@@ -148,7 +148,7 @@ sec = dict(
     dict(n='estado', v='GET', p='/estado', args=[], ret='ServicioDeIdentidad.Estado', call='s.estado()'),
     dict(n='politica', v='GET', p='/politica', args=[('String', 'compartimento', 'q'), ('String', 'cluster', 'q'), ('String', 'namespace', 'q'), ('String', 'cuenta', 'q'), ('String', 'bucket', 'q')], ret='String', call='s.politica(compartimento, cluster, namespace, cuenta, bucket)', cpu=True),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/02-iam/workload-identity-oke/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/02-iam/workload-identity-oke/uso-en-java.md'),
   'IAM · Workload Identity en OKE',
   'Tres piezas: un **selector de modo de autenticación** (pod, función, VM o laptop), un **generador de la frase de política** del pod (valida cada nombre antes de interpolar) y una **prueba de identidad** con Object Storage que confirma que el proveedor `oke` y la red funcionan.',
   'oci:\n  auth: oke          # en el Deployment: variable OCI_AUTH\n  region: sa-saopaulo-1',

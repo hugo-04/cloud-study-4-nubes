@@ -21,7 +21,7 @@ for md in args:
     text = open(md, encoding='utf-8').read()
     for i, m in enumerate(re.finditer(r'```java\n(.*?)```', text, re.S), 1):
         body = m.group(1)
-        key = f"{os.path.relpath(md, '/home/claude/cloud-study-4-nubes')}#{i}"
+        key = f"{os.path.relpath(md, str(SCR.parent))}#{i}"
         if key in skip or body.lstrip().startswith('// nocheck'): continue
         is_q = any(q in body for q in QK)
         _first = body.lstrip().splitlines()[0] if body.strip() else ''

@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 HANDLER = '''
 import java.math.BigDecimal;
@@ -198,7 +198,7 @@ sec = dict(
   endpoints=[
     dict(n='normalizar', v='POST', p='/normalizar', args=[('ServicioDeFunciones.Solicitud', 's2', 'b')], ret='String', call='s.normalizar(s2)'),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/04-compute/functions/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/04-compute/functions/uso-en-java.md'),
   'Compute · Functions',
   'Dos lados de una función: **el cuerpo** (un manejador Java puro que la FDK invoca, declarado en `func.yaml`) y **el cliente** que la llama con `FunctionsInvokeClient`, con reintentos de espera exponencial y *jitter* solo ante fallas transitorias.',
   'oci:\n  auth: instance\n  region: sa-saopaulo-1',

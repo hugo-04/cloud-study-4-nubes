@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 REGLA = '''
 import java.util.ArrayList;
@@ -219,7 +219,7 @@ sec = dict(
     dict(n='auditoria', v='GET', p='/auditoria', args=[('String', 'tenancy', 'q')], ret='List<ServicioDeGrupos.Revision>', call='s.auditar(tenancy)'),
     dict(n='revisar', v='GET', p='/revisar', args=[('String', 'regla', 'q')], ret='List<String>', call='s.revisarRegla(regla)', cpu=True),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/02-iam/dynamic-groups-principals/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/02-iam/dynamic-groups-principals/uso-en-java.md'),
   'IAM · Grupos dinámicos y principales',
   'Tres piezas: un **analizador de reglas** (`ALL`/`ANY`, con prueba de pertenencia sin red), un **validador** que avisa de reglas peligrosas y un **auditor** que lee los grupos reales con el SDK. La autenticación de la propia aplicación (sección 2.1) es el uso de los principales.',
   'oci:\n  auth: instance   # config | instance | oke | resource\n  region: sa-saopaulo-1',

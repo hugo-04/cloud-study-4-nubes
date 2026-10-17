@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 HALL = '''
 import java.util.List;
@@ -141,7 +141,7 @@ sec = dict(
     dict(n='auditoria', v='GET', p='/auditoria', args=[('String', 'compartimento', 'q')], ret='List<ServicioDePoliticas.HallazgoDePolitica>', call='s.auditar(compartimento)'),
     dict(n='revisar', v='POST', p='/revisar', args=[('List<String>', 'frases', 'b')], ret='List<Hallazgo>', call='s.revisar(frases)', cpu=True),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/02-iam/politicas-compartimentos/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/02-iam/politicas-compartimentos/uso-en-java.md'),
   'IAM · Compartimentos, grupos y políticas',
   'Dos herramientas: un **linter de frases** (puro, sin red: detecta `any-user` sin condición y `manage all-resources`) y un **auditor** que lee las políticas reales de un compartimento con el SDK y las pasa por el linter.',
   'oci:\n  auth: instance\n  region: sa-saopaulo-1',

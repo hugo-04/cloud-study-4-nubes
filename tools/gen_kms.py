@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 LLAVES = '''
 /** Lo que necesita el sobre de Vault: una llave de datos nueva y poder abrir una envuelta. */
@@ -182,7 +182,7 @@ sec = dict(
     dict(n='cifrar', v='POST', p='/cifrar', args=[('ServicioDeCifrado.Peticion', 'p', 'b')], ret='ServicioDeCifrado.Sobre', call='s.cifrar(p)'),
     dict(n='descifrar', v='GET', p='/descifrar', args=[('String', 'id', 'q'), ('String', 'valor', 'q')], ret='String', call='s.descifrar(id, valor)'),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/03-secretos/vault-kms/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/03-secretos/vault-kms/uso-en-java.md'),
   'Secretos · Vault: llaves (KMS)',
   'Un **cifrado de sobre**: el núcleo (AES-256-GCM con contexto autenticado) es Java puro y se prueba sin red; solo la obtención y apertura de la llave de datos usa `KmsCryptoClient` con el endpoint de criptografía del vault.',
   'oci:\n  auth: instance\nkms:\n  endpoint-cripto: https://xxxx-crypto.kms.sa-saopaulo-1.oraclecloud.com\n  llave-id: ocid1.key.oc1.sa-saopaulo-1.xxxx',

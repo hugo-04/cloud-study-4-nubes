@@ -14,6 +14,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · OCI SDK for Java 3.97 · Terraform
 | 01 | [Red](01-red/README.md) | VCN y subredes, listas de seguridad/NSG/rutas, DRG y peering, Service Gateway + endpoints privados + DNS, diagnóstico | Listo |
 | 02 | [IAM](02-iam/README.md) | Compartimentos y políticas, identity domains, grupos dinámicos, workload identity en OKE | Listo |
 | 03 | [Secretos y claves](03-secretos/README.md) | Vault: llaves de cifrado (KMS) y Vault: secretos | Listo |
+| 04 | [Compute](04-compute/README.md) | VM, OKE, Functions, Container Instances | Listo |
 
 ## Cómo usar cada carpeta de servicio
 

@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 VER = '''
 /** Versión de Kubernetes: v1.31.1 → (1, 31, 1). */
@@ -160,7 +160,7 @@ sec = dict(
     dict(n='auditoria', v='GET', p='/auditoria', args=[('String', 'compartimento', 'q')], ret='List<AuditorDeVersiones.Hallazgo>', call='s.auditar(compartimento)'),
     dict(n='revisar', v='POST', p='/revisar', args=[('List<AuditorDeVersiones.Cluster>', 'clusters', 'b')], ret='List<AuditorDeVersiones.Hallazgo>', call='s.auditarLista(clusters)', cpu=True),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/04-compute/oke/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/04-compute/oke/uso-en-java.md'),
   'Compute · OKE',
   'Un **auditor de versiones**: compara la versión de Kubernetes del plano de control con la de cada node pool (¿más nuevo que el plano? ¿demasiado atrás? ¿versión fuera de soporte?) leyendo los datos reales con `ContainerEngineClient`. La lógica es pura y se prueba sin red.',
   'oci:\n  auth: instance\n  region: sa-saopaulo-1',

@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0, '/tmp/claude-0/-home-claude/91a1f301-d8cc-52b1-b5f2-6ef32b63def7/scratchpad')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jdoc
 HOR = '''
 import java.time.DayOfWeek;
@@ -166,7 +166,7 @@ sec = dict(
     dict(n='plan', v='GET', p='/plan', args=[('String', 'compartimento', 'q')], ret='List<PlanificadorDeEncendido.Accion>', call='s.plan(compartimento)'),
     dict(n='aplicar', v='POST', p='/aplicar', args=[('String', 'compartimento', 'q')], ret='List<PlanificadorDeEncendido.Accion>', call='s.aplicar(compartimento)'),
   ])
-jdoc.doc('/home/claude/cloud-study-4-nubes/oci/04-compute/compute-instancias/uso-en-java.md',
+jdoc.doc(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../oci/04-compute/compute-instancias/uso-en-java.md'),
   'Compute · Instancias',
   'Un **planificador de horarios**: lee la etiqueta `horario` (`lv-08-19`) de cada instancia, decide con un reloj inyectable qué encender o apagar en la zona `America/Lima` y lo ejecuta con `ComputeClient`. El endpoint `plan` simula; `aplicar` ejecuta.',
   'oci:\n  auth: instance\n  region: sa-saopaulo-1\nhorarios:\n  zona: America/Lima',

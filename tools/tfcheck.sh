@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # valida todos los ejemplos terraform bajo el repo (o los pasados como argumento).
 # Copia toda la carpeta "ejemplos" (para que file("../xml/..") funcione) y valida en ella.
-ROOT=/home/claude/cloud-study-4-nubes
-TOFU=${TOFU:-/tmp/tfinst/bin/tofu}
+ROOT=$(cd "$(dirname "$0")/.." && pwd)
+TOFU=${TOFU:-/tmp/tfnew/tofu}
 fail=0
 dirs=("$@")
 if [ ${#dirs[@]} -eq 0 ]; then mapfile -t dirs < <(find $ROOT -path '*/ejemplos/terraform' -type d); fi
