@@ -1,0 +1,21 @@
+[
+  {
+    "id": "9c1f0b5e-4b3a-4f0e-9a52-1d2e3f4a5b6c",
+    "topic": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-subidas-dev/providers/Microsoft.Storage/storageAccounts/stsubidasdev001",
+    "subject": "/blobServices/default/containers/cuarentena/blobs/2026/10/3f2b8c1e-7a41-4d6b-8f10-6c1d2e3a4b5c",
+    "eventType": "Microsoft.Storage.BlobCreated",
+    "eventTime": "2026-10-16T14:05:11.123Z",
+    "data": {
+      "api": "PutBlob",
+      "clientRequestId": "c0ffee00-0000-0000-0000-000000000001",
+      "contentType": "application/pdf",
+      "contentLength": 482113,
+      "blobType": "BlockBlob",
+      "eTag": "0x8DCD0000000001",
+      "url": "https://stsubidasdev001.blob.core.windows.net/cuarentena/2026/10/3f2b8c1e-7a41-4d6b-8f10-6c1d2e3a4b5c",
+      "sequencer": "00000000000000000000000000012345000000000001abcd"
+    },
+    "dataVersion": "",
+    "metadataVersion": "1"
+  }
+]

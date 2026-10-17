@@ -1,0 +1,11 @@
+{
+  "mensajeId": "subida-3f2b8c1e-7a41-4d6b-8f10-6c1d2e3a4b5c",
+  "tipo": "archivo.validado",
+  "version": 1,
+  "subidaId": "3f2b8c1e-7a41-4d6b-8f10-6c1d2e3a4b5c",
+  "blobUrl": "https://stsubidasdev001.blob.core.windows.net/validados/3f2b8c1e-7a41-4d6b-8f10-6c1d2e3a4b5c",
+  "etag": "0x8DCD0000000002",
+  "tamano": 482113,
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "contentType": "application/pdf"
+}
