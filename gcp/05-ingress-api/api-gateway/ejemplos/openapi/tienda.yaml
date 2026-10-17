@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  title: tienda
+  version: "1.0.0"
+schemes: [https]
+produces: [application/json]
+x-google-backend:
+  address: https://pedidos-abc123-tl.a.run.app
+  path_translation: APPEND_PATH_TO_ADDRESS
+  deadline: 15.0
+securityDefinitions:
+  llave:
+    type: apiKey
+    name: key
+    in: query
+  usuarios:
+    authorizationUrl: ""
+    flow: implicit
+    type: oauth2
+    x-google-issuer: "https://id.modalima.example"
+    x-google-jwks_uri: "https://id.modalima.example/.well-known/jwks.json"
+    x-google-audiences: "tienda-api"
+x-google-management:
+  metrics:
+    - name: lecturas
+      displayName: Lecturas del catálogo
+      valueType: INT64
+      metricKind: DELTA
+  quota:
+    limits:
+      - name: lecturas-por-minuto
+        metric: lecturas
+        unit: 1/min/{project}
+        values:
+          STANDARD: 600
+paths:
+  /v1/catalogo/{sku}:
+    get:
+      operationId: verProducto
+      parameters:
+        - { name: sku, in: path, required: true, type: string }
+      security: [{ llave: [] }]
+      x-google-quota:
+        metricCosts:
+          lecturas: 1
+      responses:
+        "200": { description: ok }
+  /v1/pedidos:
+    post:
+      operationId: crearPedido
+      security: [{ usuarios: [] }]
+      responses:
+        "201": { description: creado }

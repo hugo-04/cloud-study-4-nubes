@@ -6,7 +6,7 @@
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` capítulos 00–11 | ✅ Completo |
-| `gcp/` | 🟡 00–04 listos; faltan 05–11 |
+| `gcp/` | 🟡 00–05 listos; faltan 06–11 |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
@@ -60,7 +60,7 @@ Referencia viva: cualquier unidad de `oci/02-iam/*` o `oci/04-compute/*` (la má
 
 **Reconstruir el entorno en una sesión nueva** (las rutas `/tmp/...` del entorno anterior ya no existen):
 1. Copiar `tools/maven/oci-spring-pom.xml` a `/tmp/oci-spring/pom.xml` y `oci-quarkus-pom.xml` a `/tmp/oci-quarkus/pom.xml` (idem `gcp-*`); `mvn -q compile` en cada uno y `mvn dependency:build-classpath -Dmdep.outputFile=/tmp/cp-oci.txt`.
-2. Descargar OpenTofu (release de GitHub) a `/tmp/tfnew/tofu`. **Si GitHub está bloqueado por el proxy** (pasó en la nube): bajar Terraform de `releases.hashicorp.com/terraform/` a `/tmp/tfnew/tofu` y los providers (`terraform-provider-oci` 7.x, `terraform-provider-google`) del mismo sitio a un *filesystem mirror* (`/tmp/tfmirror/registry.terraform.io/<ns>/<nombre>/<versión>/linux_amd64/`) con `~/.terraformrc`: `provider_installation { filesystem_mirror { path = "/tmp/tfmirror" } }`.
+2. Descargar OpenTofu (release de GitHub) a `/tmp/tfnew/tofu`. **Si GitHub está bloqueado por el proxy** (pasó en la nube): bajar Terraform de `releases.hashicorp.com/terraform/` a `/tmp/tfnew/tofu` y los providers (`terraform-provider-oci` 7.x, `terraform-provider-google` y `terraform-provider-google-beta` 8.x) del mismo sitio a un *filesystem mirror* (`/tmp/tfmirror/registry.terraform.io/<ns>/<nombre>/<versión>/linux_amd64/`) con `~/.terraformrc`: `provider_installation { filesystem_mirror { path = "/tmp/tfmirror" } }`.
 3. `source tools/oci-env/oci-env.sh` (las rutas ya son relativas al repo; no borres `JAVA_TOOL_OPTIONS`, el proxy la necesita).
 4. Flujo por unidad: escribir docs → `tofu fmt` + `tfcheck.sh` → `gen_*.py`-style con `jdoc.doc(...)` → `jc <ruta>/uso-en-java.md` → prueba rápida de la lógica pura no trivial → `nbgen` → linkcheck → grep de aislamiento → commit/push por capítulo.
 
