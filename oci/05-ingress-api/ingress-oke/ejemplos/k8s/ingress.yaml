@@ -1,0 +1,55 @@
+# Ingress con el OCI Native Ingress Controller (verifica apiVersion y campos vigentes del complemento)
+apiVersion: ingress.oraclecloud.com/v1beta1
+kind: IngressClassParameters
+metadata:
+  name: tienda-lb
+  namespace: plataforma
+spec:
+  compartmentId: ocid1.compartment.oc1..aaaa
+  subnetId: ocid1.subnet.oc1.sa-saopaulo-1.aaaa
+  loadBalancerName: lb-ingress-tienda
+  isPrivate: false
+  minBandwidthMbps: 10
+  maxBandwidthMbps: 100
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: oci-nativo
+spec:
+  controller: oci.oraclecloud.com/native-ingress-controller
+  parameters:
+    apiGroup: ingress.oraclecloud.com
+    kind: IngressClassParameters
+    name: tienda-lb
+    namespace: plataforma
+    scope: Namespace
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tienda
+  namespace: tienda
+spec:
+  ingressClassName: oci-nativo
+  tls:
+    - hosts: [tienda.modalima.example]
+      secretName: tienda-tls
+  rules:
+    - host: tienda.modalima.example
+      http:
+        paths:
+          - path: /catalogo
+            pathType: Prefix
+            backend:
+              service:
+                name: catalogo
+                port:
+                  number: 8080
+          - path: /pedidos
+            pathType: Prefix
+            backend:
+              service:
+                name: pedidos
+                port:
+                  number: 8080

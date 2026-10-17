@@ -1,0 +1,19 @@
+# Service expuesto con un Network Load Balancer interno (verifica nombres de anotaciones vigentes)
+apiVersion: v1
+kind: Service
+metadata:
+  name: pagos-grpc
+  namespace: pagos
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "nlb"
+    oci-network-load-balancer.oraclecloud.com/internal: "true"
+    oci-network-load-balancer.oraclecloud.com/oci-network-security-groups: "ocid1.networksecuritygroup.oc1.sa-saopaulo-1.aaaa"
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    app: pagos
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
