@@ -16,7 +16,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 (con extensiones Quarkiverse Amazon S
 | 03 | [Secretos](03-secretos/README.md) | Secrets Manager, KMS, Parameter Store | Listo |
 | 04 | [Compute](04-compute/README.md) | ECS Fargate, ECS Express Mode, EKS, Lambda | Listo |
 | 05 | [Ingress y API](05-ingress-api/README.md) | ALB/NLB, API Gateway, CloudFront + WAF, Ingress en EKS | Listo |
-| 06 | Storage | S3, URL prefirmadas, Claim Check, eventos de S3, EFS | Pendiente |
+| 06 | [Storage](06-storage/README.md) | S3, URLs prefirmadas, Claim Check, eventos de S3, EFS | Listo |
 | 07 | Mensajería | SQS, SNS, EventBridge, Kinesis Data Streams, MSK (Kafka) | Pendiente |
 | 08 | Datos | RDS / Aurora, DynamoDB, ElastiCache (Redis) | Pendiente |
 | 09 | Gobierno | Organizations + SCP, Config, CloudTrail, Budgets / Cost Explorer | Pendiente |

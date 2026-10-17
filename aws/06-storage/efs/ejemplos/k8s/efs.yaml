@@ -1,0 +1,53 @@
+# Requiere el complemento "aws-efs-csi-driver" instalado en el clúster EKS.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap          # un punto de acceso por volumen
+  fileSystemId: fs-0123456789abcdef0
+  directoryPerms: "700"
+  uid: "1001"
+  gid: "1001"
+  basePath: "/dinamico"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: datos-reportes
+  namespace: reportes
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi                   # obligatorio por la API, pero EFS es elástico: no limita
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportes
+  namespace: reportes
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: reportes }
+  template:
+    metadata:
+      labels: { app: reportes }
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+        - name: reportes
+          image: 111122223333.dkr.ecr.us-east-1.amazonaws.com/reportes:1.0.0
+          volumeMounts:
+            - name: datos
+              mountPath: /mnt/datos
+      volumes:
+        - name: datos
+          persistentVolumeClaim:
+            claimName: datos-reportes

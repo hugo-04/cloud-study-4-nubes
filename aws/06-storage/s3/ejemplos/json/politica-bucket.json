@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloTLS",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::BUCKET", "arn:aws:s3:::BUCKET/*"],
+      "Condition": { "Bool": { "aws:SecureTransport": "false" } }
+    },
+    {
+      "Sid": "SoloDesdeMiVpcEndpoint",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::BUCKET", "arn:aws:s3:::BUCKET/*"],
+      "Condition": {
+        "StringNotEquals": { "aws:SourceVpce": "vpce-0123456789abcdef0" },
+        "ArnNotLike": { "aws:PrincipalArn": "arn:aws:iam::111122223333:role/prod-admin-*" }
+      }
+    }
+  ]
+}

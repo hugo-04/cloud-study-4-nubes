@@ -1,0 +1,30 @@
+{
+  "family": "modalima-reportes",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::111122223333:role/prod-ecs-ejecucion",
+  "taskRoleArn": "arn:aws:iam::111122223333:role/prod-reportes-tarea",
+  "volumes": [
+    {
+      "name": "datos",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "fs-0123456789abcdef0",
+        "transitEncryption": "ENABLED",
+        "authorizationConfig": {
+          "accessPointId": "fsap-0123456789abcdef0",
+          "iam": "ENABLED"
+        }
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "reportes",
+      "image": "111122223333.dkr.ecr.us-east-1.amazonaws.com/reportes:1.0.0",
+      "essential": true,
+      "mountPoints": [{ "sourceVolume": "datos", "containerPath": "/mnt/datos", "readOnly": false }]
+    }
+  ]
+}

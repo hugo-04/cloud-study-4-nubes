@@ -1,0 +1,25 @@
+{
+  "version": "0",
+  "id": "17793124-05d4-b198-2fde-7ededc63b103",
+  "detail-type": "Object Created",
+  "source": "aws.s3",
+  "account": "111122223333",
+  "time": "2026-10-16T12:00:05Z",
+  "region": "us-east-1",
+  "resources": ["arn:aws:s3:::modalima-prod-datos-111122223333-us-east-1"],
+  "detail": {
+    "version": "0",
+    "bucket": { "name": "modalima-prod-datos-111122223333-us-east-1" },
+    "object": {
+      "key": "exportes/ventas octubre ñ.csv",
+      "size": 20480,
+      "etag": "d41d8cd98f00b204e9800998ecf8427e",
+      "version-id": "3HL4kqtJlcpXroDTDmJ.rmSpXd3dIbrHY",
+      "sequencer": "0055AED6DCD90281E5"
+    },
+    "request-id": "N4N7GDK58NMKJ12R",
+    "requester": "111122223333",
+    "source-ip-address": "203.0.113.10",
+    "reason": "PutObject"
+  }
+}

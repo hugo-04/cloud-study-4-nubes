@@ -1,0 +1,13 @@
+{
+  "expiration": "2026-10-16T12:05:00.000Z",
+  "conditions": [
+    { "bucket": "modalima-prod-subidas-111122223333-us-east-1" },
+    { "key": "uploads/modalima/avatares/2026/10/16/0b9a4c1e.png" },
+    ["content-length-range", 1, 5242880],
+    { "Content-Type": "image/png" },
+    { "x-amz-algorithm": "AWS4-HMAC-SHA256" },
+    { "x-amz-credential": "ASIAEXAMPLE/20261016/us-east-1/s3/aws4_request" },
+    { "x-amz-date": "20261016T120000Z" },
+    { "success_action_status": "201" }
+  ]
+}

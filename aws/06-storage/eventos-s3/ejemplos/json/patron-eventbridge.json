@@ -1,0 +1,12 @@
+{
+  "source": ["aws.s3"],
+  "detail-type": ["Object Created"],
+  "detail": {
+    "bucket": { "name": ["modalima-prod-datos-111122223333-us-east-1"] },
+    "object": {
+      "key": [{ "prefix": "exportes/" }],
+      "size": [{ "numeric": [">", 0] }]
+    },
+    "reason": ["PutObject", "CompleteMultipartUpload"]
+  }
+}

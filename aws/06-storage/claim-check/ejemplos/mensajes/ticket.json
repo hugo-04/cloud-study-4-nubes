@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "bucket": "modalima-prod-claimcheck-111122223333-us-east-1",
+  "clave": "cc/pedidos/2026/10/16/6f1c1b52-52c1-4a37-9d5a-0d8b6a0f9b11",
+  "versionId": "3HL4kqtJlcpXroDTDmJ.rmSpXd3dIbrHY",
+  "tamano": 83886080,
+  "sha256": "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=",
+  "contentType": "application/pdf",
+  "correlacion": "pedido-48213",
+  "creado": "2026-10-16T12:00:00Z"
+}
