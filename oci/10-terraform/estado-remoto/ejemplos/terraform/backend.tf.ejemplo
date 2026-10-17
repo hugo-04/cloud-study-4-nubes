@@ -1,0 +1,28 @@
+# Opción A — backend nativo de OCI (Terraform 1.12+; verifica atributos vigentes)
+terraform {
+  backend "oci" {
+    bucket    = "tfstate-modalima"
+    namespace = "NAMESPACE"
+    key       = "modalima/prod/tienda.tfstate"
+    region    = "sa-saopaulo-1"
+    # auth = "InstancePrincipal" en runners dentro de OCI
+  }
+}
+
+# Opción B — OpenTofu/Terraform con la API compatible con S3 de Object Storage
+# terraform {
+#   backend "s3" {
+#     bucket                      = "tfstate-modalima"
+#     key                         = "modalima/prod/tienda.tfstate"
+#     region                      = "sa-saopaulo-1"
+#     endpoints                   = { s3 = "https://NAMESPACE.compat.objectstorage.sa-saopaulo-1.oraclecloud.com" }
+#     use_path_style              = true
+#     skip_region_validation      = true
+#     skip_credentials_validation = true
+#     skip_requesting_account_id  = true
+#     skip_metadata_api_check     = true
+#     skip_s3_checksum            = true
+#     use_lockfile                = true
+#     # credenciales: la Customer Secret Key de OCI (id + secreto) en las variables de entorno que lee el backend s3; nunca en el archivo
+#   }
+# }

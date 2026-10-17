@@ -6,8 +6,8 @@
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` 00 Fundamentos, 01 Red, 02 IAM, 03 Secretos | ✅ Completo y subido |
-| `oci/04` a `oci/09` (compute, ingress, storage, mensajería, datos, gobierno) | ✅ Completo y subido |
-| `oci/10…11` | ⬜ Pendiente |
+| `oci/04` a `oci/10` | ✅ Completo y subido |
+| `oci/11` casos integrados | ⬜ Pendiente |
 | `gcp/` | ⬜ Pendiente (solo estructura base si existe) |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |

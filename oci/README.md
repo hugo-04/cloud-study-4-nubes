@@ -20,6 +20,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · OCI SDK for Java 3.97 · Terraform
 | 07 | [Mensajería](07-mensajeria/README.md) | Queue, Notifications, Events, Streaming (compatible con Kafka) | Listo |
 | 08 | [Datos](08-datos/README.md) | Autonomous Database, MySQL HeatWave, PostgreSQL, NoSQL, OCI Cache | Listo |
 | 09 | [Gobierno](09-gobierno/README.md) | Compartimentos, etiquetas y cuotas; Cloud Guard y Security Zones; Audit; presupuestos y costos | Listo |
+| 10 | [Terraform](10-terraform/README.md) | Estado remoto, módulos y entornos, autenticación y pipelines | Listo |
 
 ## Cómo usar cada carpeta de servicio
 
