@@ -1,0 +1,8 @@
+entorno           = "prod"
+vpc_id            = "vpc-0123456789abcdef0"
+subredes_privadas = ["subnet-aaa", "subnet-bbb"]
+sg_balanceador_id = "sg-0123456789abcdef0"
+target_group_arn  = "arn:aws:elasticloadbalancing:us-east-1:111122223333:targetgroup/pedidos/0123456789abcdef"
+imagen            = "111122223333.dkr.ecr.us-east-1.amazonaws.com/pedidos@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+secreto_db_arn    = "arn:aws:secretsmanager:us-east-1:111122223333:secret:prod/pedidos/db-AbCdEf"
+clave_kms_arn     = "arn:aws:kms:us-east-1:111122223333:key/11111111-2222-3333-4444-555555555555"

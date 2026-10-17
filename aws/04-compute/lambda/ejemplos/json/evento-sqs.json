@@ -1,0 +1,26 @@
+{
+  "Records": [
+    {
+      "messageId": "11111111-aaaa-bbbb-cccc-000000000001",
+      "receiptHandle": "AQEB...",
+      "body": "{\"pedidoId\":\"P-1001\",\"clienteId\":\"C-77\",\"total\":149.90}",
+      "attributes": { "ApproximateReceiveCount": "1", "SentTimestamp": "1767225600000" },
+      "messageAttributes": {},
+      "md5OfBody": "d41d8cd98f00b204e9800998ecf8427e",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:111122223333:pedidos-pagados",
+      "awsRegion": "us-east-1"
+    },
+    {
+      "messageId": "11111111-aaaa-bbbb-cccc-000000000002",
+      "receiptHandle": "AQEB...",
+      "body": "esto-no-es-json",
+      "attributes": { "ApproximateReceiveCount": "1", "SentTimestamp": "1767225601000" },
+      "messageAttributes": {},
+      "md5OfBody": "d41d8cd98f00b204e9800998ecf8427e",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:111122223333:pedidos-pagados",
+      "awsRegion": "us-east-1"
+    }
+  ]
+}

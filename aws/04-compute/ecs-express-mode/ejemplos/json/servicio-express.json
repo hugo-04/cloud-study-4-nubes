@@ -1,0 +1,31 @@
+{
+  "serviceName": "pedidos",
+  "executionRoleArn": "arn:aws:iam::111122223333:role/prod-pedidos-ejecucion",
+  "infrastructureRoleArn": "arn:aws:iam::111122223333:role/prod-express-infraestructura",
+  "taskRoleArn": "arn:aws:iam::111122223333:role/prod-pedidos-tarea",
+  "primaryContainer": {
+    "image": "111122223333.dkr.ecr.us-east-1.amazonaws.com/pedidos@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "containerPort": 8080,
+    "environment": [
+      { "name": "SERVER_SHUTDOWN", "value": "graceful" },
+      { "name": "JAVA_TOOL_OPTIONS", "value": "-XX:MaxRAMPercentage=75 -XX:+ExitOnOutOfMemoryError" }
+    ],
+    "secrets": [
+      { "name": "DB_SECRETO", "valueFrom": "arn:aws:secretsmanager:us-east-1:111122223333:secret:prod/pedidos/db-AbCdEf" }
+    ]
+  },
+  "healthCheckPath": "/actuator/health/readiness",
+  "cpu": "1024",
+  "memory": "2048",
+  "networkConfiguration": {
+    "subnets": ["subnet-aaa", "subnet-bbb"],
+    "securityGroups": ["sg-0123456789abcdef0"]
+  },
+  "scalingTarget": {
+    "minTaskCount": 2,
+    "maxTaskCount": 10,
+    "autoScalingMetric": "AVERAGE_CPU",
+    "autoScalingTargetValue": 60
+  },
+  "tags": [{ "key": "equipo", "value": "pedidos" }, { "key": "entorno", "value": "prod" }]
+}

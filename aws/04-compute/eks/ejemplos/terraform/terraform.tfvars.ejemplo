@@ -1,0 +1,6 @@
+entorno            = "prod"
+version_kubernetes = "1.34"   # usa una versión vigente en EKS
+subredes_privadas  = ["subnet-aaa", "subnet-bbb", "subnet-ccc"]
+clave_kms_arn      = "arn:aws:kms:us-east-1:111122223333:key/11111111-2222-3333-4444-555555555555"
+rol_admin_arn      = "arn:aws:iam::111122223333:role/prod-admin-eks"
+rol_pedidos_arn    = "arn:aws:iam::111122223333:role/prod-pedidos-pod"

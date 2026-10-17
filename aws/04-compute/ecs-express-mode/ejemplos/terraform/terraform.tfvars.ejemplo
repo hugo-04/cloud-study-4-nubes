@@ -1,0 +1,4 @@
+entorno           = "prod"
+imagen            = "111122223333.dkr.ecr.us-east-1.amazonaws.com/pedidos@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+subredes_privadas = ["subnet-aaa", "subnet-bbb"]
+secreto_db_arn    = "arn:aws:secretsmanager:us-east-1:111122223333:secret:prod/pedidos/db-AbCdEf"

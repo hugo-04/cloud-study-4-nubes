@@ -1,0 +1,41 @@
+{
+  "family": "pedidos",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": { "cpuArchitecture": "ARM64", "operatingSystemFamily": "LINUX" },
+  "executionRoleArn": "arn:aws:iam::111122223333:role/prod-pedidos-ejecucion",
+  "taskRoleArn": "arn:aws:iam::111122223333:role/prod-pedidos-tarea",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "111122223333.dkr.ecr.us-east-1.amazonaws.com/pedidos@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "essential": true,
+      "portMappings": [{ "containerPort": 8080, "protocol": "tcp" }],
+      "environment": [
+        { "name": "JAVA_TOOL_OPTIONS", "value": "-XX:MaxRAMPercentage=75 -XX:+ExitOnOutOfMemoryError" },
+        { "name": "SERVER_SHUTDOWN", "value": "graceful" },
+        { "name": "CONFIG_RUTA", "value": "/prod/pedidos" }
+      ],
+      "secrets": [
+        { "name": "DB_SECRETO", "valueFrom": "arn:aws:secretsmanager:us-east-1:111122223333:secret:prod/pedidos/db-AbCdEf" }
+      ],
+      "stopTimeout": 60,
+      "readonlyRootFilesystem": true,
+      "linuxParameters": { "initProcessEnabled": true },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health/liveness || exit 1"],
+        "interval": 15, "timeout": 5, "retries": 3, "startPeriod": 90
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/prod/pedidos",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "app"
+        }
+      }
+    }
+  ]
+}
