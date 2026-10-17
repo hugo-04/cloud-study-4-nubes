@@ -10,4 +10,6 @@ Repo de estudio de Hugo (ingeniero de software, español informal): 4 nubes **in
 - Empresas ficticias de ejemplo: **ModaLima** y **Café Andino**.
 - Versiones objetivo: Java 21, Spring Boot 4.1.x, Quarkus 3.40.x, OCI SDK 3.97.2, Google libraries-bom 26.90.0, OpenTofu, provider `oracle/oci ~> 7.0`.
 
+- **Al finalizar todo:** reorganizar el repo (una carpeta por nube + `transversal/` + `tools/`) y **eliminar lo que ya no encaja** con la nueva distribución (carpetas viejas numeradas de la raíz, plantilla vieja). Detalle en `HANDOFF.md`, sección 4.
+
 Estado, pendientes y cómo trabajar: **`HANDOFF.md`**.

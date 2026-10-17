@@ -10,7 +10,7 @@
 | `oci/05…11` | ⬜ Pendiente |
 | `gcp/` | ⬜ Pendiente (solo estructura base si existe) |
 | `transversal/` | ⬜ Solo carpetas vacías |
-| Cierre | ⬜ README raíz, borrar carpetas viejas, linkcheck final |
+| Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
 ## Pendiente, en orden
 ### 1. Terminar OCI
@@ -30,8 +30,17 @@ Mismo molde que OCI/AWS, ~45 unidades, servicios reales (IAM, VPC, Secret Manage
 ### 3. Módulos transversales (`transversal/`)
 `terraform`, `kafka` (los enlaces `../../../transversal/kafka/README.md` de `aws/07-mensajeria/msk-kafka` deben resolver), `spring-boot`, `quarkus` (imperativo + reactivo), `programacion-reactiva` (WebFlux, Mutiny, RxJava), `patrones-de-diseno` (todos los GoF), `patrones-microservicios`, `arquitectura-y-testing` (TDD, BDD, hexagonal, clean, monolito vs microservicios, cuándo sí/no, organización de capas y paquetes), `typescript-react-angular`. Todo enfocado a microservicios con casos reales; cada módulo con `notebooklm.md`.
 
-### 4. Cierre
-Reescribir `README.md` raíz (tabla de nubes y módulos), **borrar** las carpetas viejas mezcladas (`00-fundamentos … 12-casos-integrados`, `99-prompts-notebooklm/`, `PLANTILLA-SERVICIO.md`) una vez confirmado que su contenido ya está migrado, correr `tools/linkcheck.py`, grep de aislamiento y push.
+### 4. Fase final: reorganizar el repo y eliminar lo obsoleto (OBLIGATORIA al terminar todo lo anterior)
+La orientación del repo cambió: antes eran carpetas numeradas mezclando nubes; ahora es **una carpeta por nube** (`azure/`, `aws/`, `oci/`, `gcp/`) **+ `transversal/`**. Al finalizar, deja el repo limpio:
+1. **Verifica la migración** antes de borrar: cada tema de las carpetas viejas debe tener su equivalente en una nube o en `transversal/` (si algo útil no se migró, pásalo primero).
+2. **Elimina** (con `git rm -r`) lo que ya no encaja en la nueva distribución:
+   - Carpetas viejas de la raíz: `00-fundamentos`, `01-networking`, `02-comunicacion-privada-y-diagnostico`, `03-iam-seguridad`, `04-secretos-y-claves`, `05-compute`, `06-ingress-y-api`, `07-storage`, `08-mensajeria-y-streaming`, `09-bases-de-datos`, `10-politicas-y-gobierno`, `11-terraform-iac`, `12-casos-integrados`, `99-prompts-notebooklm`.
+   - `PLANTILLA-SERVICIO.md` (la plantilla vigente está descrita en este archivo y en cualquier unidad reciente).
+   - Cualquier archivo suelto, zip, borrador o duplicado que no pertenezca a una nube, a `transversal/`, a `tools/` o a los archivos raíz.
+3. **Reorganiza lo que quede:** raíz solo con `README.md`, `CLAUDE.md`, `HANDOFF.md`, `azure/`, `aws/`, `oci/`, `gcp/`, `transversal/`, `tools/`. Sin carpetas vacías; sin nombres inconsistentes.
+4. **Reescribe `README.md` raíz:** tabla de nubes y de módulos transversales con su estado, cómo navegar (nube → capítulo → servicio) y dónde están los prompts de NotebookLM.
+5. **Revisión final:** `tools/linkcheck.py` sin enlaces rotos (incluidos los de `transversal/kafka`), grep de aislamiento por nube, todos los `notebooklm.md` presentes.
+6. **Actualiza este `HANDOFF.md`** a "proyecto completo" (o déjalo solo con pendientes reales) y haz el push final a `main`.
 
 ## Molde de una unidad de servicio
 ```
@@ -70,5 +79,5 @@ Notas técnicas: los bloques de test rápido van en el paquete `chk.bN` (las cla
 ## Cómo pasarlo a Claude Code en la nube
 1. Entra a **claude.ai/code** (Claude Code en la web) y conecta el repo privado `hugo-04/cloud-study-4-nubes` (rama `main`).
 2. Pega este prompt:
-   > Lee `CLAUDE.md` y `HANDOFF.md` y continúa donde nos quedamos: termina OCI (empezando por `04-compute/container-instances`), luego GCP, los módulos transversales y el cierre. Haz commit y push a `main` al terminar cada capítulo, sin preguntar. Avanza rápido y gasta pocos tokens.
+   > Lee `CLAUDE.md` y `HANDOFF.md` y continúa donde nos quedamos: termina OCI (empezando por `04-compute/container-instances`), luego GCP, los módulos transversales y la fase final (reorganizar el repo y eliminar lo obsoleto). Haz commit y push a `main` al terminar cada capítulo, sin preguntar. Avanza rápido y gasta pocos tokens.
 3. La sesión nueva no tiene mis archivos temporales: todo lo necesario (herramientas, poms, reglas) está en `tools/`, `CLAUDE.md` y este archivo.
