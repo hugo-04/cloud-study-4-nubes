@@ -1,0 +1,14 @@
+# Cadenas de acceso (ACL) para ElastiCache. Una por usuario; la aplicación solo toca su prefijo.
+
+# Usuario "default": desactivado (no usable); debe existir en el grupo de usuarios
+off ~* -@all
+
+# Aplicación de catálogo: lee/escribe solo app:prod:* y no puede usar comandos peligrosos
+on ~app:prod:* &* +@all -@dangerous
+
+# Solo lectura para reportes
+on ~app:prod:* &* +@read -@dangerous
+
+# Comprobar desde redis-cli (con TLS):
+#   redis-cli --tls -h <endpoint> -p 6379 --user app --pass '<secreto>' ACL WHOAMI
+#   redis-cli --tls ... ACL GETUSER app

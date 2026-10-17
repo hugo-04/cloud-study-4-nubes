@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Consultar",
+      "Effect": "Allow",
+      "Action": ["elasticache:DescribeReplicationGroups", "elasticache:DescribeCacheClusters", "elasticache:DescribeServerlessCaches", "elasticache:DescribeEvents", "elasticache:DescribeSnapshots"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "EnsayarFailover",
+      "Effect": "Allow",
+      "Action": ["elasticache:TestFailover", "elasticache:CreateSnapshot"],
+      "Resource": "arn:aws:elasticache:us-east-1:111122223333:replicationgroup:prod-cache"
+    }
+  ]
+}

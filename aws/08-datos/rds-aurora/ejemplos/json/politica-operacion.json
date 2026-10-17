@@ -1,0 +1,22 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Observar",
+      "Effect": "Allow",
+      "Action": [
+        "rds:DescribeDBClusters",
+        "rds:DescribeDBInstances",
+        "rds:DescribeEvents",
+        "rds:DescribePendingMaintenanceActions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "EnsayarFailover",
+      "Effect": "Allow",
+      "Action": "rds:FailoverDBCluster",
+      "Resource": "arn:aws:rds:us-east-1:111122223333:cluster:prod-pedidos"
+    }
+  ]
+}

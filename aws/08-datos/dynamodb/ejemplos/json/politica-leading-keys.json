@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloMisClaves",
+      "Effect": "Allow",
+      "Action": ["dynamodb:GetItem", "dynamodb:Query", "dynamodb:PutItem", "dynamodb:UpdateItem"],
+      "Resource": [
+        "arn:aws:dynamodb:us-east-1:111122223333:table/prod-pedidos",
+        "arn:aws:dynamodb:us-east-1:111122223333:table/prod-pedidos/index/*"
+      ],
+      "Condition": {
+        "ForAllValues:StringLike": { "dynamodb:LeadingKeys": ["CLIENTE#${aws:PrincipalTag/cliente}"] }
+      }
+    }
+  ]
+}

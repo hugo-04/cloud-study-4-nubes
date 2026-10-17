@@ -1,0 +1,10 @@
+{
+  "pk": { "S": "CLIENTE#42" },
+  "sk": { "S": "ORDEN#2026-10-16T15:04:05Z#ord-48213" },
+  "gsi1pk": { "S": "ESTADO#PAGADO" },
+  "gsi1sk": { "S": "2026-10-16T15:04:05Z#ord-48213" },
+  "cliente": { "S": "42" },
+  "total": { "N": "189.90" },
+  "version": { "N": "1" },
+  "items": { "L": [ { "M": { "sku": { "S": "A1" }, "cantidad": { "N": "2" } } } ] }
+}
