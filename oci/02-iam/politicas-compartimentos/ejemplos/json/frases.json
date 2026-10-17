@@ -1,0 +1,11 @@
+{
+  "politica": "tienda-desarrollo",
+  "compartimento": "tienda",
+  "frases": [
+    "Allow group Desarrollo to manage instance-family in compartment tienda:tienda-dev",
+    "Allow group Desarrollo to manage object-family in compartment tienda:tienda-dev",
+    "Allow group Desarrollo to read all-resources in compartment tienda:tienda-prod",
+    "Allow group Auditores to inspect all-resources in tenancy",
+    "Allow dynamic-group app-tienda to read objects in compartment tienda:tienda-prod where target.bucket.name = 'comprobantes'"
+  ]
+}
