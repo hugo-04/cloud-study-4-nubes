@@ -1,0 +1,3 @@
+entorno               = "prod"
+rol_administrador_arn = "arn:aws:iam::111122223333:role/administrador-claves"
+rol_aplicacion_arn    = "arn:aws:iam::111122223333:role/pedidos-app-tarea"
