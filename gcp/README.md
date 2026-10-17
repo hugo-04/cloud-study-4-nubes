@@ -19,6 +19,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Google Cloud libraries-bom 26.90 �
 | 06 | [Storage](06-storage/README.md) | Cloud Storage, URLs firmadas, Filestore, eventos de Cloud Storage, claim check | Listo |
 | 07 | [Mensajería](07-mensajeria/README.md) | Pub/Sub, Cloud Tasks, Eventarc, Managed Service for Apache Kafka | Listo |
 | 08 | [Datos](08-datos/README.md) | Cloud SQL, Spanner, Firestore, Bigtable, Memorystore | Listo |
+| 09 | [Gobierno](09-gobierno/README.md) | Jerarquía y etiquetas, Organization Policy, Cloud Audit Logs, Security Command Center, presupuestos y costos | Listo |
 
 ## Cómo usar cada carpeta de servicio
 
