@@ -12,6 +12,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Google Cloud libraries-bom 26.90 �
 |---|---|---|---|
 | 00 | [Fundamentos](00-fundamentos/README.md) | Organización, carpetas, proyectos, regiones/zonas, APIs, ADC, facturación | Listo |
 | 01 | [Red](01-red/README.md) | VPC y subredes, firewall/rutas/NAT, conectividad híbrida, acceso privado, diagnóstico | Listo |
+| 02 | [IAM](02-iam/README.md) | Roles y políticas, cuentas de servicio y suplantación, Workload Identity en GKE, Workload Identity Federation | Listo |
 
 ## Cómo usar cada carpeta de servicio
 

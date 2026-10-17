@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pedidos
+  namespace: tienda
+  # Solo en modo suplantación:
+  # annotations:
+  #   iam.gke.io/gcp-service-account: pedidos@modalima-tienda-prod.iam.gserviceaccount.com
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedidos
+  namespace: tienda
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: pedidos }
+  template:
+    metadata:
+      labels: { app: pedidos }
+    spec:
+      serviceAccountName: pedidos
+      containers:
+        - name: app
+          image: southamerica-west1-docker.pkg.dev/modalima-tienda-prod/apps/pedidos:1.4.2
+          ports: [{ containerPort: 8080 }]
