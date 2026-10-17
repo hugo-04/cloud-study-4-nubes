@@ -1,0 +1,96 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.8",
+  "errored": false,
+  "resource_changes": [
+    {
+      "address": "azurerm_resource_group.app",
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "rg-app-pedidos-dev",
+          "location": "eastus2",
+          "tags": {
+            "dueno": "equipo-pedidos"
+          }
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_virtual_network.red",
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "red",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "name": "vnet-dev",
+          "tags": {}
+        },
+        "after": {
+          "name": "vnet-dev",
+          "tags": {
+            "entorno": "dev"
+          }
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_subnet.app",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "snet-app"
+        },
+        "after": {
+          "name": "snet-app"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "data.azurerm_client_config.actual",
+      "mode": "data",
+      "type": "azurerm_client_config",
+      "name": "actual",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "read"
+        ],
+        "before": null,
+        "after": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    }
+  ],
+  "output_changes": {}
+}

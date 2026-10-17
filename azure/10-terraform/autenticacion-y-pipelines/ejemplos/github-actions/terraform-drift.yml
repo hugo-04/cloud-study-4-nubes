@@ -1,0 +1,52 @@
+# Detecta drift cada noche: la realidad cambió sin pasar por Terraform.
+name: terraform-drift
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # 01:17 hora de Lima (UTC-5)
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    runs-on: ${{ vars.RUNNER_TF || 'ubuntu-latest' }}
+    environment: prod-plan
+    defaults:
+      run:
+        working-directory: infra/app-pedidos
+    env:
+      ARM_USE_OIDC: "true"
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+      - run: terraform init -backend-config=backend.prod.hcl
+      - name: plan completo (código vs realidad)
+        id: drift
+        run: |
+          set +e
+          terraform plan -lock-timeout=5m -var-file=prod.tfvars -detailed-exitcode -no-color > drift.txt
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: abrir o actualizar el aviso
+        if: steps.drift.outputs.codigo == '2'
+        run: |
+          titulo="Drift detectado en producción"
+          cuerpo="El plan nocturno encontró diferencias entre el código y Azure. Revisa la ejecución: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          existente=$(gh issue list --search "$titulo in:title" --state open --json number --jq '.[0].number')
+          if [ -n "$existente" ]; then gh issue comment "$existente" --body "$cuerpo"; else gh issue create --title "$titulo" --body "$cuerpo"; fi
+      - name: fallar si el plan falló
+        if: steps.drift.outputs.codigo == '1'
+        run: exit 1

@@ -1,0 +1,86 @@
+# Plan en cada pull request, para dev y prod, con identidades de SOLO LECTURA (OIDC, sin secretos).
+name: terraform-plan
+
+on:
+  pull_request:
+    paths: ["infra/**", ".github/workflows/terraform-*.yml", ".github/workflows/_entorno.yml"]
+
+# Permisos mínimos del token de GitHub; id-token:write permite pedir el token OIDC.
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: tf-plan-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    name: plan (${{ matrix.entorno }})
+    runs-on: ${{ vars.RUNNER_TF || 'ubuntu-latest' }}   # runner propio si el estado solo es accesible por red privada
+    environment: ${{ matrix.entorno }}-plan             # el nombre del entorno forma parte del subject
+    strategy:
+      fail-fast: false
+      matrix:
+        entorno: [dev, prod]
+    defaults:
+      run:
+        working-directory: infra/app-pedidos
+    env:
+      ARM_USE_OIDC: "true"
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}          # variable del entorno (no es un secreto)
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+    steps:
+      - uses: actions/checkout@v4          # fija por SHA en producción
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"       # la misma versión en plan y apply
+          terraform_wrapper: false
+
+      - name: fmt y validate
+        run: |
+          terraform fmt -check -recursive
+          terraform init -backend=false
+          terraform validate
+
+      - name: init con el estado de ${{ matrix.entorno }}
+        run: terraform init -backend-config=backend.${{ matrix.entorno }}.hcl
+
+      - name: plan
+        id: plan
+        run: |
+          set +e
+          terraform plan -lock-timeout=5m -var-file=${{ matrix.entorno }}.tfvars -out=tfplan -detailed-exitcode
+          codigo=$?
+          echo "codigo=$codigo" >> "$GITHUB_OUTPUT"
+          [ "$codigo" -eq 1 ] && exit 1
+          terraform show -json tfplan > plan.json
+          terraform show -no-color tfplan > plan.txt
+          exit 0
+
+      - name: puerta de seguridad (jq)
+        if: steps.plan.outputs.codigo == '2'
+        run: |
+          # Tipos que jamás deben borrarse ni reemplazarse sin una revisión explícita
+          jq -e '[.resource_changes[]
+                  | select(.change.actions | index("delete"))
+                  | select(.type | IN("azurerm_key_vault","azurerm_storage_account","azurerm_mssql_server","azurerm_mssql_database","azurerm_cosmosdb_account","azurerm_postgresql_flexible_server","azurerm_virtual_network","azurerm_resource_group"))
+                  | .address] | length == 0' plan.json \
+            || { echo "::error::El plan borra o reemplaza un recurso protegido"; exit 1; }
+
+      - name: comentar el plan en el PR
+        if: steps.plan.outputs.codigo == '2'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "### Plan de ${{ matrix.entorno }}"
+            echo '```'
+            head -c 60000 plan.txt
+            echo '```'
+          } > comentario.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comentario.md

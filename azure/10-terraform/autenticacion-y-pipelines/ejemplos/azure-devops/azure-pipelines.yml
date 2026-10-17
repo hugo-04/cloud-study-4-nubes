@@ -1,0 +1,80 @@
+# Azure DevOps: plan -> aprobación (entorno con revisores) -> apply del mismo plan.
+# La conexión de servicio usa "Workload identity federation": sin secretos que rotar.
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [infra/*]
+
+pool:
+  vmImage: ubuntu-latest       # o un grupo de agentes propios dentro de la red del estado
+
+variables:
+  - name: directorio
+    value: infra/app-pedidos
+  - name: conexionPlan
+    value: sc-azure-plan-prod    # conexión de servicio de solo lectura
+  - name: conexionApply
+    value: sc-azure-apply-prod   # conexión de servicio con permisos de cambio
+
+stages:
+  - stage: Plan
+    jobs:
+      - job: plan
+        steps:
+          - task: TerraformInstaller@1       # extensión de Microsoft DevLabs; o usa una imagen con Terraform
+            inputs:
+              terraformVersion: "1.9.8"
+          - task: AzureCLI@2
+            displayName: terraform plan
+            inputs:
+              azureSubscription: $(conexionPlan)
+              scriptType: bash
+              scriptLocation: inlineScript
+              addSpnToEnvironment: true       # expone servicePrincipalId, tenantId e idToken al script
+              workingDirectory: $(directorio)
+              inlineScript: |
+                export ARM_USE_OIDC=true
+                export ARM_CLIENT_ID="$servicePrincipalId"
+                export ARM_TENANT_ID="$tenantId"
+                export ARM_OIDC_TOKEN="$idToken"
+                export ARM_SUBSCRIPTION_ID="$(az account show --query id -o tsv)"
+                export TF_IN_AUTOMATION=true TF_INPUT=false
+                terraform init -backend-config=backend.prod.hcl
+                terraform plan -lock-timeout=10m -var-file=prod.tfvars -out=tfplan
+          - publish: $(directorio)/tfplan
+            artifact: tfplan-prod              # contiene valores del estado: retención corta y acceso restringido
+
+  - stage: Apply
+    dependsOn: Plan
+    jobs:
+      - deployment: apply
+        environment: prod                      # el entorno define aprobaciones y comprobaciones
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - download: current
+                  artifact: tfplan-prod
+                - task: TerraformInstaller@1
+                  inputs:
+                    terraformVersion: "1.9.8"
+                - task: AzureCLI@2
+                  displayName: terraform apply
+                  inputs:
+                    azureSubscription: $(conexionApply)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    addSpnToEnvironment: true
+                    workingDirectory: $(directorio)
+                    inlineScript: |
+                      export ARM_USE_OIDC=true
+                      export ARM_CLIENT_ID="$servicePrincipalId"
+                      export ARM_TENANT_ID="$tenantId"
+                      export ARM_OIDC_TOKEN="$idToken"
+                      export ARM_SUBSCRIPTION_ID="$(az account show --query id -o tsv)"
+                      export TF_IN_AUTOMATION=true TF_INPUT=false
+                      cp "$(Pipeline.Workspace)/tfplan-prod/tfplan" ./tfplan
+                      terraform init -backend-config=backend.prod.hcl
+                      terraform apply -lock-timeout=10m tfplan

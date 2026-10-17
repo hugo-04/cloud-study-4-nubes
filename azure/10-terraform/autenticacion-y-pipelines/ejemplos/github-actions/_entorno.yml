@@ -1,0 +1,86 @@
+# Flujo reutilizable: plan -> aprobación (entorno protegido) -> apply del MISMO plan guardado.
+name: _entorno
+
+on:
+  workflow_call:
+    inputs:
+      entorno:
+        type: string
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+# Un solo apply a la vez por entorno; nunca canceles uno en curso (dejaría el candado del estado huérfano).
+concurrency:
+  group: tf-${{ inputs.entorno }}
+  cancel-in-progress: false
+
+env:
+  ARM_USE_OIDC: "true"
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+
+jobs:
+  plan:
+    runs-on: ${{ vars.RUNNER_TF || 'ubuntu-latest' }}
+    environment: ${{ inputs.entorno }}-plan
+    defaults:
+      run:
+        working-directory: infra/app-pedidos
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    outputs:
+      hay_cambios: ${{ steps.plan.outputs.codigo == '2' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+      - run: terraform init -backend-config=backend.${{ inputs.entorno }}.hcl
+      - id: plan
+        run: |
+          set +e
+          terraform plan -lock-timeout=10m -var-file=${{ inputs.entorno }}.tfvars -out=tfplan -detailed-exitcode
+          codigo=$?
+          echo "codigo=$codigo" >> "$GITHUB_OUTPUT"
+          [ "$codigo" -eq 1 ] && exit 1
+          exit 0
+      # El archivo de plan contiene valores del estado: retención de 1 día y nada más.
+      - uses: actions/upload-artifact@v4
+        if: steps.plan.outputs.codigo == '2'
+        with:
+          name: tfplan-${{ inputs.entorno }}
+          path: infra/app-pedidos/tfplan
+          retention-days: 1
+          if-no-files-found: error
+
+  apply:
+    needs: plan
+    if: needs.plan.outputs.hay_cambios == 'true'
+    runs-on: ${{ vars.RUNNER_TF || 'ubuntu-latest' }}
+    environment: ${{ inputs.entorno }}       # aquí viven los revisores obligatorios y la restricción de ramas
+    defaults:
+      run:
+        working-directory: infra/app-pedidos
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}   # en este entorno es la identidad de APPLY
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: tfplan-${{ inputs.entorno }}
+          path: infra/app-pedidos
+      - run: terraform init -backend-config=backend.${{ inputs.entorno }}.hcl
+      - name: apply del plan guardado
+        run: terraform apply -lock-timeout=10m tfplan

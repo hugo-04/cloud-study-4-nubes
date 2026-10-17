@@ -1,0 +1,6 @@
+# Copia este archivo a backend.hcl (no lleva secretos, pero cada equipo tiene su cuenta).
+# Se usa con:  terraform init -backend-config=backend.hcl
+resource_group_name  = "rg-tfstate-modalima"
+storage_account_name = "stmodalimatfstate001"
+container_name       = "tfstate"
+use_azuread_auth     = true

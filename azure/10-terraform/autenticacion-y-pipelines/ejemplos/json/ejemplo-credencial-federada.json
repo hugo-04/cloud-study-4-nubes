@@ -1,0 +1,7 @@
+{
+  "name": "gh-prod-apply",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "subject": "repo:modalima/infra-azure:environment:prod",
+  "description": "Apply de producción desde el entorno protegido 'prod'",
+  "audiences": ["api://AzureADTokenExchange"]
+}

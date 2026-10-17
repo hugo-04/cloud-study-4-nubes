@@ -1,0 +1,11 @@
+{
+  "iss": "https://token.actions.githubusercontent.com",
+  "aud": "api://AzureADTokenExchange",
+  "sub": "repo:modalima/infra-azure:environment:prod",
+  "repository": "modalima/infra-azure",
+  "ref": "refs/heads/main",
+  "environment": "prod",
+  "event_name": "push",
+  "job_workflow_ref": "modalima/infra-azure/.github/workflows/_entorno.yml@refs/heads/main",
+  "_nota": "Claims típicos (recortados). Lo que Azure compara es iss, aud y sub contra la credencial federada."
+}

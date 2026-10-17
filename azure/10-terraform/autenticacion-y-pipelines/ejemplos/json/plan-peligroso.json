@@ -1,0 +1,202 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.8",
+  "errored": false,
+  "resource_changes": [
+    {
+      "address": "azurerm_mssql_database.pedidos",
+      "mode": "managed",
+      "type": "azurerm_mssql_database",
+      "name": "pedidos",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "before": {
+          "name": "sqldb-pedidos",
+          "sku_name": "S1"
+        },
+        "after": null,
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      },
+      "action_reason": "delete_because_no_resource_config"
+    },
+    {
+      "address": "azurerm_mssql_server.sql",
+      "mode": "managed",
+      "type": "azurerm_mssql_server",
+      "name": "sql",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "name": "sql-modalima",
+          "administrator_login_password": "P@ssw0rd-secreta"
+        },
+        "after": {
+          "name": "sql-modalima",
+          "administrator_login_password": "P@ssw0rd-secreta-2"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_role_assignment.owner_ci",
+      "mode": "managed",
+      "type": "azurerm_role_assignment",
+      "name": "owner_ci",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "role_definition_name": "Owner",
+          "scope": "/subscriptions/22222222-2222-2222-2222-222222222222"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_role_assignment.colaborador",
+      "mode": "managed",
+      "type": "azurerm_role_assignment",
+      "name": "colaborador",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "role_definition_id": "/subscriptions/22222222-2222-2222-2222-222222222222/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_role_assignment.dinamico",
+      "mode": "managed",
+      "type": "azurerm_role_assignment",
+      "name": "dinamico",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "scope": "/subscriptions/22222222-2222-2222-2222-222222222222"
+        },
+        "after_unknown": {
+          "role_definition_name": true,
+          "role_definition_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_network_security_rule.ssh",
+      "mode": "managed",
+      "type": "azurerm_network_security_rule",
+      "name": "ssh",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "direction": "Inbound",
+          "access": "Allow",
+          "source_address_prefix": "*",
+          "destination_port_range": "22",
+          "protocol": "Tcp"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_network_security_rule.web",
+      "mode": "managed",
+      "type": "azurerm_network_security_rule",
+      "name": "web",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "direction": "Inbound",
+          "access": "Allow",
+          "source_address_prefixes": [
+            "0.0.0.0/0"
+          ],
+          "destination_port_range": "8080",
+          "protocol": "Tcp"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_storage_account.fotos",
+      "mode": "managed",
+      "type": "azurerm_storage_account",
+      "name": "fotos",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "stmodalimafotos01",
+          "public_network_access_enabled": true,
+          "allow_nested_items_to_be_public": true
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "azurerm_management_lock.vnet",
+      "mode": "managed",
+      "type": "azurerm_management_lock",
+      "name": "vnet",
+      "provider_name": "registry.terraform.io/hashicorp/azurerm",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "before": {
+          "name": "no-borrar",
+          "lock_level": "CanNotDelete"
+        },
+        "after": null,
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    }
+  ],
+  "output_changes": {}
+}
