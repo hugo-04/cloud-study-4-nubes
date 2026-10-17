@@ -1,4 +1,4 @@
-# HANDOFF · dónde nos quedamos y cómo continuar
+# HANDOFF · estado final y cómo retomar
 
 ## Estado (2026-10-17)
 | Bloque | Estado |
@@ -8,29 +8,22 @@
 | `oci/` capítulos 00–11 | ✅ Completo |
 | `gcp/` capítulos 00–11 | ✅ Completo |
 | `transversal/` (9 módulos) | ✅ Completo |
-| Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
+| Fase final | ✅ Repo reorganizado: carpetas viejas y plantilla eliminadas, README raíz reescrito, 0 enlaces rotos, aislamiento verificado, todos los `notebooklm.md` presentes |
 
-## Pendiente, en orden
-### 1. OCI ✅ terminado
-Capítulos 04–11 completos (unidades con docs, Terraform validado, Java compilado y probado, NotebookLM). Generadores en `tools/gen_*.py` (atajo común: `tools/genlib.py`).
+**Proyecto completo.** No hay pendientes obligatorios. Ideas opcionales si se retoma:
+- Revisar los datos marcados con «verifica» (precios, límites, versiones) cada pocos meses.
+- Agregar unidades nuevas siguiendo el molde de abajo (y su fila en el README del capítulo, de la nube y su `notebooklm.md`).
+- Los falsos positivos conocidos del grep de aislamiento son `oci://` (protocolo de registros de contenedores) y «Oracle» como motor de base de datos.
 
-### 2. Google Cloud ✅ terminado
-Capítulos 00–11 completos. Generadores en `tools/gg_*.py` (atajo común: `tools/ggen.py`; entorno `source tools/gcp-env/gcp-env.sh` y `jc <md>`). Providers `hashicorp/google` y `google-beta ~> 8.0`.
-
-### 3. Módulos transversales (`transversal/`)
-`terraform`, `kafka` (los enlaces `../../../transversal/kafka/README.md` de `aws/07-mensajeria/msk-kafka` deben resolver), `spring-boot`, `quarkus` (imperativo + reactivo), `programacion-reactiva` (WebFlux, Mutiny, RxJava), `patrones-de-diseno` (todos los GoF), `patrones-microservicios`, `arquitectura-y-testing` (TDD, BDD, hexagonal, clean, monolito vs microservicios, cuándo sí/no, organización de capas y paquetes), `typescript-react-angular`. Todo enfocado a microservicios con casos reales; cada módulo con `notebooklm.md`.
-
-### 4. Fase final: reorganizar el repo y eliminar lo obsoleto (OBLIGATORIA al terminar todo lo anterior)
-La orientación del repo cambió: antes eran carpetas numeradas mezclando nubes; ahora es **una carpeta por nube** (`azure/`, `aws/`, `oci/`, `gcp/`) **+ `transversal/`**. Al finalizar, deja el repo limpio:
-1. **Verifica la migración** antes de borrar: cada tema de las carpetas viejas debe tener su equivalente en una nube o en `transversal/` (si algo útil no se migró, pásalo primero).
-2. **Elimina** (con `git rm -r`) lo que ya no encaja en la nueva distribución:
-   - Carpetas viejas de la raíz: `00-fundamentos`, `01-networking`, `02-comunicacion-privada-y-diagnostico`, `03-iam-seguridad`, `04-secretos-y-claves`, `05-compute`, `06-ingress-y-api`, `07-storage`, `08-mensajeria-y-streaming`, `09-bases-de-datos`, `10-politicas-y-gobierno`, `11-terraform-iac`, `12-casos-integrados`, `99-prompts-notebooklm`.
-   - `PLANTILLA-SERVICIO.md` (la plantilla vigente está descrita en este archivo y en cualquier unidad reciente).
-   - Cualquier archivo suelto, zip, borrador o duplicado que no pertenezca a una nube, a `transversal/`, a `tools/` o a los archivos raíz.
-3. **Reorganiza lo que quede:** raíz solo con `README.md`, `CLAUDE.md`, `HANDOFF.md`, `azure/`, `aws/`, `oci/`, `gcp/`, `transversal/`, `tools/`. Sin carpetas vacías; sin nombres inconsistentes.
-4. **Reescribe `README.md` raíz:** tabla de nubes y de módulos transversales con su estado, cómo navegar (nube → capítulo → servicio) y dónde están los prompts de NotebookLM.
-5. **Revisión final:** `tools/linkcheck.py` sin enlaces rotos (incluidos los de `transversal/kafka`), grep de aislamiento por nube, todos los `notebooklm.md` presentes.
-6. **Actualiza este `HANDOFF.md`** a "proyecto completo" (o déjalo solo con pendientes reales) y haz el push final a `main`.
+## Validación de todo el repo
+```bash
+python3 tools/linkcheck.py .                                     # enlaces relativos (debe dar «rotos: 0»)
+grep -rliE "\baws\b|amazon|\boci\b|oracle|\bgcp\b|google" transversal   # aislamiento (igual por nube con sus patrones)
+source tools/gcp-env/gcp-env.sh && jc <ruta>/uso-en-java.md      # Java por nube (oci-env / gcp-env; azure y aws usan sus propios proyectos)
+source tools/tr-env/tr-env.sh && jc transversal/<modulo>/<archivo>.md   # Java de los transversales
+TSDIR=/tmp/ts python3 tools/tscheck.py transversal/typescript-react-angular/*.md
+TOFU=/tmp/tfnew/tofu bash tools/tfcheck.sh                       # todos los ejemplos terraform
+```
 
 ## Molde de una unidad de servicio
 ```
@@ -56,12 +49,16 @@ Referencia viva: cualquier unidad de `oci/02-iam/*` o `oci/04-compute/*` (la má
 | `javacheck.py` | Compila cada bloque de código de un `.md` (modo Spring o `--quarkus`). Usa los proyectos Maven de `tools/maven/` y las variables `JV_DIR` / `JVQ_DIR`; bloques que empiezan con `// (clase reutilizada … ambos)` se acumulan para los siguientes |
 | `tfcheck.sh` | `tofu init + validate` de una carpeta Terraform (`TOFU=/ruta/tofu bash tools/tfcheck.sh <abs dir>`) |
 | `linkcheck.py` | Verifica enlaces relativos entre `.md` |
-| `tools/oci-env/oci-env.sh`, `tools/gcp-env/gcp-env.sh` | Definen `JV_DIR`, `JVQ_DIR` y la función `jc <archivo.md>` |
+| `tools/oci-env/oci-env.sh`, `tools/gcp-env/gcp-env.sh`, `tools/tr-env/tr-env.sh` | Definen `JV_DIR`, `JVQ_DIR` y la función `jc <archivo.md>` (OCI, GCP y transversales) |
+| `genlib.py` / `ggen.py` + `gen_*.py` / `gg_*.py` | Generadores de `uso-en-java.md` de OCI / GCP |
+| `tnb.py` | `notebooklm.md` de los módulos transversales (sin nubes) |
+| `tscheck.py` | Compila los bloques ```ts/```tsx de los `.md` (`TSDIR` con typescript, react, @angular/*, rxjs; `// archivo: x.ts` permite importar entre bloques) |
 
 **Reconstruir el entorno en una sesión nueva** (las rutas `/tmp/...` del entorno anterior ya no existen):
-1. Copiar `tools/maven/oci-spring-pom.xml` a `/tmp/oci-spring/pom.xml` y `oci-quarkus-pom.xml` a `/tmp/oci-quarkus/pom.xml` (idem `gcp-*`); `mvn -q compile` en cada uno y `mvn dependency:build-classpath -Dmdep.outputFile=/tmp/cp-oci.txt`.
+1. Copiar `tools/maven/oci-spring-pom.xml` a `/tmp/oci-spring/pom.xml` y `oci-quarkus-pom.xml` a `/tmp/oci-quarkus/pom.xml` (idem `gcp-*` y `transversal-*` en `/tmp/tr-spring` y `/tmp/tr-quarkus`); `mvn -q compile` en cada uno y `mvn dependency:build-classpath -Dmdep.outputFile=/tmp/cp-oci.txt`.
 2. Descargar OpenTofu (release de GitHub) a `/tmp/tfnew/tofu`. **Si GitHub está bloqueado por el proxy** (pasó en la nube): bajar Terraform de `releases.hashicorp.com/terraform/` a `/tmp/tfnew/tofu` y los providers (`terraform-provider-oci` 7.x, `terraform-provider-google` y `terraform-provider-google-beta` 8.x) del mismo sitio a un *filesystem mirror* (`/tmp/tfmirror/registry.terraform.io/<ns>/<nombre>/<versión>/linux_amd64/`) con `~/.terraformrc`: `provider_installation { filesystem_mirror { path = "/tmp/tfmirror" } }`.
-3. `source tools/oci-env/oci-env.sh` (las rutas ya son relativas al repo; no borres `JAVA_TOOL_OPTIONS`, el proxy la necesita).
-4. Flujo por unidad: escribir docs → `tofu fmt` + `tfcheck.sh` → `gen_*.py`-style con `jdoc.doc(...)` → `jc <ruta>/uso-en-java.md` → prueba rápida de la lógica pura no trivial → `nbgen` → linkcheck → grep de aislamiento → commit/push por capítulo.
+3. TypeScript: `mkdir /tmp/ts && cd /tmp/ts && npm i typescript@5.8 react@19 @types/react@19 react-dom@19 @types/react-dom@19 @angular/core@20 @angular/common@20 @angular/forms@20 @angular/router@20 @angular/platform-browser@20 rxjs@7 zone.js`. Providers genéricos para `transversal/terraform`: `hashicorp/random` y `hashicorp/local` en el mismo *mirror*.
+4. `source tools/oci-env/oci-env.sh` (las rutas ya son relativas al repo; no borres `JAVA_TOOL_OPTIONS`, el proxy la necesita).
+5. Flujo por unidad: escribir docs → `tofu fmt` + `tfcheck.sh` → `gen_*.py`-style con `jdoc.doc(...)` → `jc <ruta>/uso-en-java.md` → prueba rápida de la lógica pura no trivial → `nbgen` → linkcheck → grep de aislamiento → commit/push por capítulo.
 
 Notas técnicas: los bloques de test rápido van en el paquete `chk.bN` (las clases del harness son package-private); en Python usa `'\\\\.'` para escribir `"\\."` en Java; para clientes enormes (Ec2) usa implementaciones anónimas en vez de Proxy.

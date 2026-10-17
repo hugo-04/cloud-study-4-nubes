@@ -1,1 +1,22 @@
 __pycache__/
+# Terraform / OpenTofu
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+plan.bin
+plan.json
+crash.log
+salida/
+*.tfvars
+!**/ejemplos/**/*.tfvars
+# Secretos y entornos locales
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+# Node / Java
+node_modules/
+target/

@@ -1,71 +1,86 @@
 # Cloud Study · 4 Nubes
 
-Repo **privado de estudio** para entender, de cero a nivel intermedio, los servicios clave de **Azure** y su equivalente en **AWS**, **Oracle Cloud (OCI)** y **Google Cloud (GCP)**.
+Repo **privado de estudio** para aprender, de cero a nivel intermedio, a construir **microservicios Java (Spring Boot y Quarkus)** en **Azure**, **AWS**, **Oracle Cloud (OCI)** y **Google Cloud**, más los temas **transversales** que valen en cualquier nube. Fuente de consulta «de inicio a fin por servicio».
 
-> Los casos de vida real son **inventados y genéricos**. Este repo no debe contener datos de ningún cliente, empresa, cuenta ni credenciales reales.
+> Los casos de vida real son **inventados** (ModaLima, Café Andino). El repo no contiene datos de clientes, cuentas ni credenciales reales.
 
-## Módulos
+## Cómo está organizado
 
-| # | Módulo | Qué cubre | Estado |
+```
+README.md · CLAUDE.md · HANDOFF.md
+azure/  aws/  oci/  gcp/        una carpeta por nube, independientes entre sí (ninguna menciona a otra)
+  <nube>/README.md               índice y versiones
+  <nube>/NN-capitulo/README.md   comparativa, árbol «quiero…», receta ModaLima, orden de adopción
+  <nube>/NN-capitulo/<servicio>/ README · casos-reales · uso-en-java · troubleshooting · repaso · notebooklm · ejemplos/
+transversal/                     temas sin nube: Terraform, Kafka, Spring Boot, Quarkus, reactivo, patrones, arquitectura y testing, frontends
+tools/                           generadores y validadores (compilación Java/TypeScript, Terraform, enlaces)
+```
+
+**Navegación:** nube → capítulo → servicio. Cada servicio se lee en este orden: `README.md` (teoría en 8 secciones) → `casos-reales.md` → `uso-en-java.md` (Spring MVC, WebFlux, Quarkus imperativo y Mutiny; todo el código compila) → `troubleshooting.md` → `repaso.md`.
+
+## Nubes
+
+| Nube | Capítulos | Estado |
+|---|---|---|
+| [Azure](azure/README.md) | 00 fundamentos · 01 red · 02 IAM · 03 secretos · 04 compute · 05 ingress/API · 06 storage · 07 mensajería · 08 datos · 09 gobierno · 10 Terraform · 11 casos integrados | ✅ Completo |
+| [AWS](aws/README.md) | ídem | ✅ Completo |
+| [Oracle Cloud (OCI)](oci/README.md) | ídem | ✅ Completo |
+| [Google Cloud](gcp/README.md) | ídem | ✅ Completo |
+
+Los doce capítulos tienen el mismo número y propósito en las cuatro nubes, así que puedes estudiar una nube completa o el mismo capítulo en varias.
+
+## Transversal
+
+| Módulo | De qué trata | Estado |
+|---|---|---|
+| [Terraform / OpenTofu](transversal/terraform/README.md) | Lenguaje, estado, módulos, pruebas | ✅ |
+| [Apache Kafka](transversal/kafka/README.md) | Particiones, grupos, garantías, DLT, esquemas, Spring/Reactor/Quarkus | ✅ |
+| [Spring Boot](transversal/spring-boot/README.md) | Microservicio de producción completo | ✅ |
+| [Quarkus](transversal/quarkus/README.md) | Imperativo, reactivo, tolerancia a fallos, nativo | ✅ |
+| [Programación reactiva](transversal/programacion-reactiva/README.md) | Reactor, Mutiny, RxJava; cuándo hilos virtuales | ✅ |
+| [Patrones de diseño](transversal/patrones-de-diseno/README.md) | Los 23 del GoF en Java 21 | ✅ |
+| [Patrones de microservicios](transversal/patrones-microservicios/README.md) | Saga, outbox, CQRS, resiliencia, operación | ✅ |
+| [Arquitectura y testing](transversal/arquitectura-y-testing/README.md) | Monolito vs microservicios, hexagonal, clean, DDD, TDD, BDD | ✅ |
+| [TypeScript, React y Angular](transversal/typescript-react-angular/README.md) | Frontends para microservicios | ✅ |
+
+## Videos con NotebookLM
+
+Cada servicio, cada capítulo, cada nube y cada módulo transversal tiene su `notebooklm.md` con un prompt listo: crea un notebook, sube como fuentes los `.md` que indica el archivo y pega el prompt en «Personalizar» del Video Overview (o Audio Overview). Puntos de entrada: [`azure/notebooklm.md`](azure/notebooklm.md), [`aws/notebooklm.md`](aws/notebooklm.md), [`oci/notebooklm.md`](oci/notebooklm.md), [`gcp/notebooklm.md`](gcp/notebooklm.md) y [`transversal/notebooklm.md`](transversal/notebooklm.md). Las funciones de NotebookLM cambian: revisa su menú actual.
+
+## Plan de estudio sugerido (12 semanas, una nube principal)
+
+| Semana | Nube elegida | Transversal en paralelo | Práctica |
 |---|---|---|---|
-| 00 | [Fundamentos](00-fundamentos/README.md) | Qué es la nube, IaaS/PaaS, regiones, jerarquías, responsabilidad compartida, costos, glosario | Listo |
-| 01 | [Networking](01-networking/README.md) | VNet/VPC/VCN, subnets, NSG, rutas, NAT, peering, Private Endpoint, DNS privado, híbrido | Listo |
-| 02 | [Comunicación privada y diagnóstico](02-comunicacion-privada-y-diagnostico/README.md) | Políticas de comunicación entre servicios, AKS y APIM en red privada, qué revisar cuando algo no conecta | Listo |
-| 03 | [IAM y seguridad](03-iam-seguridad/README.md) | Entra ID, RBAC, Managed Identity, políticas IAM en las 4 nubes | Listo |
-| 04 | [Secretos y claves](04-secretos-y-claves/README.md) | Key Vault, Secrets Manager, OCI Vault, Secret Manager | Listo |
-| 05 | [Compute](05-compute/README.md) | App Service, Function Apps, AKS y equivalentes | Listo |
-| 06 | [Ingress y API](06-ingress-y-api/README.md) | Ingress en AKS, Application Gateway, APIM y equivalentes | Listo |
-| 07 | [Storage](07-storage/README.md) | Blob Storage, SAS tokens / Presigned URL / PAR / Signed URL, patrón Claim Check | Listo |
-| 08 | [Mensajería y streaming](08-mensajeria-y-streaming/README.md) | Colas, tópicos y equivalentes de Kafka (Event Hubs, MSK, OCI Streaming, Pub/Sub) | Listo |
-| 09 | [Bases de datos](09-bases-de-datos/README.md) | Azure SQL, PostgreSQL, Cosmos DB y equivalentes | Listo |
-| 10 | [Políticas y gobierno](10-politicas-y-gobierno/README.md) | Azure Policy, SCP, Security Zones, Organization Policy, costos | Listo |
-| 11 | [Terraform (IaC)](11-terraform-iac/README.md) | Providers, state remoto, módulos, pipelines con OIDC y un laboratorio equivalente en las 4 nubes (`ejemplos/`) | Listo |
-| 12 | [Casos integrados](12-casos-integrados/README.md) | Arquitecturas de punta a punta, Claim Check, runbook de incidentes, checklist de producción y plan de 8 semanas | Listo |
-| 99 | [Prompts NotebookLM](99-prompts-notebooklm/prompts.md) | Prompts para generar videos de cada módulo | Listo |
+| 1 | 00 Fundamentos · 01 Red | Terraform | Red con dos subredes como código, destruir y recrear |
+| 2 | 01 Red (privado y diagnóstico) | — | Romper el DNS privado a propósito y diagnosticarlo |
+| 3 | 02 IAM · 03 Secretos | Spring Boot | Servicio que lee un secreto sin llaves |
+| 4 | 04 Compute | Quarkus | Mismo servicio en contenedores administrados y en Kubernetes |
+| 5 | 05 Ingress y API | Patrones de microservicios (resiliencia) | Gateway con límite de tasa y timeouts |
+| 6 | 06 Storage | Patrones de diseño | Subida directa con URL firmada + claim check |
+| 7 | 07 Mensajería | Kafka | Productor/consumidor idempotente con DLQ |
+| 8 | 08 Datos | Arquitectura y testing | Base privada con autenticación por identidad y pruebas de integración |
+| 9 | 09 Gobierno | — | Política que impide acceso público + presupuesto |
+| 10 | 10 Terraform | Programación reactiva | Pipeline sin llaves con plan revisado |
+| 11 | 11 Casos integrados | TypeScript/React/Angular | Tienda online con outbox y frontend |
+| 12 | Repaso + otra nube | — | El mismo caso en una segunda nube |
 
-## Orden recomendado
+> **Costos:** usa créditos o capas gratuitas, crea un presupuesto con alerta el primer día y destruye cada laboratorio al terminar.
 
-`00 → 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12`
+## Checklist de producción (cualquier nube)
 
-Red e identidad van primero porque casi todo error "raro" en la nube es de DNS, red o permisos.
+**Red:** rangos sin solapes · datos sin acceso público, con endpoint privado y DNS privado · reglas de tráfico con denegación por defecto · salida controlada y registrada.
+**Identidad y secretos:** identidades de carga de trabajo en vez de llaves · secretos en el gestor, con rotación y acceso mínimo · CI/CD con federación (sin secretos guardados) · revisión de roles amplios.
+**Datos:** respaldos probados con una restauración real · cifrado en reposo (con clave propia donde aplique) · RPO/RTO acordados y probados.
+**Operación:** logs, métricas y alertas por síntoma · sondas liveness/readiness y autoescalado · DLQ con alerta · *timeouts*, reintentos acotados e idempotencia.
+**Gobierno:** políticas de región, etiquetas y acceso público · protección contra borrado en lo crítico · infraestructura como código revisada por pull request · presupuestos y alertas de costo.
 
-## Cómo estudiar cada módulo
+## Reglas del repo
 
-1. Lee el README del módulo (ya trae analogías, casos y qué hacer / qué no hacer).
-2. Haz los labs pequeños. Siempre termina con el comando de limpieza.
-3. Responde las preguntas de repaso sin mirar.
-4. Sube el módulo a NotebookLM y genera el video con el prompt de `99-prompts-notebooklm`.
+- Aislamiento: los archivos de una nube nunca mencionan otra nube; los transversales no mencionan ninguna.
+- Nada de secretos, llaves, tokens ni IDs reales; `.gitignore` excluye estados de Terraform, `.env` y llaves.
+- Lo volátil (precios, límites, versiones) lleva «verifica»: los servicios cambian rápido. Contenido revisado en octubre de 2026.
+- Versiones de los ejemplos: Java 21, Spring Boot 4.1, Quarkus 3.40, OpenTofu/Terraform 1.x; SDK y providers según cada nube (ver su README).
 
-## Cada servicio sigue la misma plantilla
+## Herramientas
 
-Ver [PLANTILLA-SERVICIO.md](PLANTILLA-SERVICIO.md): analogía, para qué sirve y cuándo no, casos reales, cómo se usa, qué hacer y qué no, equivalencias en las 4 nubes, IAM y políticas, troubleshooting y preguntas de entrevista.
-
-## Reglas de seguridad del repo
-
-- Nada de secretos, claves, tokens, connection strings ni IDs reales de suscripción o cuenta.
-- Los ejemplos usan nombres inventados (`ModaLima`, `Café Andino`) y rangos IP de ejemplo.
-- `.gitignore` ya excluye `*.tfstate`, `*.tfvars`, `.env` y llaves.
-- Costos: usa créditos o free tier, crea un presupuesto con alerta y borra los recursos al terminar. Las condiciones de cada nube cambian, así que revísalas antes de empezar.
-
-## Nota de vigencia
-
-Los servicios cambian rápido (tiers, límites, flags de CLI, fechas de retiro). Lo que sea sensible a versión está marcado con "verifica en la doc oficial". Contenido revisado en octubre de 2026.
-
-## Subir a GitHub como repo privado
-
-Con GitHub CLI:
-
-```bash
-cd cloud-study-4-nubes
-git init -b main
-git add .
-git commit -m "Estructura inicial del repo de estudio"
-gh repo create cloud-study-4-nubes --private --source=. --remote=origin --push
-```
-
-Sin GitHub CLI: crea el repo vacío y privado en github.com y luego:
-
-```bash
-git remote add origin git@github.com:hugo-04/cloud-study-4-nubes.git
-git push -u origin main
-```
+`tools/` contiene los validadores usados para que todo el código compile: `javacheck.py` (bloques Java de los `.md`, en Spring y Quarkus), `tscheck.py` (bloques TypeScript/TSX), `tfcheck.sh` (Terraform `init` + `validate`), `linkcheck.py` (enlaces relativos), los generadores de documentación por nube y los `pom.xml` en `tools/maven/`. Cómo reconstruir el entorno: [`HANDOFF.md`](HANDOFF.md).
