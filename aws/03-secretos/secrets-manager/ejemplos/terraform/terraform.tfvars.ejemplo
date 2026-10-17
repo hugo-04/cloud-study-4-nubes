@@ -1,0 +1,5 @@
+entorno             = "prod"
+clave_kms_arn       = "arn:aws:kms:us-east-1:111122223333:key/11111111-2222-3333-4444-555555555555"
+rol_lectura_arn     = "arn:aws:iam::111122223333:role/pedidos-app-tarea"
+lambda_rotacion_arn = ""
+replica_region      = "us-west-2"

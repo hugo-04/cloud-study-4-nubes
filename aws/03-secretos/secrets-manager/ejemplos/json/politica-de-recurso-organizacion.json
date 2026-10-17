@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloMiOrganizacionYSoloLectura",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::444455556666:role/reportes-app-tarea" },
+      "Action": ["secretsmanager:GetSecretValue", "secretsmanager:DescribeSecret"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": { "aws:PrincipalOrgID": "o-exampleorgid" }
+      }
+    },
+    {
+      "Sid": "NegarBorradoSalvoAdministradores",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": ["secretsmanager:DeleteSecret", "secretsmanager:PutResourcePolicy"],
+      "Resource": "*",
+      "Condition": {
+        "StringNotLike": { "aws:PrincipalArn": "arn:aws:iam::111122223333:role/administrador-secretos" }
+      }
+    }
+  ]
+}
