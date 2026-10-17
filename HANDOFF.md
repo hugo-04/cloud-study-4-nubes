@@ -6,7 +6,7 @@
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` capítulos 00–11 | ✅ Completo |
-| `gcp/` | ⬜ Pendiente (solo estructura base si existe) |
+| `gcp/` | 🟡 00 y 01 listos; faltan 02–11 |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
