@@ -20,6 +20,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Google Cloud libraries-bom 26.90 �
 | 07 | [Mensajería](07-mensajeria/README.md) | Pub/Sub, Cloud Tasks, Eventarc, Managed Service for Apache Kafka | Listo |
 | 08 | [Datos](08-datos/README.md) | Cloud SQL, Spanner, Firestore, Bigtable, Memorystore | Listo |
 | 09 | [Gobierno](09-gobierno/README.md) | Jerarquía y etiquetas, Organization Policy, Cloud Audit Logs, Security Command Center, presupuestos y costos | Listo |
+| 10 | [Terraform](10-terraform/README.md) | Estado remoto (backend gcs), módulos y entornos, autenticación y pipelines | Listo |
 
 ## Cómo usar cada carpeta de servicio
 

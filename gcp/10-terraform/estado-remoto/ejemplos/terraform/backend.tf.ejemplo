@@ -1,0 +1,8 @@
+# Copia como backend.tf en cada componente (tienda, red, datos…)
+terraform {
+  backend "gcs" {
+    bucket                      = "modalima-tfstate-prod"
+    prefix                      = "tienda"
+    impersonate_service_account = "tf-prod@modalima-tfstate.iam.gserviceaccount.com"
+  }
+}
