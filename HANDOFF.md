@@ -75,9 +75,3 @@ Referencia viva: cualquier unidad de `oci/02-iam/*` o `oci/04-compute/*` (la má
 4. Flujo por unidad: escribir docs → `tofu fmt` + `tfcheck.sh` → `gen_*.py`-style con `jdoc.doc(...)` → `jc <ruta>/uso-en-java.md` → prueba rápida de la lógica pura no trivial → `nbgen` → linkcheck → grep de aislamiento → commit/push por capítulo.
 
 Notas técnicas: los bloques de test rápido van en el paquete `chk.bN` (las clases del harness son package-private); en Python usa `'\\\\.'` para escribir `"\\."` en Java; para clientes enormes (Ec2) usa implementaciones anónimas en vez de Proxy.
-
-## Cómo pasarlo a Claude Code en la nube
-1. Entra a **claude.ai/code** (Claude Code en la web) y conecta el repo privado `hugo-04/cloud-study-4-nubes` (rama `main`).
-2. Pega este prompt:
-   > Lee `CLAUDE.md` y `HANDOFF.md` y continúa donde nos quedamos: termina OCI (empezando por `04-compute/container-instances`), luego GCP, los módulos transversales y la fase final (reorganizar el repo y eliminar lo obsoleto). Haz commit y push a `main` al terminar cada capítulo, sin preguntar. Avanza rápido y gasta pocos tokens.
-3. La sesión nueva no tiene mis archivos temporales: todo lo necesario (herramientas, poms, reglas) está en `tools/`, `CLAUDE.md` y este archivo.
