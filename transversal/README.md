@@ -7,5 +7,6 @@ Módulos que aplican igual en cualquier nube (o sin nube): herramientas, framewo
 | [Terraform / OpenTofu](terraform/README.md) | IaC declarativa: lenguaje, estado, módulos, pruebas | Listo |
 | [Apache Kafka](kafka/README.md) | Log de eventos: particiones, grupos, garantías, DLT, esquemas | Listo |
 | [Spring Boot](spring-boot/README.md) | Microservicio de producción: configuración, REST, JPA, clientes, Actuator, pruebas | Listo |
+| [Quarkus](quarkus/README.md) | Build time, imperativo y reactivo, Panache, tolerancia a fallos, nativo | Listo |
 
 Cada módulo trae `README.md` (teoría con casos reales), `repaso.md` y `notebooklm.md`; el código Java compila con Java 21, Spring Boot 4.1 y Quarkus 3.40.
