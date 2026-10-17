@@ -1,0 +1,17 @@
+{
+  "Records": [
+    {
+      "Data": "eyJ0aXBvIjoidmlzdGEiLCJza3UiOiJBMSIsInNlc2lvbiI6InMtOTAxIn0=",
+      "PartitionKey": "usuario-42"
+    },
+    {
+      "Data": "eyJ0aXBvIjoiYWdyZWdhciIsInNrdSI6IkExIiwic2VzaW9uIjoicy05MDEifQ==",
+      "PartitionKey": "usuario-42"
+    },
+    {
+      "Data": "eyJ0aXBvIjoidmlzdGEiLCJza3UiOiJCMiIsInNlc2lvbiI6InMtNDU1In0=",
+      "PartitionKey": "usuario-77"
+    }
+  ],
+  "StreamName": "prod-clics"
+}

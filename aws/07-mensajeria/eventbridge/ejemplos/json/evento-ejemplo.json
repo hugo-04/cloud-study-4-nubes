@@ -1,0 +1,17 @@
+{
+  "version": "0",
+  "id": "6a7e8feb-b491-4cf7-a9f1-bf3703467718",
+  "detail-type": "OrdenCreada",
+  "source": "modalima.ordenes",
+  "account": "111122223333",
+  "time": "2026-10-16T15:04:05Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "idOrden": "ord-48213",
+    "total": 189.9,
+    "envio": "domicilio",
+    "direccion": "Av. Larco 123, Miraflores"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Conectar",
+      "Effect": "Allow",
+      "Action": [
+        "kafka-cluster:Connect",
+        "kafka-cluster:DescribeCluster"
+      ],
+      "Resource": "arn:aws:kafka:us-east-1:111122223333:cluster/prod-pedidos/<uuid>"
+    },
+    {
+      "Sid": "Leer",
+      "Effect": "Allow",
+      "Action": [
+        "kafka-cluster:DescribeTopic",
+        "kafka-cluster:ReadData"
+      ],
+      "Resource": "arn:aws:kafka:us-east-1:111122223333:topic/prod-pedidos/<uuid>/pedidos.orden.*"
+    },
+    {
+      "Sid": "Grupo",
+      "Effect": "Allow",
+      "Action": [
+        "kafka-cluster:DescribeGroup",
+        "kafka-cluster:AlterGroup"
+      ],
+      "Resource": "arn:aws:kafka:us-east-1:111122223333:group/prod-pedidos/<uuid>/facturacion*"
+    }
+  ]
+}

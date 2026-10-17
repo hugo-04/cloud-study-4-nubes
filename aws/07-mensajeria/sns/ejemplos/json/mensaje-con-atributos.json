@@ -1,0 +1,10 @@
+{
+  "TopicArn": "arn:aws:sns:us-east-1:111122223333:prod-ordenes",
+  "Message": "{\"tipo\":\"OrdenCreada\",\"version\":1,\"idOrden\":\"ord-48213\",\"total\":189.90}",
+  "MessageAttributes": {
+    "tipo": { "DataType": "String", "StringValue": "OrdenCreada" },
+    "total": { "DataType": "Number", "StringValue": "189.90" },
+    "envio": { "DataType": "String", "StringValue": "domicilio" },
+    "pais": { "DataType": "String", "StringValue": "PE-LIM" }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "source": ["modalima.ordenes"],
+  "detail-type": ["OrdenCreada"],
+  "detail": {
+    "total": [{ "numeric": [">", 100] }],
+    "envio": [{ "prefix": "dom" }]
+  }
+}

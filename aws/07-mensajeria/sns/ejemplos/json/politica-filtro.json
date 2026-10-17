@@ -1,0 +1,6 @@
+{
+  "tipo": ["OrdenCreada"],
+  "total": [{ "numeric": [">", 100] }],
+  "envio": [{ "anything-but": ["recojo"] }],
+  "pais": [{ "prefix": "PE" }]
+}

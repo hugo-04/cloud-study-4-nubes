@@ -1,0 +1,51 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LeerStream",
+      "Effect": "Allow",
+      "Action": [
+        "kinesis:DescribeStream",
+        "kinesis:DescribeStreamSummary",
+        "kinesis:GetRecords",
+        "kinesis:GetShardIterator",
+        "kinesis:ListShards",
+        "kinesis:SubscribeToShard"
+      ],
+      "Resource": [
+        "arn:aws:kinesis:us-east-1:111122223333:stream/prod-clics",
+        "arn:aws:kinesis:us-east-1:111122223333:stream/prod-clics/consumer/*"
+      ]
+    },
+    {
+      "Sid": "LeasesKcl",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:CreateTable",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Scan",
+        "dynamodb:Query",
+        "dynamodb:UpdateTable"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:111122223333:table/analitica-kcl*"
+    },
+    {
+      "Sid": "MetricasKcl",
+      "Effect": "Allow",
+      "Action": "cloudwatch:PutMetricData",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DescifrarConKms",
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": "arn:aws:kms:us-east-1:111122223333:key/<id-de-la-clave>"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "Source": "modalima.ordenes",
+    "DetailType": "OrdenCreada",
+    "EventBusName": "prod-ordenes",
+    "Detail": "{\"version\":1,\"idOrden\":\"ord-48213\",\"total\":189.9,\"envio\":\"domicilio\",\"direccion\":\"Av. Larco 123, Miraflores\"}"
+  },
+  {
+    "Source": "modalima.ordenes",
+    "DetailType": "OrdenCreada",
+    "EventBusName": "prod-ordenes",
+    "Detail": "{\"version\":1,\"idOrden\":\"ord-48214\",\"total\":45.0,\"envio\":\"recojo\"}"
+  }
+]

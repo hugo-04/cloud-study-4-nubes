@@ -1,0 +1,9 @@
+{
+  "tipo": "OrdenCreada",
+  "version": 1,
+  "idOrden": "ord-48213",
+  "cliente": "cli-1029",
+  "total": 189.90,
+  "moneda": "PEN",
+  "creado": "2026-10-16T12:00:00Z"
+}
