@@ -1,0 +1,30 @@
+vpc_a_id      = "vpc-0aaa"
+vpc_b_id      = "vpc-0bbb"
+cidr_vpc_a    = "10.20.0.0/16"
+cidr_vpc_b    = "10.30.0.0/16"
+tablas_ruta_a = ["rtb-0a1"]
+tablas_ruta_b = ["rtb-0b1"]
+
+vpcs = {
+  pedidos-prod = {
+    vpc_id           = "vpc-0aaa"
+    cidr             = "10.20.0.0/16"
+    segmento         = "prod"
+    tablas_ruta_ids  = ["rtb-0a1"]
+    subredes_adjunto = ["subnet-0a1", "subnet-0a2", "subnet-0a3"]
+  }
+  pedidos-dev = {
+    vpc_id           = "vpc-0ccc"
+    cidr             = "10.40.0.0/16"
+    segmento         = "dev"
+    tablas_ruta_ids  = ["rtb-0c1"]
+    subredes_adjunto = ["subnet-0c1", "subnet-0c2", "subnet-0c3"]
+  }
+  servicios-comunes = {
+    vpc_id           = "vpc-0ddd"
+    cidr             = "10.50.0.0/16"
+    segmento         = "compartida"
+    tablas_ruta_ids  = ["rtb-0d1"]
+    subredes_adjunto = ["subnet-0d1", "subnet-0d2", "subnet-0d3"]
+  }
+}

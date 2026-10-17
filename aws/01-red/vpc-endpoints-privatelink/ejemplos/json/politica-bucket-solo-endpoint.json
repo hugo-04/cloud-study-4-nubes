@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloDesdeNuestroEndpoint",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::modalima-datos-prod",
+        "arn:aws:s3:::modalima-datos-prod/*"
+      ],
+      "Condition": {
+        "StringNotEquals": {
+          "aws:SourceVpce": "vpce-0123456789abcdef0"
+        },
+        "Bool": {
+          "aws:ViaAWSService": "false"
+        }
+      }
+    }
+  ]
+}

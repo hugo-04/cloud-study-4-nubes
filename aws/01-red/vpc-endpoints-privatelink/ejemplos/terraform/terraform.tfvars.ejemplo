@@ -1,0 +1,5 @@
+vpc_id                 = "vpc-0123456789abcdef0"
+tablas_ruta_app_ids    = ["rtb-0aaa", "rtb-0bbb", "rtb-0ccc"]
+subredes_endpoints_ids = ["subnet-0aaa", "subnet-0bbb", "subnet-0ccc"]
+sg_app_id              = "sg-0123456789abcdef0"
+bucket_datos           = "modalima-datos-prod"

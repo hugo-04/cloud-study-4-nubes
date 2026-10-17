@@ -1,0 +1,3 @@
+vpc_id             = "vpc-0123456789abcdef0"
+cidr_subredes_app  = ["10.20.16.0/22", "10.20.20.0/22", "10.20.24.0/22"]
+subredes_datos_ids = ["subnet-0aaa1111bbbb2222c", "subnet-0ddd3333eeee4444f", "subnet-0ggg5555hhhh6666i"]

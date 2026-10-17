@@ -1,0 +1,3 @@
+vpc_id      = "vpc-0123456789abcdef0"
+eni_app_id  = "eni-0aaa111122223333"
+eni_base_id = "eni-0bbb444455556666"

@@ -1,0 +1,4 @@
+entorno              = "dev"
+cidr_vpc             = "10.20.0.0/16"
+nat_por_az           = false
+bucket_flow_logs_arn = ""
