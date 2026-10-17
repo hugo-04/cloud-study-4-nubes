@@ -1,0 +1,6 @@
+subscription_id          = "00000000-0000-0000-0000-000000000000"
+grupo_de_recursos        = "rg-observabilidad-prod"
+workspace_id             = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-gestion/providers/Microsoft.OperationalInsights/workspaces/log-central"
+namespace_service_bus_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-tienda-prod/providers/Microsoft.ServiceBus/namespaces/sb-tienda-prod"
+correo_guardia           = "guardia@modalima.example"
+url_runbook              = "https://wiki.modalima.example/runbooks/tienda"

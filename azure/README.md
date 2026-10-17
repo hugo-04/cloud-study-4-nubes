@@ -21,7 +21,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · Azure SDK BOM 1.3 · msal4j 1.26 �
 | 08 | [Datos](08-datos/README.md) | Azure SQL, PostgreSQL Flexible, Cosmos DB, Redis (Azure Managed Redis) | Listo |
 | 09 | [Gobierno](09-gobierno/README.md) | Grupos de administración, Azure Policy, bloqueos de recursos, Cost Management | Listo |
 | 10 | [Terraform en Azure](10-terraform/README.md) | Estado remoto, autenticación y pipelines (OIDC), módulos y entornos | Listo |
-| 11 | Casos integrados | Arquitecturas de punta a punta | Pendiente |
+| 11 | [Casos integrados](11-casos-integrados/README.md) | Tienda online, subida con Claim Check, clickstream, landing zone, runbook de diagnóstico | Listo |
 
 ## Cómo usar cada carpeta de servicio
 

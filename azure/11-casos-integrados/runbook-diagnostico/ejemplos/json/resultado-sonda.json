@@ -1,0 +1,14 @@
+{
+  "inicio": "2026-10-16T14:05:00Z",
+  "duracionMs": 1840,
+  "dependencias": [
+    { "nombre": "azure-sql", "escalon": "OK", "ok": true, "ms": 38, "detalle": "conecta (IP privada 10.40.2.4)" },
+    { "nombre": "key-vault", "escalon": "OK", "ok": true, "ms": 41, "detalle": "conecta (IP privada 10.40.2.5)" },
+    { "nombre": "service-bus", "escalon": "DNS", "ok": false, "ms": 12, "detalle": "resuelve a IP pública 20.x.x.x: se esperaba una IP privada" },
+    { "nombre": "blob-comprobantes", "escalon": "PUERTO", "ok": false, "ms": 3000, "detalle": "tiempo agotado hacia 10.40.2.7:443" }
+  ],
+  "hipotesis": [
+    { "dependencia": "service-bus", "causaProbable": "Zona DNS privada sin enlace a la VNet de AKS", "siguientePaso": "Revisar enlaces de la zona privatelink.servicebus.windows.net" },
+    { "dependencia": "blob-comprobantes", "causaProbable": "NSG o ruta bloquea el puerto 443 hacia la subred de Private Endpoints", "siguientePaso": "Revisar reglas efectivas del NSG de snet-pe y Network Watcher (verificación de flujo IP)" }
+  ]
+}

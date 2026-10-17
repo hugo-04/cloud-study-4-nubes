@@ -1,0 +1,36 @@
+# Pod de diagnóstico: corre la sonda con la MISMA identidad y red que la aplicación (así prueba lo que ve la aplicación).
+# Se ejecuta bajo demanda y se borra: kubectl apply -f pod-diagnostico.yaml ; kubectl logs pod/diagnostico -n tienda ; kubectl delete -f pod-diagnostico.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnostico
+  namespace: tienda
+  labels:
+    azure.workload.identity/use: "true"
+    app: diagnostico
+spec:
+  serviceAccountName: sa-pedidos # la misma cuenta de servicio (y por tanto identidad) que la aplicación que falla
+  restartPolicy: Never
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 10001
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: sonda
+      image: eclipse-temurin:21-jdk
+      command: ["sleep", "3600"]
+      resources:
+        requests: { cpu: 100m, memory: 128Mi }
+        limits: { cpu: 500m, memory: 256Mi }
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+      volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+  volumes:
+    - name: tmp
+      emptyDir: {}
