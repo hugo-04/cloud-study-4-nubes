@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ConsultarCumplimiento",
+      "Effect": "Allow",
+      "Action": [
+        "config:DescribeConfigRules",
+        "config:DescribeComplianceByConfigRule",
+        "config:GetComplianceDetailsByConfigRule",
+        "config:GetComplianceSummaryByConfigRule",
+        "config:SelectResourceConfig",
+        "config:GetResourceConfigHistory"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LecturaDeCostos",
+      "Effect": "Allow",
+      "Action": [
+        "ce:GetCostAndUsage",
+        "ce:GetCostForecast",
+        "ce:GetDimensionValues",
+        "ce:GetTags",
+        "ce:GetAnomalies"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LecturaDePresupuestos",
+      "Effect": "Allow",
+      "Action": [
+        "budgets:ViewBudget"
+      ],
+      "Resource": "arn:aws:budgets::111122223333:budget/*"
+    }
+  ]
+}

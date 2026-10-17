@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "invokingEvent": "{\"configurationItem\":{\"configurationItemStatus\":\"OK\",\"configurationItemCaptureTime\":\"2026-10-16T15:04:05.000Z\",\"resourceType\":\"AWS::EC2::Instance\",\"resourceId\":\"i-0abc123def456\",\"tags\":{\"entorno\":\"produccion\",\"responsable\":\"ana\"}},\"messageType\":\"ConfigurationItemChangeNotification\"}",
+  "ruleParameters": "{\"tagKeys\":\"centro-costo,entorno,responsable\",\"valores.entorno\":\"prod,dev,sandbox\",\"tipos\":\"AWS::EC2::Instance,AWS::RDS::DBInstance,AWS::S3::Bucket\"}",
+  "resultToken": "token-de-ejemplo",
+  "eventLeftScope": false,
+  "executionRoleArn": "arn:aws:iam::111122223333:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig",
+  "configRuleArn": "arn:aws:config:us-east-1:111122223333:config-rule/config-rule-abc123",
+  "configRuleName": "etiquetas-obligatorias",
+  "configRuleId": "config-rule-abc123",
+  "accountId": "111122223333"
+}

@@ -1,0 +1,97 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "IAMUser", "principalId": "AIDAEXAMPLE1", "arn": "arn:aws:iam::111122223333:user/carlos", "accountId": "111122223333", "userName": "carlos" },
+      "eventTime": "2026-10-16T14:00:05Z",
+      "eventSource": "signin.amazonaws.com",
+      "eventName": "ConsoleLogin",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "Mozilla/5.0",
+      "responseElements": { "ConsoleLogin": "Success" },
+      "additionalEventData": { "MFAUsed": "No", "LoginTo": "https://console.aws.amazon.com/" },
+      "eventID": "ev-0001",
+      "eventType": "AwsConsoleSignIn",
+      "readOnly": false
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "Root", "principalId": "111122223333", "arn": "arn:aws:iam::111122223333:root", "accountId": "111122223333" },
+      "eventTime": "2026-10-16T14:10:00Z",
+      "eventSource": "ec2.amazonaws.com",
+      "eventName": "DescribeInstances",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.77",
+      "userAgent": "aws-cli/2.17",
+      "eventID": "ev-0002",
+      "eventType": "AwsApiCall",
+      "readOnly": true
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "AssumedRole", "principalId": "AROAEXAMPLE:sesion", "arn": "arn:aws:sts::111122223333:assumed-role/rol-pagos/sesion", "accountId": "111122223333" },
+      "eventTime": "2026-10-16T14:20:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListUsers",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.9",
+      "errorCode": "AccessDenied",
+      "errorMessage": "User is not authorized to perform: iam:ListUsers",
+      "eventID": "ev-0003",
+      "eventType": "AwsApiCall",
+      "readOnly": true
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "AssumedRole", "principalId": "AROAEXAMPLE:sesion", "arn": "arn:aws:sts::111122223333:assumed-role/rol-pagos/sesion", "accountId": "111122223333" },
+      "eventTime": "2026-10-16T14:20:30Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "ListBuckets",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.9",
+      "errorCode": "AccessDenied",
+      "eventID": "ev-0004",
+      "eventType": "AwsApiCall",
+      "readOnly": true
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "AssumedRole", "principalId": "AROAEXAMPLE:sesion", "arn": "arn:aws:sts::111122223333:assumed-role/rol-pagos/sesion", "accountId": "111122223333" },
+      "eventTime": "2026-10-16T14:21:00Z",
+      "eventSource": "kms.amazonaws.com",
+      "eventName": "ListKeys",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.9",
+      "errorCode": "Client.UnauthorizedOperation",
+      "eventID": "ev-0005",
+      "eventType": "AwsApiCall",
+      "readOnly": true
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "IAMUser", "principalId": "AIDAEXAMPLE2", "arn": "arn:aws:iam::111122223333:user/becario", "accountId": "111122223333", "userName": "becario" },
+      "eventTime": "2026-10-16T15:00:00Z",
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "StopLogging",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "requestParameters": { "name": "traza-principal" },
+      "eventID": "ev-0006",
+      "eventType": "AwsApiCall",
+      "readOnly": false
+    },
+    {
+      "eventVersion": "1.09",
+      "userIdentity": { "type": "AWSService", "invokedBy": "cloudtrail.amazonaws.com" },
+      "eventTime": "2026-10-16T15:05:00Z",
+      "eventSource": "kms.amazonaws.com",
+      "eventName": "GenerateDataKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "cloudtrail.amazonaws.com",
+      "eventID": "ev-0007",
+      "eventType": "AwsApiCall",
+      "readOnly": false
+    }
+  ]
+}

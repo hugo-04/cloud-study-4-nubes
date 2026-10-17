@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReportarEvaluaciones",
+      "Effect": "Allow",
+      "Action": ["config:PutEvaluations"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ElementosGrandes",
+      "Effect": "Allow",
+      "Action": ["config:GetResourceConfigHistory"],
+      "Resource": "*"
+    }
+  ]
+}

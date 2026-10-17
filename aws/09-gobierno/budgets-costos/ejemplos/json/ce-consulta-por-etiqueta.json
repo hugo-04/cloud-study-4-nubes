@@ -1,0 +1,6 @@
+{
+  "TimePeriod": { "Start": "2026-03-01", "End": "2026-04-01" },
+  "Granularity": "MONTHLY",
+  "Metrics": ["UnblendedCost"],
+  "GroupBy": [ { "Type": "TAG", "Key": "equipo" } ]
+}

@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BuscarEventos",
+      "Effect": "Allow",
+      "Action": ["cloudtrail:LookupEvents", "cloudtrail:DescribeTrails", "cloudtrail:GetTrailStatus", "cloudtrail:GetEventSelectors"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LeerArchivosDeLaTraza",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject"],
+      "Resource": "arn:aws:s3:::prod-auditoria-111122223333/AWSLogs/*"
+    },
+    {
+      "Sid": "ListarLaTraza",
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "arn:aws:s3:::prod-auditoria-111122223333",
+      "Condition": { "StringLike": { "s3:prefix": ["AWSLogs/*"] } }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "tagKeys": "centro-costo,entorno,responsable",
+  "valores.entorno": "prod,dev,sandbox",
+  "tipos": "AWS::EC2::Instance,AWS::RDS::DBInstance,AWS::S3::Bucket"
+}

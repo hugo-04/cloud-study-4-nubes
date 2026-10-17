@@ -1,0 +1,16 @@
+{
+  "ResultsByTime": [
+    {
+      "TimePeriod": { "Start": "2026-03-01", "End": "2026-04-01" },
+      "Total": {},
+      "Groups": [
+        { "Keys": ["equipo$pagos"],     "Metrics": { "UnblendedCost": { "Amount": "1234.56", "Unit": "USD" } } },
+        { "Keys": ["equipo$Pagos"],     "Metrics": { "UnblendedCost": { "Amount": "100.00",  "Unit": "USD" } } },
+        { "Keys": ["equipo$catalogo"],  "Metrics": { "UnblendedCost": { "Amount": "800.10",  "Unit": "USD" } } },
+        { "Keys": ["equipo$logistica"], "Metrics": { "UnblendedCost": { "Amount": "55.00",   "Unit": "USD" } } },
+        { "Keys": ["equipo$"],          "Metrics": { "UnblendedCost": { "Amount": "210.34",  "Unit": "USD" } } }
+      ],
+      "Estimated": true
+    }
+  ]
+}

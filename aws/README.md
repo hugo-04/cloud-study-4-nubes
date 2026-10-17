@@ -19,7 +19,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 (con extensiones Quarkiverse Amazon S
 | 06 | [Storage](06-storage/README.md) | S3, URLs prefirmadas, Claim Check, eventos de S3, EFS | Listo |
 | 07 | [Mensajería](07-mensajeria/README.md) | SQS, SNS, EventBridge, Kinesis Data Streams, MSK (Kafka) | Listo |
 | 08 | [Datos](08-datos/README.md) | RDS / Aurora, DynamoDB, ElastiCache (Redis) | Listo |
-| 09 | Gobierno | Organizations + SCP, Config, CloudTrail, Budgets / Cost Explorer | Pendiente |
+| 09 | [Gobierno](09-gobierno/README.md) | Organizations + SCP, Config, CloudTrail, Budgets / Cost Explorer | Listo |
 | 10 | Terraform en AWS | Estado remoto (S3), autenticación y pipelines (OIDC), módulos y entornos | Pendiente |
 | 11 | Casos integrados | Tienda online, subida con Claim Check, clickstream, landing zone, runbook de diagnóstico | Pendiente |
 

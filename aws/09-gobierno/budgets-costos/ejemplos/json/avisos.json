@@ -1,0 +1,23 @@
+[
+  {
+    "Notification": { "NotificationType": "FORECASTED", "ComparisonOperator": "GREATER_THAN", "Threshold": 80, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [
+      { "SubscriptionType": "EMAIL", "Address": "finanzas@modalima.example" },
+      { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:111122223333:alertas-costos" }
+    ]
+  },
+  {
+    "Notification": { "NotificationType": "FORECASTED", "ComparisonOperator": "GREATER_THAN", "Threshold": 100, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [
+      { "SubscriptionType": "EMAIL", "Address": "finanzas@modalima.example" },
+      { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:111122223333:alertas-costos" }
+    ]
+  },
+  {
+    "Notification": { "NotificationType": "ACTUAL", "ComparisonOperator": "GREATER_THAN", "Threshold": 100, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [
+      { "SubscriptionType": "EMAIL", "Address": "finanzas@modalima.example" },
+      { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:111122223333:alertas-costos" }
+    ]
+  }
+]
