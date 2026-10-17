@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media
+  namespace: cms
+spec:
+  accessModes: [ReadWriteMany]
+  storageClassName: standard-rwx   # clase del driver CSI de Filestore (verifica nombres disponibles)
+  resources:
+    requests:
+      storage: 1Ti
