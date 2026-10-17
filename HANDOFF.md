@@ -6,7 +6,7 @@
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` capítulos 00–11 | ✅ Completo |
-| `gcp/` | 🟡 00–10 listos; falta 11 |
+| `gcp/` capítulos 00–11 | ✅ Completo |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
@@ -14,8 +14,8 @@
 ### 1. OCI ✅ terminado
 Capítulos 04–11 completos (unidades con docs, Terraform validado, Java compilado y probado, NotebookLM). Generadores en `tools/gen_*.py` (atajo común: `tools/genlib.py`).
 
-### 2. Google Cloud (`gcp/`)
-Mismo molde que OCI/AWS, ~45 unidades, servicios reales (IAM, VPC, Secret Manager/KMS, GKE/Cloud Run/Functions, Cloud Load Balancing/API Gateway/Armor, Cloud Storage, Pub/Sub/Managed Kafka, Cloud SQL/Spanner/Firestore/Memorystore, Resource Manager/Billing, Terraform, casos integrados). BOM: `libraries-bom` 26.90.0. Dependencias que NO resolvieron en Maven: iam, billing-budgets, jdbc-postgres connector de Cloud SQL (omitirlas).
+### 2. Google Cloud ✅ terminado
+Capítulos 00–11 completos. Generadores en `tools/gg_*.py` (atajo común: `tools/ggen.py`; entorno `source tools/gcp-env/gcp-env.sh` y `jc <md>`). Providers `hashicorp/google` y `google-beta ~> 8.0`.
 
 ### 3. Módulos transversales (`transversal/`)
 `terraform`, `kafka` (los enlaces `../../../transversal/kafka/README.md` de `aws/07-mensajeria/msk-kafka` deben resolver), `spring-boot`, `quarkus` (imperativo + reactivo), `programacion-reactiva` (WebFlux, Mutiny, RxJava), `patrones-de-diseno` (todos los GoF), `patrones-microservicios`, `arquitectura-y-testing` (TDD, BDD, hexagonal, clean, monolito vs microservicios, cuándo sí/no, organización de capas y paquetes), `typescript-react-angular`. Todo enfocado a microservicios con casos reales; cada módulo con `notebooklm.md`.
