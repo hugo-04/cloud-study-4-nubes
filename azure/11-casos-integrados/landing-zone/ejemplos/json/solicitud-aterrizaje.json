@@ -1,0 +1,9 @@
+{
+  "equipo": "pedidos",
+  "entorno": "prod",
+  "propietario": "pedidos@modalima.example",
+  "centroDeCosto": "CC-1001",
+  "presupuestoMensual": 8000,
+  "correosDeAlerta": ["pedidos@modalima.example", "finops@modalima.example"],
+  "hostsNecesarios": 900
+}
