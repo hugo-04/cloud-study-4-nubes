@@ -1,0 +1,24 @@
+subscription_id = "00000000-0000-0000-0000-000000000000"
+
+servicios_privados = {
+  sql = {
+    recurso_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-tienda-datos/providers/Microsoft.Sql/servers/sql-tienda-prod"
+    subrecurso = "sqlServer"
+    zona_dns   = "privatelink.database.windows.net"
+  }
+  bovedas = {
+    recurso_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-tienda-seguridad/providers/Microsoft.KeyVault/vaults/kv-tienda-prod"
+    subrecurso = "vault"
+    zona_dns   = "privatelink.vaultcore.azure.net"
+  }
+  comprobantes = {
+    recurso_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-tienda-datos/providers/Microsoft.Storage/storageAccounts/sttiendaprod001"
+    subrecurso = "blob"
+    zona_dns   = "privatelink.blob.core.windows.net"
+  }
+  mensajeria = {
+    recurso_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-tienda-mensajeria/providers/Microsoft.ServiceBus/namespaces/sb-tienda-prod"
+    subrecurso = "namespace"
+    zona_dns   = "privatelink.servicebus.windows.net"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "e3b0c442-98fc-4c14-9afb-f4c8996fb924",
+  "tipo": "pedido.creado",
+  "version": 1,
+  "ocurrio_en": "2026-10-16T14:05:11Z",
+  "clave": "7d1a3f0e-5b2c-4a9e-8c11-2f9d6e0a1b77",
+  "datos": {
+    "pedido_id": "7d1a3f0e-5b2c-4a9e-8c11-2f9d6e0a1b77",
+    "cliente_id": "cli-10482",
+    "total": 289.9,
+    "moneda": "PEN",
+    "items": [
+      { "sku": "CAM-NEGRA-M", "cantidad": 2 },
+      { "sku": "JEAN-AZUL-32", "cantidad": 1 }
+    ]
+  }
+}
