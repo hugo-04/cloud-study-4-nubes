@@ -1,0 +1,27 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /pedidos/{id}",
+  "rawPath": "/prod/pedidos/P-1001",
+  "rawQueryString": "detalle=true",
+  "headers": { "authorization": "Bearer eyJ...", "content-type": "application/json" },
+  "queryStringParameters": { "detalle": "true" },
+  "pathParameters": { "id": "P-1001" },
+  "requestContext": {
+    "accountId": "111122223333",
+    "apiId": "abc123",
+    "authorizer": {
+      "jwt": {
+        "claims": { "sub": "c0ffee-1234", "iss": "https://auth.modalima.com/", "scope": "pedidos.leer" },
+        "scopes": ["pedidos.leer"]
+      }
+    },
+    "domainName": "api.modalima.com",
+    "http": { "method": "GET", "path": "/prod/pedidos/P-1001", "protocol": "HTTP/1.1", "sourceIp": "203.0.113.9" },
+    "requestId": "Kq1x2yzabc=",
+    "routeKey": "GET /pedidos/{id}",
+    "stage": "prod",
+    "time": "01/Jan/2026:12:00:00 +0000",
+    "timeEpoch": 1767268800000
+  },
+  "isBase64Encoded": false
+}

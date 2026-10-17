@@ -1,0 +1,32 @@
+# NLB creado por el controlador a partir de un Service (TCP, IP interna, destinos por IP de pod)
+apiVersion: v1
+kind: Service
+metadata:
+  name: broker-tcp
+  namespace: pedidos
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+spec:
+  type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb
+  selector:
+    app: broker
+  ports:
+    - name: tcp
+      port: 9094
+      targetPort: 9094
+---
+# Enlazar un Service a un target group que ya existe (creado con Terraform)
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: facturas
+  namespace: pedidos
+spec:
+  serviceRef:
+    name: facturas
+    port: 80
+  targetGroupARN: arn:aws:elasticloadbalancing:us-east-1:111122223333:targetgroup/prod-tienda-facturas/0123456789abcdef
+  targetType: ip

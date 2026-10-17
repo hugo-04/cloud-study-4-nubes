@@ -1,0 +1,5 @@
+entorno           = "prod"
+cluster_name      = "tienda"
+subredes_publicas = ["subnet-0aaa1111bbb22222a", "subnet-0aaa1111bbb22222b"]
+subredes_privadas = ["subnet-0ccc3333ddd44444a", "subnet-0ccc3333ddd44444b"]
+politica_lbc_arn  = "arn:aws:iam::111122223333:policy/AWSLoadBalancerControllerIAMPolicy"

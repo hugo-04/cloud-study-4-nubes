@@ -1,0 +1,10 @@
+entorno                  = "prod"
+issuer_jwt               = "https://auth.modalima.com/"
+audiencias_jwt           = ["api-tienda"]
+listener_alb_interno_arn = "arn:aws:elasticloadbalancing:us-east-1:111122223333:listener/app/prod-interno/0123456789abcdef/0123456789abcdef"
+subredes_privadas        = ["subnet-aaa", "subnet-bbb"]
+sg_vpc_link_id           = "sg-0123456789abcdef0"
+funcion_lambda_arn       = "arn:aws:lambda:us-east-1:111122223333:function:prod-catalogo"
+funcion_lambda_nombre    = "prod-catalogo"
+dominio                  = "api.modalima.com"
+certificado_acm_arn      = "arn:aws:acm:us-east-1:111122223333:certificate/11111111-2222-3333-4444-555555555555"

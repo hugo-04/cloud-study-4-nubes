@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pedidos
+  labels:
+    elbv2.k8s.aws/pod-readiness-gate-inject: enabled   # readiness gate automático para los pods de este namespace
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedidos
+  namespace: pedidos
+spec:
+  type: ClusterIP
+  selector:
+    app: pedidos
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pedidos
+  namespace: pedidos
+  annotations:
+    alb.ingress.kubernetes.io/group.name: tienda            # un solo ALB para todos los Ingress del grupo
+    alb.ingress.kubernetes.io/group.order: "10"
+    alb.ingress.kubernetes.io/scheme: internet-facing        # publicar a Internet es una decisión: revísala
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:111122223333:certificate/11111111-2222-3333-4444-555555555555
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health/readiness
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "15"
+    alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=30
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=60,routing.http.drop_invalid_header_fields.enabled=true
+    alb.ingress.kubernetes.io/wafv2-acl-arn: arn:aws:wafv2:us-east-1:111122223333:regional/webacl/tienda/11111111-2222-3333-4444-555555555555
+    external-dns.alpha.kubernetes.io/hostname: api.modalima.com
+spec:
+  ingressClassName: alb
+  rules:
+    - host: api.modalima.com
+      http:
+        paths:
+          - path: /pedidos
+            pathType: Prefix
+            backend:
+              service:
+                name: pedidos
+                port:
+                  number: 80

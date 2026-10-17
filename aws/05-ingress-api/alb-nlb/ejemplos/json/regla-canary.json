@@ -1,0 +1,17 @@
+{
+  "Actions": [
+    {
+      "Type": "forward",
+      "ForwardConfig": {
+        "TargetGroups": [
+          { "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:111122223333:targetgroup/prod-tienda-pedidos/0123456789abcdef", "Weight": 90 },
+          { "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:111122223333:targetgroup/prod-tienda-pedidos-c/fedcba9876543210", "Weight": 10 }
+        ],
+        "TargetGroupStickinessConfig": { "Enabled": false }
+      }
+    }
+  ],
+  "Conditions": [
+    { "Field": "path-pattern", "PathPatternConfig": { "Values": ["/pedidos", "/pedidos/*"] } }
+  ]
+}

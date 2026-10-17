@@ -1,0 +1,5 @@
+entorno                       = "prod"
+dominio_sitio                 = "www.modalima.com"
+certificado_acm_us_east_1_arn = "arn:aws:acm:us-east-1:111122223333:certificate/11111111-2222-3333-4444-555555555555"
+dns_alb_origen                = "prod-tienda-publico-123456789.us-east-1.elb.amazonaws.com"
+# secreto_origen: pásalo por TF_VAR_secreto_origen o desde Secrets Manager, no lo escribas aquí

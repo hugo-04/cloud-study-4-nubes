@@ -1,0 +1,41 @@
+# Webhook de admisión que valida Ingress con el servicio Java (ver uso-en-java.md)
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validar-ingress
+  annotations:
+    cert-manager.io/inject-ca-from: gobierno/validador-ingress   # cert-manager inyecta el caBundle
+webhooks:
+  - name: validar-ingress.modalima.com
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 5
+    failurePolicy: Fail                  # exige alta disponibilidad del webhook
+    matchPolicy: Equivalent
+    rules:
+      - apiGroups: ["networking.k8s.io"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["ingresses"]
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values: ["gobierno", "kube-system"]     # no se bloquea a sí mismo
+    clientConfig:
+      service:
+        name: validador-ingress
+        namespace: gobierno
+        path: /validar-ingress
+        port: 443
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: validador-ingress
+  namespace: gobierno
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: validador-ingress

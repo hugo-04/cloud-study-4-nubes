@@ -1,0 +1,7 @@
+entorno           = "prod"
+vpc_id            = "vpc-0123456789abcdef0"
+subredes_publicas = ["subnet-pub-a", "subnet-pub-b"]
+subredes_privadas = ["subnet-priv-a", "subnet-priv-b"]
+dominio           = "api.modalima.com"
+zona_route53_id   = "Z0123456789ABCDEFGHIJ"
+bucket_logs       = "modalima-logs-alb"
