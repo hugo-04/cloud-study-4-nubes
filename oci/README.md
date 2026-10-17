@@ -16,6 +16,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 · OCI SDK for Java 3.97 · Terraform
 | 03 | [Secretos y claves](03-secretos/README.md) | Vault: llaves de cifrado (KMS) y Vault: secretos | Listo |
 | 04 | [Compute](04-compute/README.md) | VM, OKE, Functions, Container Instances | Listo |
 | 05 | [Ingress y API](05-ingress-api/README.md) | Load Balancer, Network Load Balancer, API Gateway, WAF, Ingress en OKE | Listo |
+| 06 | [Storage](06-storage/README.md) | Object Storage, PAR, File Storage, eventos de Object Storage, claim check | Listo |
 
 ## Cómo usar cada carpeta de servicio
 

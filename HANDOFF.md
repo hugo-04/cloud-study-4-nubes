@@ -6,8 +6,8 @@
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
 | `oci/` 00 Fundamentos, 01 Red, 02 IAM, 03 Secretos | ✅ Completo y subido |
-| `oci/04-compute` | 🟡 3 de 4 unidades: `compute-instancias`, `oke`, `functions` listas (docs + Terraform validado + Java compilado + notebooklm). **Falta `container-instances`**, y `04-compute/README.md` + `notebooklm.md` del capítulo, y la fila 04 en `oci/README.md` |
-| `oci/05…11` | ⬜ Pendiente |
+| `oci/04-compute`, `05-ingress-api`, `06-storage` | ✅ Completo y subido |
+| `oci/07…11` | ⬜ Pendiente |
 | `gcp/` | ⬜ Pendiente (solo estructura base si existe) |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
