@@ -19,7 +19,7 @@ Para CADA servicio de las fuentes, en este orden:
 3. Para qué sirve y cuándo NO usarlo.
 4. Un caso real contado como historia: problema, solución, resultado, lección.
 5. Cómo se usa: consola, CLI y Terraform, paso a paso.
-6. Cómo lo uso desde Java: Spring Boot y Quarkus, imperativo y reactivo, con Oracle OCI SDK v2.
+6. Cómo lo uso desde Java: Spring Boot y Quarkus, imperativo y reactivo, con el OCI SDK for Java 3.x.
 7. Qué hacer y qué NO hacer, con errores típicos.
 8. IAM, políticas y acceso por red privada (gateway de servicio y endpoints privados) de ese servicio.
 9. Qué revisar cuando falla, en orden: DNS, ruta, listas de seguridad y NSG, puerto, TLS, identidad.

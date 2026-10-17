@@ -5,24 +5,14 @@
 |---|---|
 | `azure/` capítulos 00–11 | ✅ Completo |
 | `aws/` capítulos 00–11 | ✅ Completo |
-| `oci/` 00 Fundamentos, 01 Red, 02 IAM, 03 Secretos | ✅ Completo y subido |
-| `oci/04` a `oci/10` | ✅ Completo y subido |
-| `oci/11` casos integrados | ⬜ Pendiente |
+| `oci/` capítulos 00–11 | ✅ Completo |
 | `gcp/` | ⬜ Pendiente (solo estructura base si existe) |
 | `transversal/` | ⬜ Solo carpetas vacías |
 | Fase final | ⬜ Reorganizar el repo y eliminar lo obsoleto (carpetas viejas de la raíz, plantilla vieja), README raíz, linkcheck |
 
 ## Pendiente, en orden
-### 1. Terminar OCI
-- **04-compute · container-instances** (idea de Java: validador de especificación de tarea — imagen de OCIR con etiqueta fija, sin `latest`, sin secretos en variables de entorno, ratio memoria/OCPU — + `ContainerInstanceClient.createContainerInstance` con `opcRetryToken`; ya inspeccionada la API: `CreateContainerInstanceDetails`, `CreateContainerDetails`, `CreateContainerVnicDetails`, `CreateContainerInstanceShapeConfigDetails`, `ContainerRestartPolicy.Never`). Luego README y notebooklm del capítulo (`nbgen.cap_nb`).
-- **05-ingress-api:** load-balancer, network-load-balancer, api-gateway, waf, ingress-oke.
-- **06-storage:** object-storage, par (pre-authenticated requests), file-storage, eventos-object-storage, claim-check.
-- **07-mensajeria:** queue, notifications, events, streaming (compatible con Kafka).
-- **08-datos:** autonomous-database, mysql-heatwave, postgresql, nosql, cache-redis.
-- **09-gobierno:** compartimentos-etiquetas, cloud-guard-security-zones, audit, budgets-costos.
-- **10-terraform:** estado-remoto, modulos-y-entornos, autenticacion-y-pipelines.
-- **11-casos-integrados:** tienda-online, subida-claim-check, clickstream, landing-zone, runbook-diagnostico (compactos).
-- Cada capítulo: `README.md` (tabla de unidades, árbol de decisión, comparativa, receta ModaLima, orden de adopción, reglas, tabla Java, relaciones) y `notebooklm.md`; actualizar la tabla de `oci/README.md`.
+### 1. OCI ✅ terminado
+Capítulos 04–11 completos (unidades con docs, Terraform validado, Java compilado y probado, NotebookLM). Generadores en `tools/gen_*.py` (atajo común: `tools/genlib.py`).
 
 ### 2. Google Cloud (`gcp/`)
 Mismo molde que OCI/AWS, ~45 unidades, servicios reales (IAM, VPC, Secret Manager/KMS, GKE/Cloud Run/Functions, Cloud Load Balancing/API Gateway/Armor, Cloud Storage, Pub/Sub/Managed Kafka, Cloud SQL/Spanner/Firestore/Memorystore, Resource Manager/Billing, Terraform, casos integrados). BOM: `libraries-bom` 26.90.0. Dependencias que NO resolvieron en Maven: iam, billing-budgets, jdbc-postgres connector de Cloud SQL (omitirlas).
@@ -70,8 +60,8 @@ Referencia viva: cualquier unidad de `oci/02-iam/*` o `oci/04-compute/*` (la má
 
 **Reconstruir el entorno en una sesión nueva** (las rutas `/tmp/...` del entorno anterior ya no existen):
 1. Copiar `tools/maven/oci-spring-pom.xml` a `/tmp/oci-spring/pom.xml` y `oci-quarkus-pom.xml` a `/tmp/oci-quarkus/pom.xml` (idem `gcp-*`); `mvn -q compile` en cada uno y `mvn dependency:build-classpath -Dmdep.outputFile=/tmp/cp-oci.txt`.
-2. Descargar OpenTofu (release de GitHub) a `/tmp/tfnew/tofu`.
-3. Ajustar las rutas de `tools/oci-env/oci-env.sh` (`SCR` apunta a `tools/`) y `source` el archivo.
+2. Descargar OpenTofu (release de GitHub) a `/tmp/tfnew/tofu`. **Si GitHub está bloqueado por el proxy** (pasó en la nube): bajar Terraform de `releases.hashicorp.com/terraform/` a `/tmp/tfnew/tofu` y los providers (`terraform-provider-oci` 7.x, `terraform-provider-google`) del mismo sitio a un *filesystem mirror* (`/tmp/tfmirror/registry.terraform.io/<ns>/<nombre>/<versión>/linux_amd64/`) con `~/.terraformrc`: `provider_installation { filesystem_mirror { path = "/tmp/tfmirror" } }`.
+3. `source tools/oci-env/oci-env.sh` (las rutas ya son relativas al repo; no borres `JAVA_TOOL_OPTIONS`, el proxy la necesita).
 4. Flujo por unidad: escribir docs → `tofu fmt` + `tfcheck.sh` → `gen_*.py`-style con `jdoc.doc(...)` → `jc <ruta>/uso-en-java.md` → prueba rápida de la lógica pura no trivial → `nbgen` → linkcheck → grep de aislamiento → commit/push por capítulo.
 
 Notas técnicas: los bloques de test rápido van en el paquete `chk.bN` (las clases del harness son package-private); en Python usa `'\\\\.'` para escribir `"\\."` en Java; para clientes enormes (Ec2) usa implementaciones anónimas en vez de Proxy.
