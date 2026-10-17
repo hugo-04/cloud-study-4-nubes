@@ -1,0 +1,4 @@
+cola_pedidos_arn = "arn:aws:sqs:us-east-1:111122223333:pedidos-pagados"
+bucket_datos     = "modalima-datos"
+vpce_s3_id       = "vpce-0123456789abcdef0"
+clave_kms_arn    = "arn:aws:kms:us-east-1:111122223333:key/11111111-2222-3333-4444-555555555555"

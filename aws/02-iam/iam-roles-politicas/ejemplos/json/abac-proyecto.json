@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloMisRecursosDelProyecto",
+      "Effect": "Allow",
+      "Action": ["sqs:SendMessage", "sqs:ReceiveMessage", "sqs:DeleteMessage"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": { "aws:ResourceTag/proyecto": "${aws:PrincipalTag/proyecto}" }
+      }
+    }
+  ]
+}

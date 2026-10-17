@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SoloElRolDePedidosDeLaCuentaA",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::111122223333:role/pedidos-app-tarea" },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": { "sts:ExternalId": "REEMPLAZAR-por-un-valor-unico-y-secreto" }
+      }
+    }
+  ]
+}

@@ -12,7 +12,7 @@ Java 21 · Spring Boot 4.1 · Quarkus 3.40 (con extensiones Quarkiverse Amazon S
 |---|---|---|---|
 | 00 | [Fundamentos](00-fundamentos/README.md) | Cuentas, regiones y AZ, IAM básico, costos, CLI, nombres, ARN | Listo |
 | 01 | [Red](01-red/README.md) | VPC y subredes, SG/NACL/rutas/NAT, VPC Endpoints + PrivateLink + Route 53, peering + Transit Gateway, diagnóstico | Listo |
-| 02 | IAM | IAM (roles y políticas), IAM Identity Center, STS, IRSA / Pod Identity | Pendiente |
+| 02 | [IAM](02-iam/README.md) | Roles y políticas, IAM Identity Center, STS (asumir roles), IRSA y Pod Identity | Listo |
 | 03 | Secretos | Secrets Manager, KMS, Parameter Store | Pendiente |
 | 04 | Compute | ECS + Fargate, EKS, Lambda, App Runner | Pendiente |
 | 05 | Ingress y API | ALB/NLB, API Gateway, CloudFront + WAF, ingress en EKS | Pendiente |

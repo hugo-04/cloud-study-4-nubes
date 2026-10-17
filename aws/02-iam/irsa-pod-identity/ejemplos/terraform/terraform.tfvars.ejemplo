@@ -1,0 +1,3 @@
+cluster          = "tienda-prod"
+cola_pedidos_arn = "arn:aws:sqs:us-east-1:111122223333:pedidos-pagados"
+bucket_facturas  = "modalima-datos"

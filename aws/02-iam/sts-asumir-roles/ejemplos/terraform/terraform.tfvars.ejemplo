@@ -1,0 +1,4 @@
+cuenta_origen_id  = "111122223333"
+cuenta_destino_id = "444455556666"
+bucket_logs       = "modalima-logs-centrales"
+# external_id: pásalo por TF_VAR_external_id (no lo guardes en el repositorio)

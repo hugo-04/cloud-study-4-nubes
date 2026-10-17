@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LeerColaDePedidos",
+      "Effect": "Allow",
+      "Action": ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:GetQueueAttributes"],
+      "Resource": "arn:aws:sqs:us-east-1:111122223333:pedidos-pagados"
+    },
+    {
+      "Sid": "EscribirFacturas",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject"],
+      "Resource": "arn:aws:s3:::modalima-datos/facturas/*",
+      "Condition": {
+        "StringEquals": { "aws:SourceVpce": "vpce-0123456789abcdef0" }
+      }
+    },
+    {
+      "Sid": "DescifrarConLaClaveDeFacturas",
+      "Effect": "Allow",
+      "Action": ["kms:GenerateDataKey", "kms:Decrypt"],
+      "Resource": "arn:aws:kms:us-east-1:111122223333:key/11111111-2222-3333-4444-555555555555",
+      "Condition": {
+        "StringEquals": { "kms:ViaService": "s3.us-east-1.amazonaws.com" }
+      }
+    }
+  ]
+}

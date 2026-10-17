@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RevocarSesionesAnterioresA",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "DateLessThan": { "aws:TokenIssueTime": "2026-10-16T12:00:00Z" }
+      }
+    }
+  ]
+}

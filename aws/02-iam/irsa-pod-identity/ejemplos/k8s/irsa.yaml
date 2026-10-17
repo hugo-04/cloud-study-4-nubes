@@ -1,0 +1,32 @@
+# Con IRSA: el ServiceAccount lleva la anotación con el ARN del rol
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: facturador
+  namespace: facturas
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::111122223333:role/facturador-irsa
+    eks.amazonaws.com/sts-regional-endpoints: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: facturador
+  namespace: facturas
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: facturador
+  template:
+    metadata:
+      labels:
+        app: facturador
+    spec:
+      serviceAccountName: facturador
+      containers:
+        - name: facturador
+          image: 111122223333.dkr.ecr.us-east-1.amazonaws.com/facturador:1.0.0
+          env:
+            - name: AWS_REGION
+              value: us-east-1

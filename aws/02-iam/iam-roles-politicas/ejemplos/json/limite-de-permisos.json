@@ -1,0 +1,26 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "TopeDeServicios",
+      "Effect": "Allow",
+      "Action": ["s3:*", "sqs:*", "sns:*", "dynamodb:*", "logs:*", "kms:Decrypt", "kms:GenerateDataKey", "secretsmanager:GetSecretValue"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "NuncaTocarIamNiOrganizacion",
+      "Effect": "Deny",
+      "Action": ["iam:*", "organizations:*", "account:*"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SoloRegionesAprobadas",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": { "aws:RequestedRegion": ["us-east-1", "us-west-2"] }
+      }
+    }
+  ]
+}

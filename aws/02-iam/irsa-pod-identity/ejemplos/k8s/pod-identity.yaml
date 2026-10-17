@@ -1,0 +1,33 @@
+# Con Pod Identity: el ServiceAccount es normal (sin anotaciones); la asociación se crea con la API de EKS
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pedidos
+  namespace: tienda
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedidos
+  namespace: tienda
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pedidos
+  template:
+    metadata:
+      labels:
+        app: pedidos
+    spec:
+      serviceAccountName: pedidos
+      automountServiceAccountToken: true
+      containers:
+        - name: pedidos
+          image: 111122223333.dkr.ecr.us-east-1.amazonaws.com/pedidos:1.0.0
+          env:
+            - name: AWS_REGION
+              value: us-east-1
+          resources:
+            requests: { cpu: "250m", memory: "512Mi" }
+            limits: { memory: "512Mi" }
