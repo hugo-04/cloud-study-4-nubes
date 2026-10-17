@@ -1,0 +1,9 @@
+schema_version: 20180708
+name: normalizador-pedido
+version: 0.0.1
+runtime: java21
+build_image: fnproject/fn-java-fdk-build:jdk21-1.0.200
+run_image: fnproject/fn-java-fdk:jre21-1.0.200
+cmd: com.modalima.NormalizadorDePedido::handleRequest
+memory: 256
+timeout: 30

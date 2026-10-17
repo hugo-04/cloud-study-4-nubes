@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedidos
+  namespace: tienda
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pedidos
+  template:
+    metadata:
+      labels:
+        app: pedidos
+    spec:
+      serviceAccountName: app-pedidos
+      containers:
+        - name: app
+          image: sa-saopaulo-1.ocir.io/NAMESPACE/pedidos:1.4.2
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /q/health/live
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedidos
+  namespace: tienda
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "lb"
+    service.beta.kubernetes.io/oci-load-balancer-internal: "true"
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
+spec:
+  type: LoadBalancer
+  selector:
+    app: pedidos
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pedidos
+  namespace: tienda
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: pedidos
