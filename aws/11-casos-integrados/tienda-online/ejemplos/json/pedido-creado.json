@@ -1,0 +1,8 @@
+[
+  {
+    "Source": "modalima.pedidos",
+    "DetailType": "PedidoCreado",
+    "EventBusName": "prod-ordenes",
+    "Detail": "{\"version\":1,\"idEvento\":\"3f1d6c1e-8c5a-4a52-9d42-0c1f6f1d2a11\",\"idPedido\":\"b7a0a8e2-6d0c-4c31-8d6b-5d3c9c4f7e90\",\"idCliente\":\"cli-4821\",\"total\":189.90,\"moneda\":\"PEN\",\"envio\":\"domicilio\",\"lineas\":[{\"sku\":\"POL-ROJO-M\",\"cantidad\":2}]}"
+  }
+]
