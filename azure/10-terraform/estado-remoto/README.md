@@ -213,7 +213,7 @@ Si cierras la cuenta con firewall, **el ejecutor debe poder llegar a ella**: IP 
 - **Costo:** céntimos al mes (almacenamiento y operaciones de blobs); el versionado suma según cuántas versiones guardes.
 - **Un bloqueo por estado:** dos personas no pueden aplicar al mismo estado a la vez; por eso el estado dividido también acelera al equipo.
 - **Compatibilidad:** un estado escrito por una versión nueva de Terraform puede no abrirse con una antigua; **fija la versión** (`required_version`) y actualiza al equipo y a los pipelines juntos.
-- **OpenTofu:** usa el mismo backend `azurerm` y formato compatible; verifica las diferencias de versión antes de mezclar herramientas sobre el mismo estado.
+- **OpenTofu:** usa el mismo backend `azurerm` y formato compatible; verifica las diferencias de versión antes de mezclar herramientas sobre el mismo estado. El bloque `removed` con `lifecycle { destroy = false }` funciona en Terraform 1.7+ y en OpenTofu reciente (probado con 1.10; la 1.8 lo rechaza).
 - **Valores que cambian con la versión:** nombres de argumentos del backend y roles requeridos; **verifica en la documentación oficial** de tu versión.
 
 ---

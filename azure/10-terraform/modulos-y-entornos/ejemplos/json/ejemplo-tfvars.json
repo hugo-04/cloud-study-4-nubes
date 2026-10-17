@@ -1,0 +1,21 @@
+{
+  "aplicaciones": {
+    "catalogo": {
+      "contenedores": [],
+      "dueno": "equipo-catalogo",
+      "ips": [],
+      "replicacion": "ZRS"
+    },
+    "pedidos": {
+      "contenedores": [
+        "facturas",
+        "fotos"
+      ],
+      "dueno": "equipo-pedidos",
+      "ips": [
+        "203.0.113.10"
+      ],
+      "replicacion": "GZRS"
+    }
+  }
+}

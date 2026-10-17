@@ -108,6 +108,6 @@ Reglas comunes: **identidad administrada** separada por función (leer, escribir
 - [IAM](../02-iam/README.md): Azure RBAC y la herencia de roles por grupo de administración; identidades de los procesos de gobierno.
 - [Secretos](../03-secretos/README.md): políticas de Key Vault (borrado suave, protección contra purga) y bloqueos.
 - [Datos](../08-datos/README.md): políticas de Entra ID, cifrado y copias; bloqueos en las bases de producción.
-- Terraform en Azure *(capítulo 10, por escribir)*: el gobierno como código.
+- [Terraform en Azure](../10-terraform/README.md): el gobierno como código.
 
 Cada carpeta trae: teoría, casos reales, uso desde Java (Spring MVC/WebFlux y Quarkus imperativo/reactivo), ejemplos (CLI, Terraform, consultas y los específicos de cada servicio), troubleshooting, repaso y prompt de NotebookLM.

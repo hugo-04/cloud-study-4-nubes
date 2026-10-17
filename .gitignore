@@ -33,3 +33,7 @@ Thumbs.db
 # Java
 *.class
 target/
+
+# Excepción: los ejemplos de estudio sí llevan tfvars (no contienen secretos)
+!**/ejemplos/**/*.tfvars
+!**/ejemplos/**/*.tfvars.json
